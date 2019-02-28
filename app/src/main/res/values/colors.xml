@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--透明度参照表-->
+    <!--00%=FF（不透明）    5%=F2    10%=E5    15%=D8    20%=CC    25%=BF    30%=B2    35%=A5    40%=99    45%=8c    50%=7F-->
+    <!--55%=72    60%=66    65%=59    70%=4c    75%=3F    80%=33    85%=21    90%=19    95%=0c    100%=00（全透明）-->
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="color_white">#ffffff</color>
+    <color name="color_white_40">#99ffffff</color>
+    <color name="color_white_60">#66ffffff</color>
+    <color name="color_4c07052b">#4c07052b</color>
+    <color name="color_white_70">#4cffffff</color>
+    <color name="color_white_80">#33ffffff</color>
+
+    <color name="color_transparent">#00ffffff</color>
+    <color name="color_black">#000000</color>
+
+    <color name="color_00115d">#00115d</color>
+    <color name="color_03bc53">#03bc53</color>
+    <color name="color_132fcb">#132fcb</color>
+    <color name="color_45ceb4">#45ceb4</color>
+    <color name="color_4f46db">#4f46db</color>
+    <color name="color_586085">#586085</color>
+    <color name="color_5a50f4">#5a50f4</color>
+    <color name="color_5a7cff">#5a7cff</color>
+    <color name="color_645aff">#645aff</color>
+    <color name="color_7be9db">#7be9db</color>
+    <color name="color_827aff">#827aff</color>
+    <color name="color_8b95bb">#8b95bb</color>
+    <color name="color_8a94be">#8a94be</color>
+    <color name="color_8da2b5">#8da2b5</color>
+    <color name="color_d2d8f1">#d2d8f1</color>
+    <color name="color_d3d8ef">#d3d8ef</color>
+    <color name="color_c96214">#c96214</color>
+    <color name="color_e1615d">#e1615d</color>
+    <color name="color_e43a21">#e43a21</color>
+    <color name="color_e21e00">#e21e00</color>
+    <color name="color_eb2b23">#eb2b23</color>
+    <color name="color_f3f4fa">#f3f4fa</color>
+    <color name="color_fa5a34">#fa5a34</color>
+    <color name="color_fafafa">#fafafa</color>
+    <color name="color_f33734">#f33734</color>
+    <color name="color_fec818">#fec818</color>
+    <color name="color_fedd59">#fedd59</color>
+    <color name="color_feeeb1">#feeeb1</color>
+    <color name="color_ff0363">#ff0363</color>
+    <color name="color_ffe635">#ffe635</color>
+    <color name="color_fff0b3">#fff0b3</color>
+
+
+    <!-- 透明度 -->
+    <color name="color_fedd59_50">#7ffedd59</color>
+
+</resources>

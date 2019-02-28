@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_88">
+
+    <block.guess.widget.roundedimageview.RoundedImageView
+        android:id="@id/img_useravatar"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_16"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="@dimen/dp_90" />
+
+    <TextView
+        android:id="@id/txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_16"
+        android:textColor="@color/color_00115d"
+        android:textSize="@dimen/dp_14"
+        app:layout_constraintLeft_toRightOf="@id/img_useravatar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@id/txt_txid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_8"
+        android:text="@string/txid"
+        android:textColor="@color/color_586085"
+        android:textSize="@dimen/dp_12"
+        app:layout_constraintLeft_toRightOf="@id/img_useravatar"
+        app:layout_constraintTop_toBottomOf="@id/txt_name" />
+
+    <TextView
+        android:id="@id/txt_txid_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:textColor="@color/color_132fcb"
+        android:textSize="@dimen/dp_12"
+        app:layout_constraintLeft_toRightOf="@id/txt_txid"
+        app:layout_constraintTop_toTopOf="@id/txt_txid" />
+
+    <TextView
+        android:id="@id/txt_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_4"
+        android:textColor="@color/color_586085"
+        android:textSize="@dimen/dp_12"
+        app:layout_constraintLeft_toRightOf="@id/img_useravatar"
+        app:layout_constraintTop_toBottomOf="@id/txt_txid" />
+
+    <TextView
+        android:id="@id/txt_time_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:textColor="@color/color_132fcb"
+        android:textSize="@dimen/dp_12"
+        app:layout_constraintLeft_toRightOf="@id/txt_time"
+        app:layout_constraintTop_toTopOf="@id/txt_time" />
+
+    <TextView
+        android:id="@id/txt_bch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:textColor="@color/color_00115d"
+        android:textSize="@dimen/dp_14"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

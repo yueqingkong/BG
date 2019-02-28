@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white">
+
+    <block.guess.widget.toolbar.BaseToolBar
+        android:id="@id/toolbar_base"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@id/img_pay_success"
+        android:layout_width="@dimen/dp_187"
+        android:layout_height="@dimen/dp_181"
+        android:layout_marginTop="@dimen/dp_40"
+        android:background="@mipmap/img_pay_success"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_base" />
+
+    <TextView
+        android:id="@id/txt_pay_success"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="@string/pay_success"
+        android:textColor="@color/color_00115d"
+        android:textSize="@dimen/dp_17"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_pay_success" />
+
+    <TextView
+        android:id="@id/txt_pay_result"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@drawable/shape_rectangle_645aff_r12"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dp_14"
+        android:paddingTop="@dimen/dp_14"
+        android:text="@string/view_order"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/dp_17"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_pay_success" />
+
+
+    <TextView
+        android:id="@id/txt_pay_transfer"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@drawable/shape_rectangle_d2d8f1_r12"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dp_14"
+        android:paddingTop="@dimen/dp_14"
+        android:text="@string/transfer_friend"
+        android:textColor="@color/color_645aff"
+        android:textSize="@dimen/dp_17"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_pay_result" />
+</androidx.constraintlayout.widget.ConstraintLayout>

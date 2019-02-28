@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/color_white"
+    android:layout_height="match_parent">
+
+    <block.guess.widget.toolbar.BaseToolBar
+        android:id="@id/toolbar_base"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@id/img_category"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_base" />
+
+    <TextView
+        android:id="@id/txt_stage_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:textColor="@color/color_00115d"
+        android:textSize="@dimen/dp_18"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/img_category"
+        app:layout_constraintTop_toTopOf="@id/img_category" />
+
+    <block.guess.widget.ClockCountView
+        android:id="@id/view_clock"
+        android:layout_width="@dimen/dp_12"
+        android:layout_height="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_9"
+        android:layout_marginEnd="@dimen/dp_4"
+        app:layout_constraintStart_toStartOf="@id/txt_stage_number"
+        app:layout_constraintTop_toBottomOf="@id/txt_stage_number" />
+
+    <block.guess.widget.BettingEndTextView
+        android:id="@id/txt_date_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_4"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:textColor="@color/color_586085"
+        android:textSize="@dimen/dp_12"
+        app:layout_constraintStart_toEndOf="@id/view_clock"
+        app:layout_constraintTop_toTopOf="@id/view_clock" />
+
+    <TextView
+        android:id="@id/txt_bch3d_select_single"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_46"
+        android:layout_marginTop="@dimen/dp_24"
+        android:background="@drawable/shape_rectangle_d2d8f1_r18"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dp_7"
+        android:paddingEnd="@dimen/dp_15"
+        android:paddingStart="@dimen/dp_15"
+        android:paddingTop="@dimen/dp_7"
+        android:text="@string/select_single"
+        android:textColor="@color/color_586085"
+        android:textSize="@dimen/dp_13"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_category" />
+
+    <TextView
+        android:id="@id/txt_bch3d_select_four"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rectangle_d2d8f1_r18"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dp_7"
+        android:paddingEnd="@dimen/dp_15"
+        android:paddingStart="@dimen/dp_15"
+        android:paddingTop="@dimen/dp_7"
+        android:text="@string/select_four"
+        android:textColor="@color/color_586085"
+        android:textSize="@dimen/dp_13"
+        app:layout_constraintLeft_toRightOf="@id/txt_bch3d_select_single"
+        app:layout_constraintRight_toLeftOf="@id/txt_bch3d_select_hands"
+        app:layout_constraintTop_toTopOf="@id/txt_bch3d_select_single" />
+
+    <TextView
+        android:id="@id/txt_bch3d_select_hands"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_46"
+        android:background="@drawable/shape_rectangle_d2d8f1_r18"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dp_7"
+        android:paddingEnd="@dimen/dp_15"
+        android:paddingStart="@dimen/dp_15"
+        android:paddingTop="@dimen/dp_7"
+        android:text="@string/select_hands"
+        android:textColor="@color/color_586085"
+        android:textSize="@dimen/dp_13"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txt_bch3d_select_single" />
+
+    <View
+        android:id="@id/view_top"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_15"
+        android:layout_marginEnd="@dimen/dp_15"
+        android:layout_marginStart="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_16"
+        android:background="@mipmap/img_bet_top"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_bch3d_select_single" />
+
+    <RelativeLayout
+        android:id="@id/constraintlayout_print_card"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_15"
+        android:layout_marginStart="@dimen/dp_15"
+        android:background="@mipmap/img_bet_medium"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_top">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@id/recycler_betting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_10" />
+
+        <CheckBox
+            android:id="@id/checkbox_game_rule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recycler_betting"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_6"
+            android:checked="true"
+            android:theme="@style/CheckBox_Normal" />
+
+        <TextView
+            android:id="@id/txt_agree_rule"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/checkbox_game_rule"
+            android:layout_alignTop="@id/checkbox_game_rule"
+            android:layout_toRightOf="@id/checkbox_game_rule"
+            android:text="@string/agree_read"
+            android:textColor="@color/color_586085"
+            android:textSize="@dimen/dp_11" />
+
+        <TextView
+            android:id="@id/txt_game_rule"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/checkbox_game_rule"
+            android:layout_alignTop="@id/txt_agree_rule"
+            android:layout_toRightOf="@id/txt_agree_rule"
+            android:text="@string/game_rule"
+            android:textColor="@color/color_645aff"
+            android:textSize="@dimen/dp_11" />
+
+        <TextView
+            android:id="@id/txt_clear_all"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/checkbox_game_rule"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/txt_agree_rule"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:text="@string/clear_all"
+            android:textColor="@color/color_586085"
+            android:textSize="@dimen/dp_11" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_6"
+        android:layout_marginEnd="@dimen/dp_15"
+        android:layout_marginStart="@dimen/dp_15"
+        android:background="@mipmap/img_bet_bottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintlayout_print_card" />
+
+    <View
+        android:id="@id/view_bottom"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_34"
+        android:background="@color/color_f3f4fa"
+        app:layout_constraintBottom_toTopOf="@id/constraintlayout_bottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@id/txt_betting_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:textColor="@color/color_586085"
+        android:textSize="@dimen/dp_13"
+        app:layout_constraintBottom_toBottomOf="@id/view_bottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/view_bottom" />
+
+    <TextView
+        android:id="@id/txt_betting_bch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_ff0363"
+        android:textSize="@dimen/dp_13"
+        app:layout_constraintBottom_toBottomOf="@id/view_bottom"
+        app:layout_constraintLeft_toRightOf="@id/txt_betting_count"
+        app:layout_constraintTop_toTopOf="@id/view_bottom" />
+
+    <TextView
+        android:id="@id/txt_win_bch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/max_will"
+        android:textColor="@color/color_586085"
+        android:textSize="@dimen/dp_13"
+        app:layout_constraintBottom_toBottomOf="@id/view_bottom"
+        app:layout_constraintLeft_toRightOf="@id/txt_betting_bch"
+        app:layout_constraintTop_toTopOf="@id/view_bottom" />
+
+    <TextView
+        android:id="@id/txt_bch_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_645aff"
+        android:textSize="@dimen/dp_13"
+        app:layout_constraintBottom_toBottomOf="@id/view_bottom"
+        app:layout_constraintLeft_toRightOf="@id/txt_win_bch"
+        app:layout_constraintTop_toTopOf="@id/view_bottom" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/constraintlayout_bottom"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_52"
+        android:background="@color/color_white"
+        android:elevation="@dimen/dp_10"
+        android:translationZ="@dimen/dp_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:id="@id/txt_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:text="@string/buy"
+            android:textColor="@color/color_586085"
+            android:textSize="@dimen/dp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@id/view_calculate_plus_subtract"
+            android:layout_width="@dimen/dp_113"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginStart="@dimen/dp_6"
+            android:background="@drawable/shape_rectangle_f3f4fa_r4_d2d8f1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/view_subtract"
+            app:layout_constraintRight_toRightOf="@id/view_plus"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@id/view_subtract"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/txt_buy"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="@dimen/dp_14"
+            android:layout_height="@dimen/dp_14"
+            android:background="@mipmap/btn_bet_minus"
+            app:layout_constraintBottom_toBottomOf="@id/view_subtract"
+            app:layout_constraintLeft_toLeftOf="@id/view_subtract"
+            app:layout_constraintRight_toRightOf="@id/view_subtract"
+            app:layout_constraintTop_toTopOf="@id/view_subtract" />
+
+        <EditText
+            android:id="@id/edit_amount"
+            android:layout_width="@dimen/dp_53"
+            android:layout_height="@dimen/dp_30"
+            android:background="@drawable/shape_rectangle_white_centre_d2d8fa"
+            android:gravity="center"
+            android:inputType="number"
+            android:text="1"
+            android:textColor="@color/color_00115d"
+            android:textColorHint="@color/color_586085"
+            android:textSize="@dimen/dp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/view_subtract"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@id/view_plus"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/edit_amount"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="@dimen/dp_14"
+            android:layout_height="@dimen/dp_14"
+            android:background="@mipmap/btn_bet_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/view_plus"
+            app:layout_constraintRight_toRightOf="@id/view_plus"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_6"
+            android:text="@string/times"
+            android:textColor="@color/color_586085"
+            android:textSize="@dimen/dp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/view_plus"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@id/txt_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:background="@drawable/shape_rectangle_645aff_r18"
+            android:gravity="center"
+            android:paddingBottom="@dimen/dp_8"
+            android:paddingEnd="@dimen/dp_30"
+            android:paddingStart="@dimen/dp_30"
+            android:paddingTop="@dimen/dp_8"
+            android:text="@string/pay"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/dp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

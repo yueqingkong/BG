@@ -1,0 +1,31 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Dialog -->
+    <style name="Dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <!-- PopupWindow -->
+    <style name="PopupWindow" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_popupwindow_scale_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_popupwindow_scale_out</item>
+    </style>
+
+    <style name="CheckBox_Normal" parent="@android:style/Widget.Material.CompoundButton.CheckBox">
+        <item name="android:colorControlActivated">@color/color_4f46db</item>
+        <item name="android:colorControlNormal">@color/color_d2d8f1</item>
+    </style>
+</resources>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/constraintlayout_bottom"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_52"
+        android:background="@color/color_white"
+        android:elevation="@dimen/dp_10"
+        android:translationZ="@dimen/dp_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <ImageView
+            android:id="@id/img_bottom"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_marginStart="@dimen/dp_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@id/txt_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            android:textColor="@color/color_586085"
+            android:textSize="@dimen/dp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/img_bottom"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@id/txt_betting"
+            android:layout_width="@dimen/dp_88"
+            android:layout_height="@dimen/dp_36"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:background="@drawable/shape_rectangle_645aff_r18"
+            android:gravity="center"
+            android:text="@string/sure"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/dp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:background="@color/color_white"
+        app:layout_constraintBottom_toTopOf="@id/constraintlayout_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:paddingBottom="@dimen/dp_12"
+            android:layout_height="match_parent">
+
+            <block.guess.widget.toolbar.BaseToolBar
+                android:id="@id/toolbar_base"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@id/img_category"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_16"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_base" />
+
+            <TextView
+                android:id="@id/txt_stage_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:textColor="@color/color_00115d"
+                android:textSize="@dimen/dp_18"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/img_category"
+                app:layout_constraintTop_toTopOf="@id/img_category" />
+
+            <block.guess.widget.ClockCountView
+                android:id="@id/view_clock"
+                android:layout_width="@dimen/dp_12"
+                android:layout_height="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_9"
+                android:layout_marginEnd="@dimen/dp_4"
+                app:layout_constraintStart_toStartOf="@id/txt_stage_number"
+                app:layout_constraintTop_toBottomOf="@id/txt_stage_number" />
+
+            <block.guess.widget.BettingEndTextView
+                android:id="@id/txt_date_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_4"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:textColor="@color/color_586085"
+                android:textSize="@dimen/dp_12"
+                app:layout_constraintStart_toEndOf="@id/view_clock"
+                app:layout_constraintTop_toTopOf="@id/view_clock" />
+
+            <ImageView
+                android:id="@id/img_shake_hand"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:background="@mipmap/ic_phone_shake"
+                app:layout_constraintBottom_toBottomOf="@id/img_category"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/img_category" />
+
+            <include
+                android:id="@id/include_select_two"
+                layout="@layout/include_select_ball"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:background="@drawable/shape_rectangle_f3f4fa_r4_top"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_category" />
+
+            <include
+                android:id="@id/include_ball_item_one"
+                layout="@layout/include_item_ball"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:background="@color/color_f3f4fa"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/include_select_two" />
+
+            <include
+                android:id="@id/include_select_one"
+                layout="@layout/include_select_ball"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_16"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/include_select_two" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

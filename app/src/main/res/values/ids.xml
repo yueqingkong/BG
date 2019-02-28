@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- view -->
+    <item name="view_frame" type="id" />
+    <item name="view_left" type="id" />
+    <item name="view_centre" type="id" />
+    <item name="view_top" type="id" />
+    <item name="view_right" type="id" />
+    <item name="view_dash" type="id" />
+    <item name="view_dash_record" type="id" />
+    <item name="view_dash_about" type="id" />
+    <item name="view_diver_first" type="id" />
+    <item name="view_diver_second" type="id" />
+    <item name="view_subtitle" type="id" />
+    <item name="view_bottom" type="id" />
+    <item name="view_parent_bottom" type="id" />
+    <item name="view_subtract" type="id" />
+    <item name="view_plus" type="id" />
+    <item name="view_betting_delete" type="id" />
+    <item name="view_calculate_plus_subtract" type="id" />
+    <item name="view_detail" type="id" />
+    <item name="view_progress_bg" type="id" />
+    <item name="view_progress" type="id" />
+    <item name="view_amount_contral" type="id" />
+    <item name="view_bettingdetail_top" type="id" />
+    <item name="view_diver_top" type="id" />
+    <item name="view_diver_bottom" type="id" />
+    <item name="view_bg" type="id" />
+    <item name="view_clock" type="id" />
+    <item name="view_horizontal_dot" type="id" />
+
+    <!-- txt -->
+    <item name="txt_left" type="id" />
+    <item name="txt_centre" type="id" />
+    <item name="txt_right" type="id" />
+    <item name="txt_step" type="id" />
+    <item name="txt_title" type="id" />
+    <item name="txt_explain" type="id" />
+    <item name="txt_block_guess" type="id" />
+    <item name="txt_forget_password" type="id" />
+    <item name="txt_sign_in" type="id" />
+    <item name="txt_create_account" type="id" />
+    <item name="txt_no_account" type="id" />
+    <item name="txt_sign_up" type="id" />
+    <item name="txt_reset_now" type="id" />
+    <item name="txt_tab_title" type="id" />
+    <item name="txt_banner_invite" type="id" />
+    <item name="txt_banner_learn_more" type="id" />
+    <item name="txt_single_note" type="id" />
+    <item name="txt_single_price" type="id" />
+    <item name="txt_win" type="id" />
+    <item name="txt_win_amount" type="id" />
+    <item name="txt_in_progress" type="id" />
+    <item name="txt_play" type="id" />
+    <item name="txt_top_game" type="id" />
+    <item name="txt_lucky_win" type="id" />
+    <item name="txt_lottery" type="id" />
+    <item name="txt_ranking" type="id" />
+    <item name="txt_bch_3d" type="id" />
+    <item name="txt_bch_lucky" type="id" />
+    <item name="txt_lucky" type="id" />
+    <item name="txt_remain_total" type="id" />
+    <item name="txt_lotto" type="id" />
+    <item name="txt_no_" type="id" />
+    <item name="txt_time" type="id" />
+    <item name="txt_ball_first" type="id" />
+    <item name="txt_ball_second" type="id" />
+    <item name="txt_ball_third" type="id" />
+    <item name="txt_ball_fourth" type="id" />
+    <item name="txt_ball_fifth" type="id" />
+    <item name="txt_ball_sixth" type="id" />
+    <item name="txt_ball_purple" type="id" />
+    <item name="txt_god_player" type="id" />
+    <item name="txt_super_player" type="id" />
+    <item name="txt_best_partner" type="id" />
+    <item name="txt_my_wallet" type="id" />
+    <item name="txt_wallet_bch" type="id" />
+    <item name="txt_wallet_rmb" type="id" />
+    <item name="txt_transaction_history" type="id" />
+    <item name="txt_transaction_history_category" type="id" />
+    <item name="txt_transaction_timestamp" type="id" />
+    <item name="txt_transaction_amount" type="id" />
+    <item name="txt_name" type="id" />
+    <item name="txt_email" type="id" />
+    <item name="txt_my_catergory" type="id" />
+    <item name="txt_ranking_name" type="id" />
+    <item name="txt_ranking_address" type="id" />
+    <item name="txt_ranking_win" type="id" />
+    <item name="txt_refresh_code" type="id" />
+    <item name="txt_verify_code" type="id" />
+    <item name="txt_current_total" type="id" />
+    <item name="txt_ranking_order" type="id" />
+    <item name="txt_stage_number" type="id" />
+    <item name="txt_date_end" type="id" />
+    <item name="txt_betting_three" type="id" />
+    <item name="txt_betting_two" type="id" />
+    <item name="txt_betting_one" type="id" />
+    <item name="txt_betting_number" type="id" />
+    <item name="txt_bch3d_bottom" type="id" />
+    <item name="txt_bch3d_betting" type="id" />
+    <item name="txt_bch3d_select_single" type="id" />
+    <item name="txt_bch3d_select_four" type="id" />
+    <item name="txt_bch3d_select_hands" type="id" />
+    <item name="txt_agree_rule" type="id" />
+    <item name="txt_game_rule" type="id" />
+    <item name="txt_clear_all" type="id" />
+    <item name="txt_betting_count" type="id" />
+    <item name="txt_betting_bch" type="id" />
+    <item name="txt_win_bch" type="id" />
+    <item name="txt_bch_amount" type="id" />
+    <item name="txt_buy" type="id" />
+    <item name="txt_pay" type="id" />
+    <item name="txt_selled" type="id" />
+    <item name="txt_remain" type="id" />
+    <item name="txt_subtract" type="id" />
+    <item name="txt_plus" type="id" />
+    <item name="txt_lucky_max_tips" type="id" />
+    <item name="txt_lucky_max" type="id" />
+    <item name="txt_pay_success" type="id" />
+    <item name="txt_pay_result" type="id" />
+    <item name="txt_pay_transfer" type="id" />
+    <item name="txt_betting_category" type="id" />
+    <item name="txt_betting_note" type="id" />
+    <item name="txt_wining_amount" type="id" />
+    <item name="txt_category" type="id" />
+    <item name="txt_datetime" type="id" />
+    <item name="txt_result" type="id" />
+    <item name="txt_number" type="id" />
+    <item name="txt_winning_player" type="id" />
+    <item name="txt_my_betting" type="id" />
+    <item name="txt_my_bch" type="id" />
+    <item name="txt_txid" type="id" />
+    <item name="txt_txid_value" type="id" />
+    <item name="txt_time_value" type="id" />
+    <item name="txt_bch" type="id" />
+    <item name="txt_no_winning_record" type="id" />
+    <item name="txt_no_transaction_record" type="id" />
+    <item name="txt_bch_address" type="id" />
+    <item name="txt_copy_address" type="id" />
+    <item name="txt_save_qrcode" type="id" />
+    <item name="txt_balance" type="id" />
+    <item name="txt_balance_value" type="id" />
+    <item name="txt_fee" type="id" />
+    <item name="txt_fee_value" type="id" />
+    <item name="txt_edit" type="id" />
+    <item name="txt_send" type="id" />
+    <item name="txt_change_now" type="id" />
+    <item name="txt_exclusive_code" type="id" />
+    <item name="txt_code" type="id" />
+    <item name="txt_invite" type="id" />
+    <item name="txt_rules" type="id" />
+    <item name="txt_partner_list" type="id" />
+    <item name="txt_partner_dynamic" type="id" />
+    <item name="txt_partner_plan" type="id" />
+    <item name="txt_partner_plan_content" type="id" />
+    <item name="txt_partner_specification" type="id" />
+    <item name="txt_gift" type="id" />
+    <item name="txt_order_detail" type="id" />
+    <item name="txt_back_home" type="id" />
+    <item name="txt_gamerule" type="id" />
+    <item name="txt_contractaddress" type="id" />
+    <item name="txt_count_down" type="id" />
+    <item name="txt_hour_" type="id" />
+    <item name="txt_hour" type="id" />
+    <item name="txt_minute_" type="id" />
+    <item name="txt_minute" type="id" />
+    <item name="txt_second_" type="id" />
+    <item name="txt_second" type="id" />
+    <item name="txt_receive" type="id" />
+    <item name="txt_takephoto" type="id" />
+    <item name="txt_album" type="id" />
+    <item name="txt_status" type="id" />
+    <item name="txt_content" type="id" />
+    <item name="txt_see" type="id" />
+    <item name="txt_choose" type="id" />
+    <item name="txt_betting" type="id" />
+    <item name="txt_bottom" type="id" />
+    <item name="txt_ball" type="id" />
+
+
+    <!-- image -->
+    <item name="img_banner" type="id" />
+    <item name="img_close" type="id" />
+    <item name="img_guide_direct" type="id" />
+    <item name="img_guess_logo" type="id" />
+    <item name="img_card" type="id" />
+    <item name="image_tab_title" type="id" />
+    <item name="image_banner_character" type="id" />
+    <item name="img_captcha" type="id" />
+    <item name="image_lucky_bch" type="id" />
+    <item name="img_lucky" type="id" />
+    <item name="img_bch" type="id" />
+    <item name="img_send" type="id" />
+    <item name="img_receive" type="id" />
+    <item name="img_history_category" type="id" />
+    <item name="img_signout" type="id" />
+    <item name="img_useravatar" type="id" />
+    <item name="img_my_catergory" type="id" />
+    <item name="img_ranking_medal" type="id" />
+    <item name="img_ranking_avatar" type="id" />
+    <item name="img_pendulum" type="id" />
+    <item name="img_shake_hand" type="id" />
+    <item name="img_bch3d_bottom" type="id" />
+    <item name="img_bchlucky" type="id" />
+    <item name="img_pay_success" type="id" />
+    <item name="img_betting_category" type="id" />
+    <item name="img_betting_result" type="id" />
+    <item name="img_category" type="id" />
+    <item name="img_empty" type="id" />
+    <item name="img_empty_box" type="id" />
+    <item name="img_empty_wallet" type="id" />
+    <item name="img_qrcode" type="id" />
+    <item name="img_scan" type="id" />
+    <item name="img_notify" type="id" />
+    <item name="img_edit" type="id" />
+    <item name="img_flash" type="id" />
+    <item name="img_backgroud" type="id" />
+    <item name="img_bg_invite" type="id" />
+    <item name="img_bg_gift" type="id" />
+    <item name="img_gamerule" type="id" />
+    <item name="img_contractaddress" type="id" />
+    <item name="img_time_" type="id" />
+    <item name="img_time" type="id" />
+    <item name="img_icon" type="id" />
+    <item name="img_adver" type="id" />
+    <item name="img_status" type="id" />
+    <item name="img_3d" type="id" />
+    <item name="img_lotto" type="id" />
+    <item name="img_bottom" type="id" />
+
+    <!-- edit -->
+    <item name="edit_account" type="id" />
+    <item name="edit_password" type="id" />
+    <item name="edit_invitation_code" type="id" />
+    <item name="edit_captcha_first" type="id" />
+    <item name="edit_captcha_second" type="id" />
+    <item name="edit_captcha_third" type="id" />
+    <item name="edit_captcha_fourth" type="id" />
+    <item name="edit_captcha_fifth" type="id" />
+    <item name="edit_captcha_sixth" type="id" />
+    <item name="edit_username" type="id" />
+    <item name="edit_email" type="id" />
+    <item name="edit_verify_code" type="id" />
+    <item name="edit_amount" type="id" />
+    <item name="edit_address" type="id" />
+    <item name="edit_email_code" type="id" />
+    <item name="edit_password_old" type="id" />
+    <item name="edit_password_new" type="id" />
+
+    <!-- checkbox -->
+    <item name="checkbox_game_rule" type="id" />
+
+    <!-- recycler -->
+    <item name="recycler_guide" type="id" />
+    <item name="recycler_banner" type="id" />
+    <item name="recycler_home" type="id" />
+    <item name="recycler_lottery" type="id" />
+    <item name="recycler_ranking" type="id" />
+    <item name="recycler_transaction_history" type="id" />
+    <item name="recycler_three" type="id" />
+    <item name="recycler_two" type="id" />
+    <item name="recycler_one" type="id" />
+    <item name="recycler_betting" type="id" />
+    <item name="recycler_betting_record" type="id" />
+    <item name="recycler_winning_player" type="id" />
+    <item name="recycler_mybetting" type="id" />
+    <item name="recycler_list" type="id" />
+    <item name="recycler_winning_record" type="id" />
+    <item name="recycler_select" type="id" />
+
+    <!-- linearlayout -->
+    <item name="linearlayout_top" type="id" />
+
+    <!-- viewpager -->
+    <item name="viewpager_main" type="id" />
+
+    <!-- include -->
+    <item name="include_main" type="id" />
+    <item name="include_lottery" type="id" />
+    <item name="include_wallet" type="id" />
+    <item name="include_my" type="id" />
+    <item name="include_my_part_plan" type="id" />
+    <item name="include_my_part_record_betting" type="id" />
+    <item name="include_my_part_record_winning" type="id" />
+    <item name="include_my_part_about_chagnge_password" type="id" />
+    <item name="include_my_part_about_about_us" type="id" />
+    <item name="include_number" type="id" />
+    <item name="include_times" type="id" />
+    <item name="include_bet" type="id" />
+    <item name="include_beting_content" type="id" />
+    <item name="include_amount" type="id" />
+    <item name="include_datetime" type="id" />
+    <item name="include_txid" type="id" />
+    <item name="include_wining_number" type="id" />
+    <item name="include_random" type="id" />
+    <item name="include_height_ending" type="id" />
+    <item name="include_height_lottery" type="id" />
+    <item name="include_end_time" type="id" />
+    <item name="include_address" type="id" />
+    <item name="include_category" type="id" />
+    <item name="include_status" type="id" />
+    <item name="include_select_three" type="id" />
+    <item name="include_select_two" type="id" />
+    <item name="include_select_one" type="id" />
+    <item name="include_ball_item_one" type="id" />
+    <item name="include_ball_item_two" type="id" />
+
+    <!-- framlayout -->
+    <item name="framelayout_main" type="id" />
+    <item name="framelayout_lottery" type="id" />
+
+    <!-- ConstraintLayout -->
+    <item name="constraintlayout_tab" type="id" />
+    <item name="constraintlayout_guide" type="id" />
+    <item name="constraintlayout_wallet" type="id" />
+    <item name="constraintlayout_send" type="id" />
+    <item name="constraintlayout_receive" type="id" />
+    <item name="constraintlayout_signout" type="id" />
+    <item name="constraintlayout_record" type="id" />
+    <item name="constraintlayout_about" type="id" />
+    <item name="constraintlayout_ranking" type="id" />
+    <item name="constraintlayout_print_card" type="id" />
+    <item name="constraintlayout_detail_result" type="id" />
+    <item name="constraintlayout_detail" type="id" />
+    <item name="constraintlayout_qrcode" type="id" />
+    <item name="constraintlayout_balance" type="id" />
+    <item name="constraintlayout_fee" type="id" />
+    <item name="constraintlayout_back" type="id" />
+    <item name="constraintlayout_light" type="id" />
+    <item name="constraintlayout_album" type="id" />
+    <item name="constraintlayout_bg_inviteuser" type="id" />
+    <item name="constraintlayout_bottom" type="id" />
+    <item name="constraintlayout_empty" type="id" />
+    <item name="constraintlayout_account" type="id" />
+
+    <!-- ScrollView -->
+    <item name="scrollview_tab_my" type="id" />
+
+    <!-- ProgressBar -->
+    <item name="progressbar_play" type="id" />
+
+    <!-- toolbar -->
+    <item name="toolbar_base" type="id" />
+
+    <!-- surfaceview -->
+    <item name="capture_preview" type="id" />
+
+    <!-- SeekBar -->
+    <item name="seekbar" type="id" />
+
+    <!-- ProgressBar -->
+    <item name="progressbar" type="id" />
+    <item name="view_progressbar" type="id" />
+
+    <!-- webview -->
+    <item name="webview" type="id" />
+
+    <!-- cardview -->
+    <item name="cardview" type="id" />
+
+    <!-- viewpager -->
+    <item name="viewpager" type="id" />
+
+    <!-- scrollview -->
+    <item name="scrollview" type="id" />
+
+    <!-- ribbon -->
+    <item name="ribbon" type="id" />
+</resources>
