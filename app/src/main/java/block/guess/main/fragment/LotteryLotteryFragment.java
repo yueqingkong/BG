@@ -2,17 +2,13 @@ package block.guess.main.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.alibaba.android.arouter.launcher.ARouter;
-
-import java.util.List;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import block.guess.R;
@@ -30,6 +26,9 @@ import block.guess.widget.recyclerview.decoration.BaseItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.alibaba.android.arouter.launcher.ARouter;
+
+import java.util.List;
 
 public class LotteryLotteryFragment extends BaseFragment implements LotteryLotteryContract.BView, LotteryLotteryAdapter.LotteryCallback {
 
@@ -41,6 +40,8 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
     RecyclerView recyclerLottery;
     @BindView(R.id.txt_lotto)
     TextView txtLotto;
+    @BindView(R.id.img_empty)
+    ImageView imgEmpty;
 
     private static LotteryLotteryFragment fragment;
 
@@ -119,6 +120,7 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
 
                 isRequest = false;
                 if (lotteryPageBeans.size() > 0) {
+                    imgEmpty.setVisibility(View.GONE);
                     if (index == 1) {
                         lotteryLotteryAdapter.setLotteries(lotteryPageBeans);
                     } else {
@@ -127,6 +129,7 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
 
                     index++;
                 } else {
+                    imgEmpty.setVisibility(lotteryLotteryAdapter.getItemCount() == 1 ? View.VISIBLE : View.GONE);
                     lotteryLotteryAdapter.setEndStatus();
                 }
             }
@@ -145,7 +148,7 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
         });
     }
 
-    @OnClick({R.id.txt_bch_3d, R.id.txt_bch_lucky,R.id.txt_lotto})
+    @OnClick({R.id.txt_bch_3d, R.id.txt_bch_lucky, R.id.txt_lotto})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.txt_bch_3d:
@@ -172,6 +175,8 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
 
         category = 1;
         index = 1;
+
+        lotteryLotteryAdapter.clearBeans();
         lotteryRequest();
     }
 
@@ -186,6 +191,8 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
 
         category = 2;
         index = 1;
+
+        lotteryLotteryAdapter.clearBeans();
         lotteryRequest();
     }
 
@@ -200,6 +207,8 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
 
         category = 3;
         index = 1;
+
+        lotteryLotteryAdapter.clearBeans();
         lotteryRequest();
     }
 

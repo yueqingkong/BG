@@ -37,6 +37,8 @@ import block.guess.widget.webview.util.BlockChainUrlUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import java.util.List;
+
 @Route(path = "/betting/bchdetail")
 public class BCHBettingDetailActivity extends BaseActivity implements BCHBettingDetailContract.BView, ToolbarCallback {
 
@@ -264,9 +266,12 @@ public class BCHBettingDetailActivity extends BaseActivity implements BCHBetting
                     : contractDetailBean.getPurchase_history().size();
             for (int i = 0; i < numbers; i++) {
                 ContractDetailBean.PurchaseHistoryBean bean = contractDetailBean.getPurchase_history().get(i);
-                stringBuffer.append(bean.getPurchase_numbers().get(0).getAward_number());
-                if (!(numbers - 1 == i || numbers == 1)) {
-                    stringBuffer.append(",");
+                List<ContractDetailBean.PurchaseHistoryBean.PurchaseNumbersBean> numbersBeanList = bean.getPurchase_numbers();
+                if (numbersBeanList.size() > 0) {
+                    stringBuffer.append(numbersBeanList.get(0).getAward_number());
+                    if (!(numbers - 1 == i || numbers == 1)) {
+                        stringBuffer.append(",");
+                    }
                 }
             }
         }
