@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Block</string>
+    <string name="app_name">BlockGuess</string>
     <string name="inc">© 2018 BlockGuess Inc</string>
 
     <string name="first_step">First step</string>
