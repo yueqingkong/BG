@@ -45,7 +45,13 @@ public class LotteryLotteryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public void setEndStatus() {
         statusEnum = LoadStatusEnum.STATUS_END;
-        lotteryPageBeans.clear();
+        notifyDataSetChanged();
+    }
+
+    public void clearBeans(){
+        if (lotteryPageBeans != null) {
+            lotteryPageBeans.clear();
+        }
         notifyDataSetChanged();
     }
 

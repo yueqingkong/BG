@@ -25,6 +25,7 @@ public class WalletPresenter implements WalletContract.Presenter {
     @Override
     public void start() {
         baseView.init();
+        baseView.balance();
     }
 
     @Override
