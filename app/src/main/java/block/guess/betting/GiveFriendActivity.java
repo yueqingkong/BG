@@ -15,8 +15,8 @@ import androidx.annotation.Nullable;
 import block.guess.R;
 import block.guess.base.BaseActivity;
 import block.guess.betting.bean.GiftSendBean;
-import block.guess.betting.contract.BCHGiftContract;
-import block.guess.betting.presenter.BCHGiftPresenter;
+import block.guess.betting.contract.GiveFriendContract;
+import block.guess.betting.presenter.GiveFriendPresenter;
 import block.guess.betting.request.GiftFriendRequest;
 import block.guess.betting.request.TxhashPublishRequest;
 import block.guess.betting.bean.TxhashBean;
@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @Route(path = "/betting/bchgift")
-public class BCHGiftActivity extends BaseActivity implements BCHGiftContract.BView, ToolbarCallback {
+public class GiveFriendActivity extends BaseActivity implements GiveFriendContract.BView, ToolbarCallback {
 
     @BindView(R.id.toolbar_base)
     BaseToolBar toolbarBase;
@@ -51,8 +51,8 @@ public class BCHGiftActivity extends BaseActivity implements BCHGiftContract.BVi
     String txhash;
 
     private static String TAG = "_BCHGiftActivity";
-    private BCHGiftActivity activity;
-    private BCHGiftContract.Presenter presenter;
+    private GiveFriendActivity activity;
+    private GiveFriendContract.Presenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class BCHGiftActivity extends BaseActivity implements BCHGiftContract.BVi
         ButterKnife.bind(this);
         ARouter.getInstance().inject(this);
 
-        new BCHGiftPresenter(this).start();
+        new GiveFriendPresenter(this).start();
     }
 
     @Override
@@ -149,7 +149,7 @@ public class BCHGiftActivity extends BaseActivity implements BCHGiftContract.BVi
     }
 
     @Override
-    public void presenter(BCHGiftContract.Presenter presenter) {
+    public void presenter(GiveFriendContract.Presenter presenter) {
         this.presenter = presenter;
     }
 

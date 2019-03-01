@@ -19,7 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import block.guess.R;
 import block.guess.base.BaseActivity;
-import block.guess.betting.contract.BCHLuckyBettingContract;
+import block.guess.betting.contract.LuckyBettingContract;
 import block.guess.betting.presenter.BCHLuckyBettingPresenter;
 import block.guess.main.bean.HomeBean;
 import block.guess.utils.DensityUtils;
@@ -38,7 +38,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @Route(path = "/betting/bchluckybetting")
-public class LuckyBettingActivity extends BaseActivity implements BCHLuckyBettingContract.BView, ProgressBarView.ProgressCallBack, ToolbarCallback {
+public class LuckyBettingActivity extends BaseActivity implements LuckyBettingContract.BView, ProgressBarView.ProgressCallBack, ToolbarCallback {
 
     @BindView(R.id.toolbar_base)
     BaseToolBar toolbarBase;
@@ -85,7 +85,7 @@ public class LuckyBettingActivity extends BaseActivity implements BCHLuckyBettin
     HomeBean homeBean;
 
     private LuckyBettingActivity activity;
-    private BCHLuckyBettingContract.Presenter presenter;
+    private LuckyBettingContract.Presenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -225,7 +225,7 @@ public class LuckyBettingActivity extends BaseActivity implements BCHLuckyBettin
     }
 
     @Override
-    public void presenter(BCHLuckyBettingContract.Presenter presenter) {
+    public void presenter(LuckyBettingContract.Presenter presenter) {
         this.presenter = presenter;
     }
 

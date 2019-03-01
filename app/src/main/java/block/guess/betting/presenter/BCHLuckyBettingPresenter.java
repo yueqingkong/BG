@@ -3,20 +3,20 @@ package block.guess.betting.presenter;
 import android.app.Activity;
 
 import block.guess.betting.bean.BCH3dBuyBean;
-import block.guess.betting.contract.BCHLuckyBettingContract;
+import block.guess.betting.contract.LuckyBettingContract;
 import block.guess.betting.request.BCH3DBuyRequest;
 import block.guess.utils.log.LogUtil;
 import block.guess.utils.okhttp.Callback.BaseCallBack;
 import block.guess.utils.okhttp.OKHttpUtil;
 
-public class BCHLuckyBettingPresenter implements BCHLuckyBettingContract.Presenter {
+public class BCHLuckyBettingPresenter implements LuckyBettingContract.Presenter {
 
     private static String TAG = "_BCHLuckyBettingPresenter";
 
     private Activity activity;
-    private BCHLuckyBettingContract.BView baseView;
+    private LuckyBettingContract.BView baseView;
 
-    public BCHLuckyBettingPresenter(BCHLuckyBettingContract.BView view) {
+    public BCHLuckyBettingPresenter(LuckyBettingContract.BView view) {
         this.baseView = view;
         this.baseView.presenter(this);
     }

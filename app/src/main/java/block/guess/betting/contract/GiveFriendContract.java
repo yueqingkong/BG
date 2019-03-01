@@ -3,19 +3,18 @@ package block.guess.betting.contract;
 import block.guess.base.contract.BasePresenter;
 import block.guess.base.contract.BaseView;
 
-public interface BCHLuckyBettingContract {
+public interface GiveFriendContract {
 
     interface BView extends BaseView<Presenter> {
-        void updateLuckyTips();
 
-        void payClick();
+        void scanQRCode();
 
-        void paySuccess();
+        void giftRequest();
 
-        void payFail();
+        void publishTxhash();
     }
 
     interface Presenter extends BasePresenter {
-        void payRequest(long id, int times);
+
     }
 }

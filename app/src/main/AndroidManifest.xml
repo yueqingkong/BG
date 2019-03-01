@@ -64,21 +64,21 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".betting.BCHPaySuccessActivity"
+            android:name=".betting.PaySuccessActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".betting.BCHBettingDetailActivity"
+            android:name=".betting.BettingDetailActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".betting.BCHLotteryDetailActivity"
+            android:name=".betting.LotteryDetailActivity"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".betting.GiftSuccessActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".betting.BCHGiftActivity"
+            android:name=".betting.GiveFriendActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".wallet.BCHSendActivity"
