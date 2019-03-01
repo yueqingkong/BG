@@ -137,6 +137,10 @@ public class BettingDetailActivity extends BaseActivity implements BettingDetail
                 GlideUtil.load(imgBettingCategory, R.mipmap.img_bch_3_d_small);
                 txtBettingCategory.setText(activity.getString(R.string.free_bch_3d));
                 break;
+            case LOTTO:
+                GlideUtil.load(imgBettingCategory, R.mipmap.ic_bchlotto_home);
+                txtBettingCategory.setText(activity.getString(R.string.buy_lotto));
+                break;
         }
 
         status = StatusEnum.WAIT;
@@ -268,7 +272,10 @@ public class BettingDetailActivity extends BaseActivity implements BettingDetail
                 ContractDetailBean.PurchaseHistoryBean bean = contractDetailBean.getPurchase_history().get(i);
                 List<ContractDetailBean.PurchaseHistoryBean.PurchaseNumbersBean> numbersBeanList = bean.getPurchase_numbers();
                 if (numbersBeanList.size() > 0) {
-                    stringBuffer.append(numbersBeanList.get(0).getAward_number());
+                    for (ContractDetailBean.PurchaseHistoryBean.PurchaseNumbersBean numbersBean : numbersBeanList) {
+                        stringBuffer.append(numbersBean.getAward_number());
+                    }
+
                     if (!(numbers - 1 == i || numbers == 1)) {
                         stringBuffer.append(",");
                     }

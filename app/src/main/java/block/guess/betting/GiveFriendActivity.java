@@ -99,7 +99,7 @@ public class GiveFriendActivity extends BaseActivity implements GiveFriendContra
     public void giftRequest() {
         String address = editAccount.getText().toString();
         String email = editEmail.getText().toString();
-        if (TextUtils.isEmpty(address) || TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(address) && TextUtils.isEmpty(email)) {
             SnackBarUtil.error(activity, getString(R.string.address_or_email_empty));
             return;
         }

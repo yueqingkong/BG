@@ -12,6 +12,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import block.guess.utils.okhttp.Callback.BaseCallBack;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -296,7 +297,22 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
             txtPay.setEnabled(false);
 
             int times = Integer.parseInt(editAmount.getText().toString());
-            presenter.payClick(homeBean, times, bettingBeans);
+            presenter.payClick(homeBean, times, bettingBeans, new BaseCallBack<Boolean>(activity) {
+                @Override
+                public void success(Boolean aBoolean) {
+                    txtPay.setEnabled(true);
+                }
+
+                @Override
+                public void serverError(int code, String err) {
+                    txtPay.setEnabled(true);
+                }
+
+                @Override
+                public void netError() {
+                    txtPay.setEnabled(true);
+                }
+            });
         }
     }
 

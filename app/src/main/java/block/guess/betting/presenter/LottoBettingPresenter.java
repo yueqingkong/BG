@@ -14,6 +14,7 @@ import block.guess.main.bean.HomeBean;
 import block.guess.utils.log.LogUtil;
 import block.guess.utils.okhttp.Callback.BaseCallBack;
 import block.guess.utils.okhttp.OKHttpUtil;
+import com.google.gson.Gson;
 
 public class LottoBettingPresenter implements LottoBettingContract.Presenter {
 
@@ -33,16 +34,24 @@ public class LottoBettingPresenter implements LottoBettingContract.Presenter {
     }
 
     @Override
-    public void payClick(final HomeBean homeBean, int times, List<LottoBean> beans) {
+    public void payClick(final HomeBean homeBean, int times, List<LottoBean> beans, BaseCallBack<Boolean> callBack) {
         BCH3dBuyBean buyBean = new BCH3dBuyBean();
         buyBean.setContract_id(homeBean.getContract().getId());
         buyBean.setTimes(times);
+        buyBean.setCategory(3);
 
-        List<String> strings = new ArrayList<>();
-        for (LottoBean b : beans) {
-            strings.add(b.toString());
+        String[][] redNumbers = new String[beans.size()][6];
+        String[][] blueNumbers = new String[beans.size()][1];
+
+        for (int i = 0; i < beans.size(); i++) {
+            LottoBean lottoBean = beans.get(i);
+            for (int j = 0; j < lottoBean.numberLists().size(); j++) {
+                redNumbers[i][j] = String.valueOf(lottoBean.numberLists().get(j));
+            }
+            blueNumbers[i][0] = String.valueOf(lottoBean.purpleNumber());
         }
-        buyBean.setAward_numbers(strings);
+        buyBean.setRed_numbers(redNumbers);
+        buyBean.setBlue_numbers(blueNumbers);
 
         BCH3DBuyRequest request = new BCH3DBuyRequest(buyBean);
         OKHttpUtil.client().request(request, new BaseCallBack<String>(activity) {
@@ -52,16 +61,20 @@ public class LottoBettingPresenter implements LottoBettingContract.Presenter {
 
                 long contractId = homeBean.getContract().getId();
                 baseView.paySuccess(contractId);
+
+                callBack.success(true);
             }
 
             @Override
             public void serverError(int code, String err) {
                 baseView.payFail();
+                callBack.serverError(code, err);
             }
 
             @Override
             public void netError() {
                 baseView.payFail();
+                callBack.netError();
             }
         });
     }

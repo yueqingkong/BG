@@ -67,6 +67,7 @@
     <string name="nomber_">期号 %d</string>
     <string name="buy_bchlucky">购买 BCHLucky</string>
     <string name="buy_bch3d">购买 BCH3D</string>
+    <string name="buy_lotto">购买 BCHLotto</string>
     <string name="award">中奖</string>
     <string name="three_win_200_times">选择三位数字,夺取200倍大奖</string>
     <string name="betting_three">百位</string>
