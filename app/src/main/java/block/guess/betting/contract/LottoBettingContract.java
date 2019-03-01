@@ -6,6 +6,7 @@ import block.guess.base.contract.BasePresenter;
 import block.guess.base.contract.BaseView;
 import block.guess.betting.bean.LottoBean;
 import block.guess.main.bean.HomeBean;
+import block.guess.utils.okhttp.Callback.BaseCallBack;
 
 public interface LottoBettingContract {
 
@@ -35,6 +36,6 @@ public interface LottoBettingContract {
     }
 
     interface Presenter extends BasePresenter {
-        void payClick(HomeBean homeBean, int times, List<LottoBean> beans);
+        void payClick(HomeBean homeBean, int times, List<LottoBean> beans,BaseCallBack<Boolean> callBack);
     }
 }

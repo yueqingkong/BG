@@ -2,14 +2,14 @@ package block.guess.betting.presenter;
 
 import android.app.Activity;
 
-import block.guess.betting.contract.BCHLotteryDetailContract;
+import block.guess.betting.contract.LotteryDetailContract;
 
-public class BCHLotteryDetailPresenter implements BCHLotteryDetailContract.Presenter {
+public class LotteryDetailPresenter implements LotteryDetailContract.Presenter {
 
     private Activity activity;
-    private BCHLotteryDetailContract.BView baseView;
+    private LotteryDetailContract.BView baseView;
 
-    public BCHLotteryDetailPresenter(BCHLotteryDetailContract.BView view) {
+    public LotteryDetailPresenter(LotteryDetailContract.BView view) {
         this.baseView = view;
         this.baseView.presenter(this);
     }

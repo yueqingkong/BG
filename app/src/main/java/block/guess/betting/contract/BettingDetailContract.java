@@ -5,7 +5,7 @@ import block.guess.base.contract.BaseView;
 import block.guess.wallet.bean.CategoryEnum;
 import block.guess.wallet.bean.StatusEnum;
 
-public interface BCHBettingDetailContract {
+public interface BettingDetailContract {
 
     interface BView extends BaseView<Presenter> {
 

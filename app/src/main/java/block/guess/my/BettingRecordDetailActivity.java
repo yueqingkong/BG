@@ -96,6 +96,10 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
                 GlideUtil.load(imgBettingCategory, R.mipmap.img_bch_3_d_small);
                 txtBettingCategory.setText(activity.getString(R.string.free_bch_3d));
                 break;
+            case LOTTO:
+                GlideUtil.load(imgBettingCategory, R.mipmap.ic_bchlotto_home);
+                txtBettingCategory.setText(activity.getString(R.string.buy_lotto));
+                break;
         }
 
         StatusEnum status = StatusEnum.parse(recordDetailBean.getStatus());
@@ -163,7 +167,8 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         if (category == CategoryEnum.LUCKY
-                || category == CategoryEnum.FREE) {
+                || category == CategoryEnum.FREE
+                || category == CategoryEnum.LOTTO) {
             view.setVisibility(View.GONE);
         }
         leftTxt.setText(activity.getString(R.string.times));
@@ -182,7 +187,7 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
         if (category == CategoryEnum.FREE) {
             stringBuffer.append("1");
         } else {
-            stringBuffer.append(recordDetailBean.getTimes());
+            stringBuffer.append(recordDetailBean.getPurchase_numbers().size());
         }
         rightTxt.setText("" + stringBuffer.toString());
     }

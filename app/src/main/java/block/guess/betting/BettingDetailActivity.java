@@ -15,8 +15,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import block.guess.R;
 import block.guess.base.BaseActivity;
 import block.guess.betting.bean.ContractDetailBean;
-import block.guess.betting.contract.BCHBettingDetailContract;
-import block.guess.betting.presenter.BCHBettingDetailPresenter;
+import block.guess.betting.contract.BettingDetailContract;
+import block.guess.betting.presenter.BettingDetailPresenter;
 import block.guess.betting.request.BCHContractDetailRequest;
 import block.guess.login.bean.UserInfoBean;
 import block.guess.utils.StringsUtil;
@@ -37,8 +37,10 @@ import block.guess.widget.webview.util.BlockChainUrlUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import java.util.List;
+
 @Route(path = "/betting/bchdetail")
-public class BCHBettingDetailActivity extends BaseActivity implements BCHBettingDetailContract.BView, ToolbarCallback {
+public class BettingDetailActivity extends BaseActivity implements BettingDetailContract.BView, ToolbarCallback {
 
     private static final String TAG = "_BCHBettingDetailActivity";
 
@@ -64,8 +66,8 @@ public class BCHBettingDetailActivity extends BaseActivity implements BCHBetting
     @Autowired
     String identifier;
 
-    private BCHBettingDetailActivity activity;
-    private BCHBettingDetailContract.Presenter presenter;
+    private BettingDetailActivity activity;
+    private BettingDetailContract.Presenter presenter;
 
     private ContractDetailBean contractDetailBean = null;
 
@@ -79,7 +81,7 @@ public class BCHBettingDetailActivity extends BaseActivity implements BCHBetting
         ButterKnife.bind(this);
         ARouter.getInstance().inject(this);
 
-        new BCHBettingDetailPresenter(this).start();
+        new BettingDetailPresenter(this).start();
     }
 
     @Override
@@ -134,6 +136,10 @@ public class BCHBettingDetailActivity extends BaseActivity implements BCHBetting
             case FREE:
                 GlideUtil.load(imgBettingCategory, R.mipmap.img_bch_3_d_small);
                 txtBettingCategory.setText(activity.getString(R.string.free_bch_3d));
+                break;
+            case LOTTO:
+                GlideUtil.load(imgBettingCategory, R.mipmap.ic_bchlotto_home);
+                txtBettingCategory.setText(activity.getString(R.string.buy_lotto));
                 break;
         }
 
@@ -264,9 +270,15 @@ public class BCHBettingDetailActivity extends BaseActivity implements BCHBetting
                     : contractDetailBean.getPurchase_history().size();
             for (int i = 0; i < numbers; i++) {
                 ContractDetailBean.PurchaseHistoryBean bean = contractDetailBean.getPurchase_history().get(i);
-                stringBuffer.append(bean.getPurchase_numbers().get(0).getAward_number());
-                if (!(numbers - 1 == i || numbers == 1)) {
-                    stringBuffer.append(",");
+                List<ContractDetailBean.PurchaseHistoryBean.PurchaseNumbersBean> numbersBeanList = bean.getPurchase_numbers();
+                if (numbersBeanList.size() > 0) {
+                    for (ContractDetailBean.PurchaseHistoryBean.PurchaseNumbersBean numbersBean : numbersBeanList) {
+                        stringBuffer.append(numbersBean.getAward_number());
+                    }
+
+                    if (!(numbers - 1 == i || numbers == 1)) {
+                        stringBuffer.append(",");
+                    }
                 }
             }
         }
@@ -353,7 +365,7 @@ public class BCHBettingDetailActivity extends BaseActivity implements BCHBetting
     }
 
     @Override
-    public void presenter(BCHBettingDetailContract.Presenter presenter) {
+    public void presenter(BettingDetailContract.Presenter presenter) {
         this.presenter = presenter;
     }
 

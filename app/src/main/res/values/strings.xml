@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Block</string>
+    <string name="app_name">BlockGuess</string>
     <string name="inc">© 2018 BlockGuess Inc</string>
 
     <string name="first_step">First step</string>
@@ -66,6 +66,7 @@
     <string name="bch_win">%.3f BCH Win</string>
     <string name="nomber_">NO.%d</string>
     <string name="buy_bchlucky">Buy BCHLucky</string>
+    <string name="buy_lotto">Buy BCHLotto</string>
     <string name="buy_bch3d">Buy BCH3D</string>
     <string name="award">Award</string>
     <string name="three_win_200_times">Choose three digits and win 200 times</string>
@@ -232,4 +233,6 @@
     <string name="tens">Tens</string>
     <string name="units">units</string>
     <string name="choose_six_red_ball">Choose 6 red balls</string>
+    <string name="address_or_email_empty">Address or emial can not be empty</string>
+
 </resources>

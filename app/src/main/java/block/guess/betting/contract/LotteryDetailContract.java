@@ -4,7 +4,7 @@ import block.guess.base.BaseFragment;
 import block.guess.base.contract.BasePresenter;
 import block.guess.base.contract.BaseView;
 
-public interface BCHLotteryDetailContract {
+public interface LotteryDetailContract {
 
     interface BView extends BaseView<Presenter> {
 

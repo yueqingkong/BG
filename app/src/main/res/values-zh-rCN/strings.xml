@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Block</string>
+    <string name="app_name">BlockGuess</string>
     <string name="inc">© 2018 BlockGuess Inc</string>
 
     <string name="first_step">第一步</string>
@@ -67,6 +67,7 @@
     <string name="nomber_">期号 %d</string>
     <string name="buy_bchlucky">购买 BCHLucky</string>
     <string name="buy_bch3d">购买 BCH3D</string>
+    <string name="buy_lotto">购买 BCHLotto</string>
     <string name="award">中奖</string>
     <string name="three_win_200_times">选择三位数字,夺取200倍大奖</string>
     <string name="betting_three">百位</string>
@@ -227,4 +228,6 @@
     <string name="tens">十</string>
     <string name="units">个</string>
     <string name="choose_six_red_ball">选择6个红球</string>
+    <string name="address_or_email_empty">地址或邮箱不能为空</string>
+
 </resources>

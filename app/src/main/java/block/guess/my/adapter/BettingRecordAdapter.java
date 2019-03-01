@@ -103,6 +103,10 @@ public class BettingRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
                 GlideUtil.load(holder.categoryImg, R.mipmap.img_bch_3_d_small);
                 holder.categoryTxt.setText(context.getString(R.string.free_bch_3d));
                 break;
+            case LOTTO:
+                GlideUtil.load(holder.categoryImg, R.mipmap.ic_bchlotto_home);
+                holder.categoryTxt.setText(context.getString(R.string.bch_lotto));
+                break;
         }
 
         String showTime = TimeUtil.timestampFormat(detailBean.getCreated_at() * 1000, TimeUtil.FORMAT_MONTH_DAY_TIME);

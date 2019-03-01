@@ -195,7 +195,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/constraintlayout_print_card" />
-    >>>>>>> f56cba6a6de8bbbac5946f09cbac7ad9afd66413
 
     <View
         android:id="@id/view_bottom"
@@ -341,24 +340,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/view_plus"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@id/txt_pay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:background="@drawable/shape_rectangle_645aff_r18"
-            android:gravity="center"
-            android:paddingStart="@dimen/dp_30"
-            android:paddingTop="@dimen/dp_8"
-            android:paddingEnd="@dimen/dp_30"
-            android:paddingBottom="@dimen/dp_8"
-            android:text="@string/pay"
-            android:textColor="@color/color_white"
-            android:textSize="@dimen/dp_14"
-            app:layout_constraintBottom_toBottomOf="@id/view_parent_bottom"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/view_parent_bottom" />
 
         <TextView
             android:id="@id/txt_pay"

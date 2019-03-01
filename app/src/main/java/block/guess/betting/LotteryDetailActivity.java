@@ -22,10 +22,10 @@ import block.guess.R;
 import block.guess.base.BaseActivity;
 import block.guess.base.BaseFragment;
 import block.guess.betting.bean.ContractDetailBean;
-import block.guess.betting.contract.BCHLotteryDetailContract;
+import block.guess.betting.contract.LotteryDetailContract;
 import block.guess.betting.fragment.MyBettingFragment;
 import block.guess.betting.fragment.WinningPlayerFragment;
-import block.guess.betting.presenter.BCHLotteryDetailPresenter;
+import block.guess.betting.presenter.LotteryDetailPresenter;
 import block.guess.betting.request.BCHContractDetailRequest;
 import block.guess.utils.SystemUtil;
 import block.guess.utils.TimeUtil;
@@ -41,7 +41,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @Route(path = "/betting/bchlotterydetail")
-public class BCHLotteryDetailActivity extends BaseActivity implements BCHLotteryDetailContract.BView, ToolbarCallback {
+public class LotteryDetailActivity extends BaseActivity implements LotteryDetailContract.BView, ToolbarCallback {
 
     private static final String TAG = "_BCHLotteryDetailActivity";
 
@@ -73,8 +73,8 @@ public class BCHLotteryDetailActivity extends BaseActivity implements BCHLottery
     @Autowired
     long contractId;
 
-    private BCHLotteryDetailActivity activity;
-    private BCHLotteryDetailContract.Presenter presenter;
+    private LotteryDetailActivity activity;
+    private LotteryDetailContract.Presenter presenter;
     private BaseFragment currentFragment;
     private WinningPlayerFragment playerFragment;
     private MyBettingFragment bettingFragment;
@@ -88,7 +88,7 @@ public class BCHLotteryDetailActivity extends BaseActivity implements BCHLottery
         ButterKnife.bind(this);
         ARouter.getInstance().inject(this);
 
-        new BCHLotteryDetailPresenter(this).start();
+        new LotteryDetailPresenter(this).start();
     }
 
     @Override
@@ -302,7 +302,7 @@ public class BCHLotteryDetailActivity extends BaseActivity implements BCHLottery
     }
 
     @Override
-    public void presenter(BCHLotteryDetailContract.Presenter presenter) {
+    public void presenter(LotteryDetailContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
