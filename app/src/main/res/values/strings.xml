@@ -232,4 +232,6 @@
     <string name="tens">Tens</string>
     <string name="units">units</string>
     <string name="choose_six_red_ball">Choose 6 red balls</string>
+    <string name="address_or_email_empty">Address or emial can not be empty</string>
+
 </resources>

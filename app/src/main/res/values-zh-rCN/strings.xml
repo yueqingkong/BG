@@ -227,4 +227,6 @@
     <string name="tens">十</string>
     <string name="units">个</string>
     <string name="choose_six_red_ball">选择6个红球</string>
+    <string name="address_or_email_empty">地址或邮箱不能为空</string>
+
 </resources>

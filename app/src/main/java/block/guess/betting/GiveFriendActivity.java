@@ -2,11 +2,13 @@ package block.guess.betting;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import block.guess.widget.snackbar.SnackBarUtil;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -68,7 +70,7 @@ public class GiveFriendActivity extends BaseActivity implements GiveFriendContra
     public void init() {
         activity = this;
         getSupportActionBar().hide();
-        statusBar(false,getResources().getColor(R.color.color_white));
+        statusBar(false, getResources().getColor(R.color.color_white));
 
         toolbarBase.setLeftTxt(R.mipmap.btn_return_gray);
         toolbarBase.setTitleTxt(getString(R.string.gift_friend));
@@ -97,6 +99,11 @@ public class GiveFriendActivity extends BaseActivity implements GiveFriendContra
     public void giftRequest() {
         String address = editAccount.getText().toString();
         String email = editEmail.getText().toString();
+        if (TextUtils.isEmpty(address) || TextUtils.isEmpty(email)) {
+            SnackBarUtil.error(activity, getString(R.string.address_or_email_empty));
+            return;
+        }
+
         GiftSendBean giftSendBean = new GiftSendBean(identifier, address, email);
         GiftFriendRequest request = new GiftFriendRequest(giftSendBean);
         OKHttpUtil.client().request(request, new BaseCallBack<String>(activity) {
