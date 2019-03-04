@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -24,18 +25,18 @@ public class WalletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private Context context;
 
     private LoadStatusEnum statusEnum;
-    private List<HistoryBean> historyBeans;
+    private List<HistoryBean> historyBeans=new ArrayList<>();
     private TransactionCallback transactionCallback;
 
-    public void setHistoryBeans(List<HistoryBean> historyBeans) {
+    public void setHistoryBeans(List<HistoryBean> beans) {
         statusEnum = LoadStatusEnum.STATUS_END;
-        this.historyBeans = historyBeans;
+        this.historyBeans.addAll(beans);
         notifyDataSetChanged();
     }
 
-    public void appendHistoryBeans(List<HistoryBean> historyBeans) {
+    public void appendHistoryBeans(List<HistoryBean> beans) {
         statusEnum = LoadStatusEnum.STATUS_END;
-        this.historyBeans.addAll(historyBeans);
+        this.historyBeans.addAll(beans);
         notifyDataSetChanged();
     }
 

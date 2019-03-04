@@ -68,6 +68,7 @@
     <string name="buy_bchlucky">Buy BCHLucky</string>
     <string name="buy_lotto">Buy BCHLotto</string>
     <string name="buy_bch3d">Buy BCH3D</string>
+    <string name="unknown">Unknown</string>
     <string name="award">Award</string>
     <string name="three_win_200_times">Choose three digits and win 200 times</string>
     <string name="betting_three">Hundred</string>
@@ -235,6 +236,6 @@
     <string name="choose_six_red_ball">Choose 6 red balls</string>
     <string name="address_or_email_empty">Address or emial can not be empty</string>
     <string name="email_send_success">Email Send Success</string>
-
+    <string name="transfer">Transfer</string>
 
 </resources>

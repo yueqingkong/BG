@@ -68,6 +68,7 @@
     <string name="buy_bchlucky">购买 BCHLucky</string>
     <string name="buy_bch3d">购买 BCH3D</string>
     <string name="buy_lotto">购买 BCHLotto</string>
+    <string name="unknown">未知</string>
     <string name="award">中奖</string>
     <string name="three_win_200_times">选择三位数字,夺取200倍大奖</string>
     <string name="betting_three">百位</string>
@@ -129,7 +130,7 @@
     <string name="bch3d_lottery">BCH3D Lottery</string>
     <string name="bchlucky_lottery">BCHLucky Lottery</string>
     <string name="contract_no_">期号.%d</string>
-    <string name="random_org_number">random.org Random : %s</string>
+    <string name="random_org_number">随机数 : %s</string>
     <string name="verify">验证</string>
     <string name="ending_height">结束投注区块高度</string>
     <string name="block_height">区块高度</string>
@@ -230,4 +231,5 @@
     <string name="choose_six_red_ball">选择6个红球</string>
     <string name="address_or_email_empty">地址或邮箱不能为空</string>
     <string name="email_send_success">邮件已发送</string>
+    <string name="transfer">转账</string>
 </resources>
