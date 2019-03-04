@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import block.guess.utils.okhttp.Callback.BaseCallBack;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -140,9 +141,27 @@ public class BCHSendActivity extends BaseActivity implements BCHSendContract.BVi
         String address = editAddress.getText().toString();
 
         if (TextUtils.isEmpty(address) || TextUtils.isEmpty(amount)) {
+            txtVerifyCode.finishCount();
             SnackBarUtil.error(activity, getString(R.string.tips_empty_address_amount));
         } else {
-            presenter.withdrawalRequest(address, (long) (Float.parseFloat(amount) * StringsUtil.Unit));
+            presenter.withdrawalRequest(address, (long) (Float.parseFloat(amount) * StringsUtil.Unit),new BaseCallBack<Boolean>(activity){
+
+                @Override
+                public void success(Boolean b) {
+                    SnackBarUtil.success(activity, getString(R.string.email_send_success));
+
+                }
+
+                @Override
+                public void serverError(int code, String err) {
+                    SnackBarUtil.error(activity, err);
+                }
+
+                @Override
+                public void netError() {
+                    SnackBarUtil.error(activity, getString(R.string.error_network_timeout));
+                }
+            });
         }
     }
 
@@ -157,7 +176,23 @@ public class BCHSendActivity extends BaseActivity implements BCHSendContract.BVi
             SnackBarUtil.error(activity, getString(R.string.tips_empty_address_code_amount));
         } else {
             long amountValue = (long) (Float.parseFloat(amount) * StringsUtil.Unit);
-            presenter.withdrawalConfirm(address, amountValue, code, feeBig);
+            presenter.withdrawalConfirm(address, amountValue, code, feeBig, new BaseCallBack<Boolean>(activity) {
+                @Override
+                public void success(Boolean aBoolean) {
+                    activity.finish();
+                    SnackBarUtil.success(activity, getString(R.string.withdraw_success));
+                }
+
+                @Override
+                public void serverError(int code, String err) {
+                    SnackBarUtil.error(activity, err);
+                }
+
+                @Override
+                public void netError() {
+                    SnackBarUtil.error(activity, getString(R.string.error_network_timeout));
+                }
+            });
         }
     }
 
@@ -202,12 +237,6 @@ public class BCHSendActivity extends BaseActivity implements BCHSendContract.BVi
                 });
             }
         });
-    }
-
-    @Override
-    public void withdrawSuccess() {
-        activity.finish();
-        SnackBarUtil.success(activity, getString(R.string.withdraw_success));
     }
 
     @Override
