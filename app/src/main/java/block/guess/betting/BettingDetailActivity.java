@@ -229,7 +229,8 @@ public class BettingDetailActivity extends BaseActivity implements BettingDetail
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         if (category == CategoryEnum.LUCKY
-                || category == CategoryEnum.FREE) {
+                || category == CategoryEnum.FREE
+                || category == CategoryEnum.LOTTO) {
             view.setVisibility(View.GONE);
         }
         leftTxt.setText(activity.getString(R.string.times));

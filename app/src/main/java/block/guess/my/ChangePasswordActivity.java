@@ -57,8 +57,8 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
         toolbarBase.setToolbarCallback(this);
 
         if (BuildConfig.DEFAULT_HINT) {
-            editPasswordOld.setText("qwer1234");
-            editPasswordNew.setText("qwer1234");
+            editPasswordOld.setText("@QWer1234");
+            editPasswordNew.setText("@QWer1234");
         }
     }
 
