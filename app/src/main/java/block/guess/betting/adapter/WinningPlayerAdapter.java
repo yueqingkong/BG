@@ -38,7 +38,7 @@ public class WinningPlayerAdapter extends RecyclerView.Adapter<WinningPlayerAdap
     public void onBindViewHolder(@NonNull WinningPlayerViewHolder holder, int position) {
         ContractDetailBean.WinnerListBean bean = winningPlayerList.get(position);
 
-        GlideUtil.load(holder.avatarImg, bean.getAvatar());
+        GlideUtil.avatar(holder.avatarImg, bean.getAvatar());
         holder.nameTxt.setText(bean.getUsername());
 
         holder.txidTxt.setText(context.getString(R.string.txid));

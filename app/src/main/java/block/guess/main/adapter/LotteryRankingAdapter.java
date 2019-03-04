@@ -59,7 +59,7 @@ public class LotteryRankingAdapter extends RecyclerView.Adapter<LotteryRankingAd
         }
 
         String avatar = rankingBean.getAvatar();
-        GlideUtil.load(holder.avatarImg, avatar);
+        GlideUtil.avatar(holder.avatarImg, avatar);
 
         String name = rankingBean.getUsername();
         holder.nameTxt.setText(StringsUtil.nameEllipsis(name, 11));
