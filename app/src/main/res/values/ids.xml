@@ -176,9 +176,10 @@
     <item name="txt_betting" type="id" />
     <item name="txt_bottom" type="id" />
     <item name="txt_ball" type="id" />
-
+    <item name="txt_inc" type="id" />
 
     <!-- image -->
+    <item name="img_cover" type="id" />
     <item name="img_banner" type="id" />
     <item name="img_close" type="id" />
     <item name="img_guide_direct" type="id" />

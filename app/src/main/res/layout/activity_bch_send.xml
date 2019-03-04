@@ -24,6 +24,7 @@
         android:drawableLeft="@mipmap/ic_address"
         android:hint="@string/enter_address"
         android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_32"
         android:drawablePadding="@dimen/dp_12"
         android:textColorHint="@color/color_586085"
         android:textColor="@color/color_00115d"

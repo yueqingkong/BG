@@ -14,6 +14,7 @@ public enum TransactionCategoryEnum {
     PARTNER(7),
     D3(8),
     LUCKY(9),
+    LOTTO(10),
     FREE(11),
     GIFADDRESS(12);//赠送彩票
 
@@ -51,6 +52,10 @@ public enum TransactionCategoryEnum {
             string = context.getResources().getString(R.string.free_bch_3d);
         } else if (e == GIFADDRESS) {
             string = context.getResources().getString(R.string.partner_plan);
+        } else if (e == LOTTO) {
+            string = context.getResources().getString(R.string.buy_lotto);
+        }else {
+            string = context.getResources().getString(R.string.unknown);
         }
         return string;
     }
@@ -75,6 +80,10 @@ public enum TransactionCategoryEnum {
             resourceid = R.mipmap.ic_bch3d;
         } else if (e == GIFADDRESS) {
             resourceid = R.mipmap.ic_giftcolor;
+        } else if (e == LOTTO) {
+            resourceid = R.mipmap.ic_bchlotto;
+        }else {
+            resourceid = R.mipmap.ic_send;
         }
         return resourceid;
     }

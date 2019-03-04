@@ -112,7 +112,7 @@ public class MyFragment extends BaseFragment implements MyContract.BView {
             UserInfoBean infoBean = AppInfo.getAppInfo().getInfoUser();
             txtName.setText(infoBean.getUsername());
             txtEmail.setText(infoBean.getEmail());
-            GlideUtil.load(imgUseravatar, infoBean.getAvatar());
+            GlideUtil.avatar(imgUseravatar, infoBean.getAvatar());
         } else {
             ((MainActivity) activity).onPageSelected(0);
         }
@@ -365,7 +365,7 @@ public class MyFragment extends BaseFragment implements MyContract.BView {
 
     @Override
     public void loadAvatar(String avatar) {
-        GlideUtil.load(imgUseravatar, avatar);
+        GlideUtil.avatar(imgUseravatar, avatar);
     }
 
     @Override

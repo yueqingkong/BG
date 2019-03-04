@@ -29,45 +29,45 @@ public class BCHSendPresenter implements BCHSendContract.Presenter {
     }
 
     @Override
-    public void withdrawalRequest(String address, long amount) {
+    public void withdrawalRequest(String address, long amount, BaseCallBack<Boolean> callBack) {
         WithdrawalBean bean = new WithdrawalBean(address, amount);
         WithdrawalRequest request = new WithdrawalRequest(bean);
-       OKHttpUtil.client().request(request, new BaseCallBack<String>(activity) {
+        OKHttpUtil.client().request(request, new BaseCallBack<String>(activity) {
             @Override
             public void success(String o) {
-                LogUtil.d(TAG, o);
+                callBack.success(true);
             }
 
             @Override
             public void serverError(int code, String err) {
-
+                callBack.serverError(code, err);
             }
 
             @Override
             public void netError() {
-
+                callBack.netError();
             }
         });
     }
 
     @Override
-    public void withdrawalConfirm(String address, long amount, String code, long fee) {
+    public void withdrawalConfirm(String address, long amount, String code, long fee, BaseCallBack<Boolean> callBack) {
         WithdrawalConfirmBean bean = new WithdrawalConfirmBean(address, amount, code, fee);
         WithdrawalConfirmRequst requst = new WithdrawalConfirmRequst(bean);
         OKHttpUtil.client().request(requst, new BaseCallBack<String>(activity) {
             @Override
             public void success(String o) {
-                baseView.withdrawSuccess();
+                callBack.success(true);
             }
 
             @Override
             public void serverError(int code, String err) {
-
+                callBack.serverError(code, err);
             }
 
             @Override
             public void netError() {
-
+                callBack.netError();
             }
         });
     }

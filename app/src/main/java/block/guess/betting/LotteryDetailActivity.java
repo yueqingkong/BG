@@ -176,8 +176,8 @@ public class LotteryDetailActivity extends BaseActivity implements LotteryDetail
         TextView leftTxt = view.findViewById(R.id.txt_left);
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
-        if (contractDetailBean.getLottery() != null) {
-            leftTxt.setText(getString(R.string.random_org_number, contractDetailBean.getLottery().getRandom_number()));
+        if (contractDetailBean.getContract().getLottery() != null) {
+            leftTxt.setText(getString(R.string.random_org_number, contractDetailBean.getContract().getLottery().getRandom_number()));
         }
         rightTxt.setTextColor(getResources().getColor(R.color.color_132fcb));
         rightTxt.setText(getString(R.string.verify));
@@ -185,8 +185,8 @@ public class LotteryDetailActivity extends BaseActivity implements LotteryDetail
             @Override
             public void onClick(View view) {
                 try {
-                    String random = contractDetailBean.getLottery().getRandom();
-                    String signnature = contractDetailBean.getLottery().getSignature();
+                    String random = contractDetailBean.getContract().getLottery().getRandom();
+                    String signnature = contractDetailBean.getContract().getLottery().getSignature();
                     String data = "format=json&random=" +
                             URLEncoder.encode(new String(random.getBytes("UTF-8")))
                             + "&signature=" + URLEncoder.encode(new String(signnature.getBytes("UTF-8")));
