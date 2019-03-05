@@ -220,25 +220,7 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(activity.getString(R.string.amount));
-        long unit = recordDetailBean.getContract().getUnit();
-        long times = recordDetailBean.getContract().getTimes();
-        long amount = 0l;
-
-        switch (category) {
-            case LUCKY:
-                amount = unit * times;
-                break;
-            case FREE:
-                amount = unit;
-                break;
-            case D3:
-                amount = unit * times * recordDetailBean.getPurchase_numbers().size();
-                break;
-            case LOTTO:
-                amount = unit * recordDetailBean.getPurchase_numbers().size();
-                break;
-        }
-        String amountTxt = StringsUtil.decimal(amount) + "BCH";
+        String amountTxt = StringsUtil.decimal(recordDetailBean.getTotal_amount()) + "BCH";
         rightTxt.setText(amountTxt);
     }
 
