@@ -234,6 +234,9 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
             case D3:
                 amount = unit * times * recordDetailBean.getPurchase_numbers().size();
                 break;
+            case LOTTO:
+                amount = unit * recordDetailBean.getPurchase_numbers().size();
+                break;
         }
         String amountTxt = StringsUtil.decimal(amount) + "BCH";
         rightTxt.setText(amountTxt);
