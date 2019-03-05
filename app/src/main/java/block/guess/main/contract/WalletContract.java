@@ -8,14 +8,13 @@ import block.guess.base.contract.BasePresenter;
 import block.guess.base.contract.BaseView;
 import block.guess.main.bean.BalanceBean;
 import block.guess.main.bean.HistoryBean;
+import block.guess.utils.okhttp.Callback.BaseCallBack;
 
 public interface WalletContract {
 
     interface BView extends BaseView<Presenter> {
 
         void balance();
-
-        void historyList(List<HistoryBean> beans);
 
         void historyStartRequst();
 
@@ -30,6 +29,6 @@ public interface WalletContract {
 
     interface Presenter extends BasePresenter {
 
-        void historyRequest(int index);
+        void historyRequest(int index, BaseCallBack<List<HistoryBean>> callBack);
     }
 }

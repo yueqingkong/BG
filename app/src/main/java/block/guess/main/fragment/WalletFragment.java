@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import block.guess.utils.okhttp.Callback.BaseCallBack;
 import com.alibaba.android.arouter.launcher.ARouter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -112,7 +113,6 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
-            index = 0;
             Request.request().balanceRequest(activity);
         }
     }
@@ -150,7 +150,39 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
         });
 
         scrollview.setScrollCallBack(this);
-        presenter.historyRequest(index);
+        presenter.historyRequest(index, new BaseCallBack<List<HistoryBean>>(activity) {
+            @Override
+            public void success(List<HistoryBean> beans) {
+                if (beans != null && beans.size() > 0) {
+                    if (index == 1) {
+                        walletAdapter.setHistoryBeans(beans);
+                    } else {
+                        walletAdapter.appendHistoryBeans(beans);
+                    }
+                    index++;
+                } else {
+                    walletAdapter.setEndStatus();
+                }
+
+                if (walletAdapter.getItemCount() == 0) {
+                    imgEmptyWallet.setVisibility(View.VISIBLE);
+                    txtNoTransactionRecord.setVisibility(View.VISIBLE);
+                } else {
+                    imgEmptyWallet.setVisibility(View.GONE);
+                    txtNoTransactionRecord.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void serverError(int code, String err) {
+                historyFail();
+            }
+
+            @Override
+            public void netError() {
+                historyFail();
+            }
+        });
     }
 
     @Override
@@ -170,28 +202,6 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
     @Override
     public void historyStartRequst() {
         walletAdapter.setLoadingStatus();
-    }
-
-    @Override
-    public void historyList(List<HistoryBean> beans) {
-        if (beans.size() > 0) {
-            if (index == 1) {
-                walletAdapter.setHistoryBeans(beans);
-            } else {
-                walletAdapter.appendHistoryBeans(beans);
-            }
-            index++;
-        } else {
-            walletAdapter.setEndStatus();
-        }
-
-        if (walletAdapter.getItemCount() == 0) {
-            imgEmptyWallet.setVisibility(View.VISIBLE);
-            txtNoTransactionRecord.setVisibility(View.VISIBLE);
-        } else {
-            imgEmptyWallet.setVisibility(View.GONE);
-            txtNoTransactionRecord.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -247,7 +257,39 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
 
     @Override
     public void scrollBottom() {
-        presenter.historyRequest(index);
+        presenter.historyRequest(index, new BaseCallBack<List<HistoryBean>>(activity) {
+            @Override
+            public void success(List<HistoryBean> beans) {
+                if (beans != null && beans.size() > 0) {
+                    if (index == 1) {
+                        walletAdapter.setHistoryBeans(beans);
+                    } else {
+                        walletAdapter.appendHistoryBeans(beans);
+                    }
+                    index++;
+                } else {
+                    walletAdapter.setEndStatus();
+                }
+
+                if (walletAdapter.getItemCount() == 0) {
+                    imgEmptyWallet.setVisibility(View.VISIBLE);
+                    txtNoTransactionRecord.setVisibility(View.VISIBLE);
+                } else {
+                    imgEmptyWallet.setVisibility(View.GONE);
+                    txtNoTransactionRecord.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void serverError(int code, String err) {
+                historyFail();
+            }
+
+            @Override
+            public void netError() {
+                historyFail();
+            }
+        });
     }
 
     @Override

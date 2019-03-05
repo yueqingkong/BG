@@ -51,7 +51,7 @@ public enum TransactionCategoryEnum {
         } else if (e == FREE) {
             string = context.getResources().getString(R.string.free_bch_3d);
         } else if (e == GIFADDRESS) {
-            string = context.getResources().getString(R.string.partner_plan);
+            string = context.getResources().getString(R.string.give);
         } else if (e == LOTTO) {
             string = context.getResources().getString(R.string.buy_lotto);
         }else {
