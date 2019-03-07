@@ -30,7 +30,7 @@ public interface LottoBettingContract {
 
         void plus();
 
-        void paySuccess(long contractid);
+        void paySuccess(long contractid,String identifier);
 
         void payFail();
     }

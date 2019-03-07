@@ -23,26 +23,4 @@ public class PaySuccessPresenter implements PaySuccessContract.Presenter {
         baseView.init();
         activity = (Activity) baseView;
     }
-
-    @Override
-    public void contractDetailRequest(long contractId, BaseCallBack<ContractDetailBean> callBack) {
-        BCHContractDetailRequest request = new BCHContractDetailRequest("", contractId);
-        OKHttpUtil.client().request(request, new BaseCallBack<ContractDetailBean>(activity) {
-
-            @Override
-            public void success(ContractDetailBean bean) {
-                callBack.success(bean);
-            }
-
-            @Override
-            public void serverError(int code, String err) {
-                callBack.serverError(code, err);
-            }
-
-            @Override
-            public void netError() {
-                callBack.netError();
-            }
-        });
-    }
 }

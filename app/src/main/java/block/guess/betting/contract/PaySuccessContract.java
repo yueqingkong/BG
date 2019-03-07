@@ -12,6 +12,5 @@ public interface PaySuccessContract {
 
     interface Presenter extends BasePresenter {
 
-        void contractDetailRequest(long contractId, BaseCallBack<ContractDetailBean> callBack);
     }
 }

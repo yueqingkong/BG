@@ -281,7 +281,7 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
         double payTotal = select * times * 0.0005;
         txtBettingBch.setText(getString(R.string.pay_bch, StringsUtil.decimal((long) (payTotal * StringsUtil.Unit))));
 
-        double winTotal = times * 0.0005 * 200;
+        double winTotal = times * 0.0005 * 250000;//固定倍数 25000
         if (select == 0) {
             winTotal = 0;
         }
@@ -412,9 +412,10 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
     }
 
     @Override
-    public void paySuccess(long contractid) {
+    public void paySuccess(long contractid, String identifier) {
         ARouter.getInstance().build("/betting/bchpaysuccess")
                 .withLong("contractId", contractid)
+                .withString("identifier", identifier)
                 .navigation(activity);
     }
 

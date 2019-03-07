@@ -1,6 +1,7 @@
 package block.guess.betting;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -362,6 +363,11 @@ public class BettingDetailActivity extends BaseActivity implements BettingDetail
 
     @Override
     public void rightClick() {
+        // 已经开奖，不能赠送
+        if (TextUtils.isEmpty(identifier)) {
+            return;
+        }
+
         PopupwindowUtil.show(activity, R.layout.part_popupwindow_gift, toolbarBase.findViewById(R.id.txt_right), 0, 0, new PopupCallback() {
             @Override
             public void createView(final PopupWindow dialog, View view) {

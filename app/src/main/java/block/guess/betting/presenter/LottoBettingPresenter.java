@@ -8,6 +8,7 @@ import java.util.List;
 import block.guess.betting.bean.BCH3dBuyBean;
 import block.guess.betting.bean.Betting3DBean;
 import block.guess.betting.bean.LottoBean;
+import block.guess.betting.bean.PayResultBean;
 import block.guess.betting.contract.LottoBettingContract;
 import block.guess.betting.request.BCH3DBuyRequest;
 import block.guess.main.bean.HomeBean;
@@ -54,13 +55,13 @@ public class LottoBettingPresenter implements LottoBettingContract.Presenter {
         buyBean.setBlue_numbers(blueNumbers);
 
         BCH3DBuyRequest request = new BCH3DBuyRequest(buyBean);
-        OKHttpUtil.client().request(request, new BaseCallBack<String>(activity) {
+        OKHttpUtil.client().request(request, new BaseCallBack<PayResultBean>(activity) {
             @Override
-            public void success(String o) {
-                LogUtil.d(TAG, o);
+            public void success(PayResultBean resultBean) {
+                long contractId = resultBean.getContract_id();
+                String identifier = resultBean.getIdentifier();
 
-                long contractId = homeBean.getContract().getId();
-                baseView.paySuccess(contractId);
+                baseView.paySuccess(contractId, identifier);
 
                 callBack.success(true);
             }

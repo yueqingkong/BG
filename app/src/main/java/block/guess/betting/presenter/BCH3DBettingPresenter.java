@@ -1,20 +1,17 @@
 package block.guess.betting.presenter;
 
 import android.app.Activity;
-
-import com.alibaba.android.arouter.launcher.ARouter;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import block.guess.betting.bean.BCH3dBuyBean;
 import block.guess.betting.bean.Betting3DBean;
+import block.guess.betting.bean.PayResultBean;
 import block.guess.betting.contract.BCH3DBettingContract;
 import block.guess.betting.request.BCH3DBuyRequest;
 import block.guess.main.bean.HomeBean;
-import block.guess.utils.log.LogUtil;
 import block.guess.utils.okhttp.Callback.BaseCallBack;
 import block.guess.utils.okhttp.OKHttpUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BCH3DBettingPresenter implements BCH3DBettingContract.Presenter {
 
@@ -46,13 +43,13 @@ public class BCH3DBettingPresenter implements BCH3DBettingContract.Presenter {
         buyBean.setAward_numbers(strings);
 
         BCH3DBuyRequest request = new BCH3DBuyRequest(buyBean);
-        OKHttpUtil.client().request(request, new BaseCallBack<String>(activity) {
+        OKHttpUtil.client().request(request, new BaseCallBack<PayResultBean>(activity) {
             @Override
-            public void success(String o) {
-                LogUtil.d(TAG, o);
+            public void success(PayResultBean resultBean) {
+                long contractId = resultBean.getContract_id();
+                String identifier = resultBean.getIdentifier();
 
-                long contractId = bean.getContract().getId();
-                baseView.paySuccess(contractId);
+                baseView.paySuccess(contractId, identifier);
             }
 
             @Override

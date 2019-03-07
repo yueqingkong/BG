@@ -36,8 +36,8 @@ public class PaySuccessActivity extends BaseActivity implements PaySuccessContra
 
     @Autowired
     long contractId;
-
-    private ContractDetailBean contractDetailBean;
+    @Autowired
+    String identifier;
 
     private static String TAG = "_BCHPaySuccessActivity";
     private PaySuccessActivity activity;
@@ -63,24 +63,7 @@ public class PaySuccessActivity extends BaseActivity implements PaySuccessContra
         toolbarBase.setTitleTxt(getString(R.string.pay_result));
         toolbarBase.setToolbarCallback(this);
 
-        presenter.contractDetailRequest(contractId, new BaseCallBack<ContractDetailBean>(activity) {
-
-            @Override
-            public void success(ContractDetailBean bean) {
-                contractDetailBean = bean;
-                txtStatus(true);
-            }
-
-            @Override
-            public void serverError(int code, String err) {
-                txtStatus(false);
-            }
-
-            @Override
-            public void netError() {
-                txtStatus(false);
-            }
-        });
+        txtStatus(true);
     }
 
     private void txtStatus(boolean b) {
@@ -101,23 +84,17 @@ public class PaySuccessActivity extends BaseActivity implements PaySuccessContra
     }
 
     private void orderDetail() {
-        if (contractDetailBean != null) {
-            String identifier = contractDetailBean.getPurchase_history().get(0).getIdentifier();
-            ARouter.getInstance().build("/betting/bchdetail")
-                    .withLong("contractId", contractId)
-                    .withString("identifier", identifier)
-                    .navigation(activity);
-        }
+        ARouter.getInstance().build("/betting/bchdetail")
+                .withLong("contractId", contractId)
+                .withString("identifier", identifier)
+                .navigation(activity);
     }
 
     private void giftFriend() {
-        if (contractDetailBean != null) {
-            String identifier = contractDetailBean.getPurchase_history().get(0).getIdentifier();
-            ARouter.getInstance().build("/betting/bchgift")
-                    .withLong("contractid", contractId)
-                    .withString("identifier", identifier)
-                    .navigation(activity);
-        }
+        ARouter.getInstance().build("/betting/bchgift")
+                .withLong("contractid", contractId)
+                .withString("identifier", identifier)
+                .navigation(activity);
     }
 
     @Override

@@ -212,10 +212,10 @@ public class LuckyBettingActivity extends BaseActivity implements LuckyBettingCo
     }
 
     @Override
-    public void paySuccess() {
-        long contractid = homeBean.getContract().getId();
+    public void paySuccess(long contractid,String identifier) {
         ARouter.getInstance().build("/betting/bchpaysuccess")
                 .withLong("contractId", contractid)
+                .withString("identifier", identifier)
                 .navigation(activity);
     }
 

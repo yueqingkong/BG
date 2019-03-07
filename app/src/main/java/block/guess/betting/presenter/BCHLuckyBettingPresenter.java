@@ -3,6 +3,7 @@ package block.guess.betting.presenter;
 import android.app.Activity;
 
 import block.guess.betting.bean.BCH3dBuyBean;
+import block.guess.betting.bean.PayResultBean;
 import block.guess.betting.contract.LuckyBettingContract;
 import block.guess.betting.request.BCH3DBuyRequest;
 import block.guess.utils.log.LogUtil;
@@ -35,11 +36,13 @@ public class BCHLuckyBettingPresenter implements LuckyBettingContract.Presenter 
         buyBean.setTimes(times);
 
         BCH3DBuyRequest request = new BCH3DBuyRequest(buyBean);
-        OKHttpUtil.client().request(request, new BaseCallBack<String>(activity) {
+        OKHttpUtil.client().request(request, new BaseCallBack<PayResultBean>(activity) {
             @Override
-            public void success(String o) {
-                LogUtil.d(TAG, o);
-                baseView.paySuccess();
+            public void success(PayResultBean resultBean) {
+                long contractId = resultBean.getContract_id();
+                String identifier = resultBean.getIdentifier();
+
+                baseView.paySuccess(contractId,identifier);
             }
 
             @Override

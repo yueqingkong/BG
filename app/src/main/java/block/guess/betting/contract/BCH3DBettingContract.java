@@ -29,7 +29,7 @@ public interface BCH3DBettingContract {
 
         void plus();
 
-        void paySuccess(long contractid);
+        void paySuccess(long contractid,String identifier);
 
         void payFail();
     }

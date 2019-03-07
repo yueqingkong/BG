@@ -10,7 +10,7 @@ public interface LuckyBettingContract {
 
         void payClick();
 
-        void paySuccess();
+        void paySuccess(long contractid,String identifier);
 
         void payFail();
     }
