@@ -15,7 +15,7 @@ public class BCHContractDetailRequest extends BaseRequest {
 
     @Override
     public String requstUri() {
-        return ApiUtil.V1_CONTRACTS + contractid;
+        return ApiUtil.V1_LOTTERIES + contractid;
     }
 
     @Override

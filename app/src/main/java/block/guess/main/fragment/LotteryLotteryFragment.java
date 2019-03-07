@@ -13,8 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import block.guess.R;
 import block.guess.base.BaseFragment;
-import block.guess.main.adapter.LotteryLotteryAdapter;
-import block.guess.main.bean.LotteryPageBean;
+import block.guess.main.adapter.LotteryAdapter;
+import block.guess.main.adapter.LotteryLottoAdapter;
+import block.guess.main.bean.LotteryBean;
 import block.guess.main.contract.LotteryLotteryContract;
 import block.guess.main.presenter.LotteryLotteryPresenter;
 import block.guess.main.request.LotteryPageRequest;
@@ -30,7 +31,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 
 import java.util.List;
 
-public class LotteryLotteryFragment extends BaseFragment implements LotteryLotteryContract.BView, LotteryLotteryAdapter.LotteryCallback {
+public class LotteryLotteryFragment extends BaseFragment implements LotteryLotteryContract.BView, LotteryAdapter.LotteryCallback {
 
     @BindView(R.id.txt_bch_3d)
     TextView txtBch3d;
@@ -60,7 +61,9 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
     private int index = 1;
 
     private boolean isRequest = false;
-    private LotteryLotteryAdapter lotteryLotteryAdapter;
+    private LotteryAdapter lotteryAdapter;
+    private LotteryLottoAdapter lotteryLottoAdapter;
+
     private LotteryLotteryContract.Presenter presenter;
 
     @Nullable
@@ -78,8 +81,9 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
         activity = getActivity();
 
         recyclerLottery.setLayoutManager(new LinearLayoutManager(getContext()));
-        lotteryLotteryAdapter = new LotteryLotteryAdapter(this);
-        recyclerLottery.setAdapter(lotteryLotteryAdapter);
+        lotteryAdapter = new LotteryAdapter(this);
+        lotteryLottoAdapter = new LotteryLottoAdapter(this);
+        recyclerLottery.setAdapter(lotteryAdapter);
 
         int dp12 = DensityUtils.dip2px(12);
         BaseItemDecoration itemDecoration = new BaseItemDecoration(dp12, dp12, dp12, 0);
@@ -92,7 +96,7 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange()) {
-                    lotteryRequest();
+                    lotteryRequest(category);
                 }
             }
 
@@ -104,46 +108,70 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
     }
 
     @Override
-    public void lotteryRequest() {
+    public void lotteryRequest(int category) {
         if (isRequest) {
             return;
         }
 
         isRequest = true;
-        lotteryLotteryAdapter.setLoadingStatus();
+        if (category == 3) {
+            lotteryLottoAdapter.setLoadingStatus();
+        } else {
+            lotteryAdapter.setLoadingStatus();
+        }
+
         LotteryPageRequest pageRequest = new LotteryPageRequest(category, index);
-        OKHttpUtil.client().request(pageRequest, new BaseCallBack<List<LotteryPageBean>>(activity) {
+        OKHttpUtil.client().request(pageRequest, new BaseCallBack<List<LotteryBean>>(activity) {
 
             @Override
-            public void success(List<LotteryPageBean> lotteryPageBeans) {
-                LogUtil.d(TAG, "Size: " + lotteryPageBeans.size());
-
+            public void success(List<LotteryBean> lotteryBeans) {
                 isRequest = false;
-                if (lotteryPageBeans.size() > 0) {
-                    imgEmpty.setVisibility(View.GONE);
-                    if (index == 1) {
-                        lotteryLotteryAdapter.setLotteries(lotteryPageBeans);
-                    } else {
-                        lotteryLotteryAdapter.appendLotteries(lotteryPageBeans);
-                    }
 
-                    index++;
+                if (category == 3) {
+                    recyclerLottery.setAdapter(lotteryLottoAdapter);
+                    if (lotteryBeans.size() > 0) {
+                        imgEmpty.setVisibility(View.GONE);
+                        if (index == 1) {
+                            lotteryLottoAdapter.setLotteries(lotteryBeans);
+                        } else {
+                            lotteryLottoAdapter.appendLotteries(lotteryBeans);
+                        }
+
+                        index++;
+                    } else {
+                        imgEmpty.setVisibility(lotteryLottoAdapter.getItemCount() == 1 ? View.VISIBLE : View.GONE);
+                        lotteryLottoAdapter.setEndStatus();
+                    }
                 } else {
-                    imgEmpty.setVisibility(lotteryLotteryAdapter.getItemCount() == 1 ? View.VISIBLE : View.GONE);
-                    lotteryLotteryAdapter.setEndStatus();
+                    recyclerLottery.setAdapter(lotteryAdapter);
+                    if (lotteryBeans.size() > 0) {
+                        imgEmpty.setVisibility(View.GONE);
+                        if (index == 1) {
+                            lotteryAdapter.setLotteries(lotteryBeans);
+                        } else {
+                            lotteryAdapter.appendLotteries(lotteryBeans);
+                        }
+
+                        index++;
+                    } else {
+                        imgEmpty.setVisibility(lotteryAdapter.getItemCount() == 1 ? View.VISIBLE : View.GONE);
+                        lotteryAdapter.setEndStatus();
+                    }
                 }
             }
 
             @Override
             public void serverError(int code, String err) {
                 isRequest = false;
-                lotteryLotteryAdapter.setEndStatus();
+                lotteryAdapter.setEndStatus();
+                lotteryLottoAdapter.setEndStatus();
             }
 
             @Override
             public void netError() {
                 isRequest = false;
-                lotteryLotteryAdapter.setEndStatus();
+                lotteryAdapter.setEndStatus();
+                lotteryLottoAdapter.setEndStatus();
             }
         });
     }
@@ -176,8 +204,9 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
         category = 1;
         index = 1;
 
-        lotteryLotteryAdapter.clearBeans();
-        lotteryRequest();
+        lotteryAdapter.clearBeans();
+        lotteryLottoAdapter.clearBeans();
+        lotteryRequest(category);
     }
 
     @Override
@@ -192,8 +221,9 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
         category = 2;
         index = 1;
 
-        lotteryLotteryAdapter.clearBeans();
-        lotteryRequest();
+        lotteryAdapter.clearBeans();
+        lotteryLottoAdapter.clearBeans();
+        lotteryRequest(category);
     }
 
     @Override
@@ -208,8 +238,9 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
         category = 3;
         index = 1;
 
-        lotteryLotteryAdapter.clearBeans();
-        lotteryRequest();
+        lotteryAdapter.clearBeans();
+        lotteryLottoAdapter.clearBeans();
+        lotteryRequest(category);
     }
 
     @Override
@@ -218,7 +249,7 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
     }
 
     @Override
-    public void itemClick(LotteryPageBean bean) {
+    public void itemClick(LotteryBean bean) {
         int contractid = bean.getId();
         ARouter.getInstance().build("/betting/bchlotterydetail")
                 .withLong("contractId", contractid)

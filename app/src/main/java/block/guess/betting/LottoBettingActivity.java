@@ -339,7 +339,7 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
     @Override
     public void plus() {
         Integer integer = Integer.parseInt(editAmount.getText().toString());
-        if (integer == 5) {
+        if (integer == 10) {
             SnackBarUtil.error(activity, getString(R.string.times_at_most_, integer));
         }else {
             integer++;

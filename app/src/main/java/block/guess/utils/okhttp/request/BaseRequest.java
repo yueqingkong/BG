@@ -30,7 +30,6 @@ public abstract class BaseRequest<T> {
         this.object = obj;
         stringMap = new HashMap<>();
 
-        // TODO: 2018/9/24 部分不需要传 
         UserInfoBean infoBean = AppInfo.getAppInfo().getInfoUser();
         if (infoBean != null) {
             String token = infoBean.getToken();

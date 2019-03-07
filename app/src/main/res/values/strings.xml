@@ -15,6 +15,7 @@
     <string name="sign_in_continue">Sign in continue to BlockGuess!</string>
     <string name="forget_password">Forgot Password?</string>
     <string name="sign_in">Sign in</string>
+    <string name="account_password_empty">Account or Password is empty!</string>
     <string name="donot_have_account">Don‘t have an account？</string>
     <string name="sign_up">Sign up</string>
     <string name="create_u_account">Create your account</string>

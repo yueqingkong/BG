@@ -17,6 +17,7 @@ import block.guess.R;
 import block.guess.base.BaseFragment;
 import block.guess.betting.adapter.MyBettingAdapter;
 import block.guess.betting.bean.ContractDetailBean;
+import block.guess.betting.bean.LotteryDetailBean;
 import block.guess.betting.contract.MyBettingContract;
 import block.guess.betting.contract.WinningPlayerContract;
 import block.guess.betting.presenter.MyBettingPresenter;
@@ -48,7 +49,7 @@ public class MyBettingFragment extends BaseFragment implements MyBettingContract
     private MyBettingAdapter myBettingAdapter;
 
     private WinningPlayerContract.Presenter presenter;
-    private List<ContractDetailBean.PurchaseHistoryBean> purchaseHistoryBeanList;
+    private List<LotteryDetailBean.PurchaseHistoryBean> purchaseHistoryBeanList;
 
     @Nullable
     @Override
@@ -86,7 +87,7 @@ public class MyBettingFragment extends BaseFragment implements MyBettingContract
         this.presenter = presenter;
     }
 
-    public void setPurchaseHistoryBeanList(List<ContractDetailBean.PurchaseHistoryBean> list) {
+    public void setPurchaseHistoryBeanList(List<LotteryDetailBean.PurchaseHistoryBean> list) {
         this.purchaseHistoryBeanList = list;
     }
 }

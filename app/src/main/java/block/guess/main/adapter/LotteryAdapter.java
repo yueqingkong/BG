@@ -1,45 +1,43 @@
 package block.guess.main.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import block.guess.R;
-import block.guess.main.bean.LotteryPageBean;
+import block.guess.main.bean.LotteryBean;
 import block.guess.utils.TimeUtil;
 import block.guess.widget.recyclerview.bean.LoadStatusEnum;
 
-public class LotteryLotteryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+import java.util.List;
+
+public class LotteryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
 
     private LoadStatusEnum statusEnum;
-    private List<LotteryPageBean> lotteryPageBeans;
+    private List<LotteryBean> lotteryBeans;
 
     private LotteryCallback lotteryCallback;
 
-    public LotteryLotteryAdapter(LotteryCallback callback) {
+    public LotteryAdapter(LotteryCallback callback) {
         statusEnum = LoadStatusEnum.STATUS_END;
         this.lotteryCallback = callback;
     }
 
-    public void setLotteries(List<LotteryPageBean> pageBeans) {
+    public void setLotteries(List<LotteryBean> pageBeans) {
         statusEnum = LoadStatusEnum.STATUS_END;
-        this.lotteryPageBeans = pageBeans;
+        this.lotteryBeans = pageBeans;
         notifyDataSetChanged();
     }
 
-    public void appendLotteries(List<LotteryPageBean> pageBeans) {
+    public void appendLotteries(List<LotteryBean> pageBeans) {
         statusEnum = LoadStatusEnum.STATUS_END;
-        this.lotteryPageBeans.addAll(pageBeans);
+        this.lotteryBeans.addAll(pageBeans);
         notifyDataSetChanged();
     }
 
@@ -48,9 +46,9 @@ public class LotteryLotteryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         notifyDataSetChanged();
     }
 
-    public void clearBeans(){
-        if (lotteryPageBeans != null) {
-            lotteryPageBeans.clear();
+    public void clearBeans() {
+        if (lotteryBeans != null) {
+            lotteryBeans.clear();
         }
         notifyDataSetChanged();
     }
@@ -62,7 +60,7 @@ public class LotteryLotteryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public int getItemViewType(int position) {
-        int viewtype = lotteryPageBeans == null || position < lotteryPageBeans.size() ? 0 : 1;
+        int viewtype = lotteryBeans == null || position == lotteryBeans.size() ? 0 : 1;
         return viewtype;
     }
 
@@ -72,11 +70,11 @@ public class LotteryLotteryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         context = parent.getContext();
         RecyclerView.ViewHolder viewHolder = null;
         if (viewType == 0) {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_lottery_lottery, parent, false);
-            viewHolder = new LotteryViewHolder(view);
-        } else {
             View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_footer, parent, false);
             viewHolder = new FooterViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_lottery_lottery, parent, false);
+            viewHolder = new LotteryViewHolder(view);
         }
         return viewHolder;
     }
@@ -91,22 +89,24 @@ public class LotteryLotteryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     protected void onBindLotteryViewHolder(@NonNull LotteryViewHolder holder, int position) {
-        final LotteryPageBean pageBean = lotteryPageBeans.get(position);
+        final LotteryBean pageBean = lotteryBeans.get(position);
 
         LotteryViewHolder lotteryViewHolder = (LotteryViewHolder) holder;
         int id = pageBean.getPeriod();
         lotteryViewHolder.numberTxt.setText(context.getResources().getString(R.string.nomber_, id));
 
-        String awardNumber = pageBean.getAward_number();
-        if (TextUtils.isEmpty(awardNumber)) {//为空的时候，还未开奖
-            awardNumber = "???";
+        if (pageBean.getLotteries_numbers() == null || pageBean.getLotteries_numbers().size() == 0) {//为空的时候，还未开奖
+            lotteryViewHolder.firstTxt.setText("?");
+            lotteryViewHolder.secondTxt.setText("?");
+            lotteryViewHolder.thirdTxt.setText("?");
+        } else {
+            LotteryBean.LotteriesNumbersBean numbersBean = pageBean.getLotteries_numbers().get(0);
+            lotteryViewHolder.firstTxt.setText(String.valueOf(numbersBean.getAward_number().charAt(0)));
+            lotteryViewHolder.secondTxt.setText(String.valueOf(numbersBean.getAward_number().charAt(1)));
+            lotteryViewHolder.thirdTxt.setText(String.valueOf(numbersBean.getAward_number().charAt(2)));
         }
 
-        lotteryViewHolder.firstTxt.setText(String.valueOf(awardNumber.charAt(0)));
-        lotteryViewHolder.secondTxt.setText(String.valueOf(awardNumber.charAt(1)));
-        lotteryViewHolder.thirdTxt.setText(String.valueOf(awardNumber.charAt(2)));
-
-        long endTime = pageBean.getEnd() * 1000;
+        long endTime = pageBean.getOpen_time() * 1000;
         lotteryViewHolder.timeTxt.setText(TimeUtil.timestampFormat(endTime, TimeUtil.FORMAT_MONTH_DAY_TIME));
         lotteryViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +128,7 @@ public class LotteryLotteryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public int getItemCount() {
-        int itemcount = lotteryPageBeans == null ? 0 : lotteryPageBeans.size() + 1;
+        int itemcount = lotteryBeans == null ? 0 : lotteryBeans.size() + 1;
         return itemcount;
     }
 
@@ -150,6 +150,32 @@ public class LotteryLotteryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
     }
 
+    static class LottoViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView numberTxt;
+        private TextView firstTxt;
+        private TextView secondTxt;
+        private TextView thirdTxt;
+        private TextView fourthTxt;
+        private TextView fifthTxt;
+        private TextView sixthTxt;
+        private TextView seventhTxt;
+        private TextView timeTxt;
+
+        public LottoViewHolder(View itemView) {
+            super(itemView);
+            numberTxt = itemView.findViewById(R.id.txt_no_);
+            firstTxt = itemView.findViewById(R.id.txt_ball_first);
+            secondTxt = itemView.findViewById(R.id.txt_ball_second);
+            thirdTxt = itemView.findViewById(R.id.txt_ball_third);
+            fourthTxt = itemView.findViewById(R.id.txt_ball_third);
+            fifthTxt = itemView.findViewById(R.id.txt_ball_third);
+            sixthTxt = itemView.findViewById(R.id.txt_ball_third);
+            seventhTxt = itemView.findViewById(R.id.txt_ball_third);
+            timeTxt = itemView.findViewById(R.id.txt_time);
+        }
+    }
+
     static class FooterViewHolder extends RecyclerView.ViewHolder {
 
         private ProgressBar progressBar;
@@ -163,6 +189,6 @@ public class LotteryLotteryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     public interface LotteryCallback {
-        void itemClick(LotteryPageBean bean);
+        void itemClick(LotteryBean bean);
     }
 }

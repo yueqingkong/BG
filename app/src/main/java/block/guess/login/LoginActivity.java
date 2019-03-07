@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import block.guess.widget.snackbar.SnackBarUtil;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -122,6 +123,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.BView {
     public void signIn() {
         String email = editAccount.getText().toString();
         String password = editPassword.getText().toString();
+
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            SnackBarUtil.error(activity, getString(R.string.account_password_empty));
+            return;
+        }
         presenter.signIn(email, password);
     }
 

@@ -13,8 +13,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import block.guess.R;
-import block.guess.main.adapter.LotteryLotteryAdapter;
-import block.guess.main.adapter.WalletAdapter;
 import block.guess.my.bean.WinningRecordBean;
 import block.guess.utils.StringsUtil;
 import block.guess.utils.TimeUtil;

@@ -17,6 +17,7 @@ import block.guess.R;
 import block.guess.base.BaseFragment;
 import block.guess.betting.adapter.WinningPlayerAdapter;
 import block.guess.betting.bean.ContractDetailBean;
+import block.guess.betting.bean.LotteryDetailBean;
 import block.guess.betting.contract.WinningPlayerContract;
 import block.guess.betting.presenter.WinningPlayerPresenter;
 import block.guess.utils.DensityUtils;
@@ -47,7 +48,7 @@ public class WinningPlayerFragment extends BaseFragment implements WinningPlayer
     private WinningPlayerContract.Presenter presenter;
     private WinningPlayerAdapter playerAdapter;
 
-    private List<ContractDetailBean.WinnerListBean> winingPlayerList;
+    private List<LotteryDetailBean.WinnerListBean> winingPlayerList;
 
     @Nullable
     @Override
@@ -86,7 +87,7 @@ public class WinningPlayerFragment extends BaseFragment implements WinningPlayer
         this.presenter = presenter;
     }
 
-    public void setWiningPlayerList(List<ContractDetailBean.WinnerListBean> list) {
+    public void setWiningPlayerList(List<LotteryDetailBean.WinnerListBean> list) {
         this.winingPlayerList = list;
     }
 }
