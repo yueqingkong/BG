@@ -221,21 +221,21 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
 
     @Override
     public void singleClick() {
-        if (bettingBeans.size() < 8) {
+        if (bettingBeans.size() < 5) {
             LottoBean lottoBean = new LottoBean();
             lottoBean.randomNumber();
             bettingBeans.add(lottoBean);
 
             updateBeans(bettingBeans);
         } else {
-            SnackBarUtil.error(activity, activity.getString(R.string.betting_count_max));
+            SnackBarUtil.error(activity, activity.getString(R.string.betting_count_, 5));
         }
     }
 
     @Override
     public void fourClick() {
-        if (bettingBeans.size() < 8) {
-            int remain = 8 - bettingBeans.size();
+        if (bettingBeans.size() < 5) {
+            int remain = 5 - bettingBeans.size();
             if (remain > 4) {
                 remain = 4;
             }
@@ -248,19 +248,19 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
 
             updateBeans(bettingBeans);
         } else {
-            SnackBarUtil.error(activity, activity.getString(R.string.betting_count_max));
+            SnackBarUtil.error(activity, activity.getString(R.string.betting_count_, 5));
         }
     }
 
     @Override
     public void handsClick() {
-        if (bettingBeans.size() < 8) {
+        if (bettingBeans.size() < 5) {
             ARouter.getInstance().build("/betting/lottoselect")
                     .withSerializable("homeBean", homeBean)
                     .withSerializable("bettingBeans", bettingBeans)
                     .navigation(activity);
         } else {
-            SnackBarUtil.error(activity, activity.getString(R.string.betting_count_max));
+            SnackBarUtil.error(activity, activity.getString(R.string.betting_count_, 5));
         }
     }
 
@@ -326,7 +326,7 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
     public void subtract() {
         String string = editAmount.getText().toString();
         if (TextUtils.isEmpty(string) || Integer.parseInt(string) == 1) {
-            SnackBarUtil.error(activity, getString(R.string.betting_at_least_one));
+            SnackBarUtil.error(activity, getString(R.string.times_at_least_,1));
         } else {
             Integer integer = Integer.parseInt(editAmount.getText().toString());
             integer--;
@@ -339,10 +339,14 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
     @Override
     public void plus() {
         Integer integer = Integer.parseInt(editAmount.getText().toString());
-        integer++;
-        editAmount.setText(String.valueOf(integer));
+        if (integer == 5) {
+            SnackBarUtil.error(activity, getString(R.string.times_at_most_, integer));
+        }else {
+            integer++;
+            editAmount.setText(String.valueOf(integer));
 
-        timesNotes();
+            timesNotes();
+        }
     }
 
     @Override

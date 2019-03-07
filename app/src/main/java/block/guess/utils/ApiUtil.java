@@ -64,5 +64,7 @@ public class ApiUtil {
     public static final String V1_USERS_INFO = "/v1/users/info";
     /** 开奖历史 */
     public static final String V1_LOTTERIES = "/v1/lotteries";
+    /** 购买记录详情 */
+    public static final String V1_PURCHASE = "/v1/users/purchase/";
 }
 

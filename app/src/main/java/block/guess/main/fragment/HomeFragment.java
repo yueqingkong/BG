@@ -436,6 +436,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.BView, Ho
     }
 
     @Override
+    public void free3DReceive(long contractid, String identifier) {
+        ARouter.getInstance().build("/betting/bchpaysuccess")
+                .withLong("contractId", contractid)
+                .withString("identifier", identifier)
+                .navigation(activity);
+    }
+
+    @Override
     public void presenter(HomeContract.Presenter presenter) {
         this.presenter = presenter;
     }

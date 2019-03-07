@@ -91,12 +91,16 @@
     <string name="clear_all">Clear All</string>Maximum amount
     <string name="total_select_times">Bet %d x %d Time</string>
     <string name="betting_count_max">8 shots at most.</string>
+    <string name="betting_count_">%d shots at most.</string>
     <string name="pay_bch">%sBCH</string>
     <string name="max_will">，Win at most</string>
     <string name="buy">Buy</string>
     <string name="times">Times</string>
     <string name="pay">Pay</string>
     <string name="betting_at_least_one">At least one note</string>
+    <string name="times_at_least_">At least  %d times</string>
+    <string name="times_at_most_">At most  %d times</string>
+    <string name="betting_at_most_">At most %d</string>
     <string name="please_agree_rule">Please check the consent rule</string>
     <string name="betting_bchlucky">Betting BCHLucky</string>
     <string name="betting_bchlucky_stage">BCHLucyk NO.%d</string>

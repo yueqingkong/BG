@@ -1,6 +1,7 @@
 package block.guess.betting;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -81,6 +82,15 @@ public class PaySuccessActivity extends BaseActivity implements PaySuccessContra
                 giftFriend();
                 break;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            leftClick();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void orderDetail() {

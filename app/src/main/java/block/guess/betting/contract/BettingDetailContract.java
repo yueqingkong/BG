@@ -2,6 +2,7 @@ package block.guess.betting.contract;
 
 import block.guess.base.contract.BasePresenter;
 import block.guess.base.contract.BaseView;
+import block.guess.betting.bean.BettingDetailBean;
 import block.guess.wallet.bean.CategoryEnum;
 import block.guess.wallet.bean.StatusEnum;
 
@@ -11,25 +12,25 @@ public interface BettingDetailContract {
 
         void contractDetailRequest();
 
-        void contractDetail();
+        void contractDetail(BettingDetailBean bettingDetailBean);
 
-        void winAmount(StatusEnum status);
+        void winAmount(BettingDetailBean bettingDetailBean);
 
-        void number();
+        void number(BettingDetailBean bettingDetailBean);
 
-        void times(CategoryEnum category);
+        void times(BettingDetailBean bettingDetailBean);
 
-        void bet(CategoryEnum category);
+        void bet(BettingDetailBean bettingDetailBean);
 
-        void betContent(CategoryEnum category);
+        void betContent(BettingDetailBean bettingDetailBean);
 
-        void amount(CategoryEnum category);
+        void amount(BettingDetailBean bettingDetailBean);
 
-        void dateTime();
+        void dateTime(BettingDetailBean bettingDetailBean);
 
-        void txid();
+        void txid(BettingDetailBean bettingDetailBean);
 
-        void winningNumber(StatusEnum status);
+        void winningNumber(BettingDetailBean bettingDetailBean);
     }
 
     interface Presenter extends BasePresenter {

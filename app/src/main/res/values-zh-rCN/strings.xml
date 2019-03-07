@@ -91,12 +91,17 @@
     <string name="clear_all">清空所有</string>
     <string name="total_select_times">共%d注 x %d倍</string>
     <string name="betting_count_max">最多投8注</string>
+    <string name="betting_count_">最多投%d注</string>
+
     <string name="pay_bch">%sBCH</string>
     <string name="max_will">，最高可赢取</string>
     <string name="buy">买</string>
     <string name="times">倍</string>
     <string name="pay">付款</string>
     <string name="betting_at_least_one">至少投一注</string>
+    <string name="times_at_least_">至少%d倍</string>
+    <string name="times_at_most_">最多%d倍</string>
+    <string name="betting_at_most_">最多%d注</string>
     <string name="please_agree_rule">请勾选同意规则</string>
     <string name="betting_bchlucky">投注 BCHLucky</string>
     <string name="betting_bchlucky_stage">BCHLucyk 第 %d 期</string>
