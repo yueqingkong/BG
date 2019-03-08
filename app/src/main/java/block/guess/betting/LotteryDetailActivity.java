@@ -5,12 +5,12 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import block.guess.betting.bean.LotteryDetailBean;
+import block.guess.betting.bean.RandomBean;
 import block.guess.utils.share.AppInfo;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -23,15 +23,13 @@ import androidx.fragment.app.FragmentTransaction;
 import block.guess.R;
 import block.guess.base.BaseActivity;
 import block.guess.base.BaseFragment;
-import block.guess.betting.bean.ContractDetailBean;
 import block.guess.betting.contract.LotteryDetailContract;
 import block.guess.betting.fragment.MyBettingFragment;
 import block.guess.betting.fragment.WinningPlayerFragment;
 import block.guess.betting.presenter.LotteryDetailPresenter;
-import block.guess.betting.request.BCHContractDetailRequest;
+import block.guess.betting.request.LotteryDetailRequest;
 import block.guess.utils.SystemUtil;
 import block.guess.utils.TimeUtil;
-import block.guess.utils.log.LogUtil;
 import block.guess.utils.okhttp.Callback.BaseCallBack;
 import block.guess.utils.okhttp.OKHttpUtil;
 import block.guess.wallet.bean.CategoryEnum;
@@ -41,6 +39,7 @@ import block.guess.widget.webview.util.BlockChainUrlUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.google.gson.Gson;
 
 @Route(path = "/betting/bchlotterydetail")
 public class LotteryDetailActivity extends BaseActivity implements LotteryDetailContract.BView, ToolbarCallback {
@@ -109,17 +108,16 @@ public class LotteryDetailActivity extends BaseActivity implements LotteryDetail
         txtWinningPlayer.setTextColor(getResources().getColor(R.color.color_white));
         txtMyBetting.setSelected(false);
         txtMyBetting.setTextColor(getResources().getColor(R.color.color_645aff));
-
-        winningPlayerClick();
     }
 
     @Override
     public void lotteryDetailRequest() {
-        BCHContractDetailRequest request = new BCHContractDetailRequest("", contractId);
+        LotteryDetailRequest request = new LotteryDetailRequest("", contractId);
         OKHttpUtil.client().request(request, new BaseCallBack<LotteryDetailBean>(activity) {
 
             @Override
             public void success(LotteryDetailBean bean) {
+                lotteryDetailBean = bean;
                 lotteryDetail(bean);
             }
 
@@ -171,7 +169,7 @@ public class LotteryDetailActivity extends BaseActivity implements LotteryDetail
         endingBetting(bean);
         contractAddress(bean);
 
-
+        winningPlayerClick();
     }
 
     @Override
@@ -263,7 +261,8 @@ public class LotteryDetailActivity extends BaseActivity implements LotteryDetail
 
         leftTxt.setText(getString(R.string.end_time_betting));
 
-        String dateTime = bean.getRandom().getCompletionTime();
+        RandomBean randomBean = new Gson().fromJson(bean.getRandom(), RandomBean.class);
+        String dateTime = randomBean.getCompletionTime();
         rightTxt.setText(dateTime);
     }
 

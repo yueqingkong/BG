@@ -159,10 +159,10 @@ public class LotteryLottoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             firstTxt = itemView.findViewById(R.id.txt_ball_first);
             secondTxt = itemView.findViewById(R.id.txt_ball_second);
             thirdTxt = itemView.findViewById(R.id.txt_ball_third);
-            fourthTxt = itemView.findViewById(R.id.txt_ball_third);
-            fifthTxt = itemView.findViewById(R.id.txt_ball_third);
-            sixthTxt = itemView.findViewById(R.id.txt_ball_third);
-            seventhTxt = itemView.findViewById(R.id.txt_ball_third);
+            fourthTxt = itemView.findViewById(R.id.txt_ball_fourth);
+            fifthTxt = itemView.findViewById(R.id.txt_ball_fifth);
+            sixthTxt = itemView.findViewById(R.id.txt_ball_sixth);
+            seventhTxt = itemView.findViewById(R.id.txt_ball_seventh);
             timeTxt = itemView.findViewById(R.id.txt_time);
         }
     }
@@ -177,9 +177,5 @@ public class LotteryLottoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             progressBar = itemView.findViewById(R.id.pb_loading);
             statusTxt = itemView.findViewById(R.id.txt_status);
         }
-    }
-
-    public interface LotteryCallback {
-        void itemClick(LotteryBean bean);
     }
 }
