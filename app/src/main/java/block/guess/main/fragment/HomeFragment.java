@@ -512,6 +512,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.BView, Ho
 
                         ARouter.getInstance().build("/betting/bchdetail")
                                 .withLong("contractId", contractid)
+                                .withInt("status", 2)
                                 .navigation(activity);
                     }
                 });

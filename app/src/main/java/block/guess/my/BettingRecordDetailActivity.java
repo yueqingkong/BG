@@ -157,7 +157,7 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(activity.getString(R.string.no_));
-        rightTxt.setText("NO." + recordDetailBean.getContract().getId());
+        rightTxt.setText("NO." + recordDetailBean.getContract_id());
     }
 
     @Override
@@ -172,7 +172,7 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
             view.setVisibility(View.GONE);
         }
         leftTxt.setText(activity.getString(R.string.times));
-        rightTxt.setText("" + recordDetailBean.getContract().getTimes());
+        rightTxt.setText("" + recordDetailBean.getTimes());
     }
 
     @Override
@@ -231,7 +231,7 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(activity.getString(R.string.datetime));
-        rightTxt.setText(TimeUtil.timestampFormat(((long) recordDetailBean.getContract().getStart()) * 1000, TimeUtil.FORMAT_TIME));
+        rightTxt.setText(TimeUtil.timestampFormat(recordDetailBean.getCreated_at() * 1000, TimeUtil.FORMAT_TIME));
     }
 
     @Override
@@ -243,12 +243,12 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
         leftTxt.setText(activity.getString(R.string.txid));
 
         rightTxt.setTextColor(activity.getResources().getColor(R.color.color_132fcb));
-        String ellipsis = StringsUtil.ellipsisStartEnd(recordDetailBean.getContract().getCreate_tx_hash());
+        String ellipsis = StringsUtil.ellipsisStartEnd(recordDetailBean.getTx_hash());
         rightTxt.setText(ellipsis);
         rightTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String hash = recordDetailBean.getContract().getCreate_tx_hash();
+                String hash = recordDetailBean.getTx_hash();
                 String language = SystemUtil.language(activity);
 
                 String url = BlockChainUrlUtil.txUrl(hash, language);
@@ -266,7 +266,7 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(activity.getString(R.string.wining_number));
-        StatusEnum statusEnum = StatusEnum.parse(recordDetailBean.getContract().getStatus());
+        StatusEnum statusEnum = StatusEnum.parse(recordDetailBean.getStatus());
         if (statusEnum == StatusEnum.WIN) {
             viewBottom.setVisibility(View.VISIBLE);
             view.setVisibility(View.VISIBLE);

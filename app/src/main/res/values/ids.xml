@@ -272,6 +272,7 @@
 
     <!-- linearlayout -->
     <item name="linearlayout_top" type="id" />
+    <item name="linearlayout_number" type="id" />
 
     <!-- viewpager -->
     <item name="viewpager_main" type="id" />

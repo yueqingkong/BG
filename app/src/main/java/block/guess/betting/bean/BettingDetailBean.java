@@ -6,19 +6,20 @@ import java.util.List;
 public class BettingDetailBean implements Serializable {
 
     /**
-     * id : 322
-     * identifier : faba17e92e2f5b47e4a2bba8c969258b2425a8da
-     * user_id : 21
-     * contract_id : 1178
-     * times : 1
-     * unit : 50000
-     * total_amount : 50000
-     * tx_hash : 1a1c0f89e3dfeb35aca668702cbc9f109e842188260609b30a51adc95bae5ffd
-     * status : 1
-     * category : 1
-     * created_at : 1551933128
-     * purchase_numbers : [{"id":2524,"contract_id":1178,"user_id":21,"purchase_identifier":"faba17e92e2f5b47e4a2bba8c969258b2425a8da","identifier":"cc2ed09eb212f419f2b8ba0edf0be584321855c8","order_no":1,"award_number":"262","category":1,"status":1}]
-     * period : 1126
+     * id : 104
+     * identifier : b0624c00eaba7090a717774fe0f5f8da6104d2fb
+     * user_id : 2
+     * contract_id : 51
+     * times : 10
+     * unit : 100000
+     * total_amount : 1000000
+     * tx_hash : 6deed536d5e715b575d853e47cfff71bbbc1c5b29eb177398b0687813557c03d
+     * status : 3
+     * category : 2
+     * created_at : 1529410584
+     * send_to_friend : 1
+     * purchase_numbers : [{"id":1910,"contract_id":51,"user_id":2,"purchase_identifier":"b0624c00eaba7090a717774fe0f5f8da6104d2fb","order_no":1,"award_number":"785","category":1},{"id":1911,"contract_id":51,"user_id":2,"purchase_identifier":"b0624c00eaba7090a717774fe0f5f8da6104d2fb","order_no":2,"award_number":"940","category":1},{"id":1912,"contract_id":51,"user_id":2,"purchase_identifier":"b0624c00eaba7090a717774fe0f5f8da6104d2fb","order_no":3,"award_number":"601","category":1},{"id":1913,"contract_id":51,"user_id":2,"purchase_identifier":"b0624c00eaba7090a717774fe0f5f8da6104d2fb","order_no":4,"award_number":"718","category":1},{"id":1914,"contract_id":51,"user_id":2,"purchase_identifier":"b0624c00eaba7090a717774fe0f5f8da6104d2fb","order_no":5,"award_number":"268","category":1},{"id":1915,"contract_id":51,"user_id":2,"purchase_identifier":"b0624c00eaba7090a717774fe0f5f8da6104d2fb","order_no":6,"award_number":"554","category":1},{"id":1916,"contract_id":51,"user_id":2,"purchase_identifier":"b0624c00eaba7090a717774fe0f5f8da6104d2fb","order_no":7,"award_number":"388","category":1},{"id":1917,"contract_id":51,"user_id":2,"purchase_identifier":"b0624c00eaba7090a717774fe0f5f8da6104d2fb","order_no":8,"award_number":"910","category":1},{"id":1918,"contract_id":51,"user_id":2,"purchase_identifier":"b0624c00eaba7090a717774fe0f5f8da6104d2fb","order_no":9,"award_number":"865","category":1},{"id":1919,"contract_id":51,"user_id":2,"purchase_identifier":"b0624c00eaba7090a717774fe0f5f8da6104d2fb","order_no":10,"award_number":"408","category":1}]
+     * period : 2
      */
 
     private int id;
@@ -27,11 +28,12 @@ public class BettingDetailBean implements Serializable {
     private int contract_id;
     private int times;
     private int unit;
-    private long total_amount;
+    private int total_amount;
     private String tx_hash;
     private int status;
     private int category;
     private int created_at;
+    private int send_to_friend;
     private int period;
     private List<PurchaseNumbersBean> purchase_numbers;
 
@@ -83,11 +85,11 @@ public class BettingDetailBean implements Serializable {
         this.unit = unit;
     }
 
-    public long getTotal_amount() {
+    public int getTotal_amount() {
         return total_amount;
     }
 
-    public void setTotal_amount(long total_amount) {
+    public void setTotal_amount(int total_amount) {
         this.total_amount = total_amount;
     }
 
@@ -123,6 +125,14 @@ public class BettingDetailBean implements Serializable {
         this.created_at = created_at;
     }
 
+    public int getSend_to_friend() {
+        return send_to_friend;
+    }
+
+    public void setSend_to_friend(int send_to_friend) {
+        this.send_to_friend = send_to_friend;
+    }
+
     public int getPeriod() {
         return period;
     }
@@ -141,26 +151,22 @@ public class BettingDetailBean implements Serializable {
 
     public static class PurchaseNumbersBean {
         /**
-         * id : 2524
-         * contract_id : 1178
-         * user_id : 21
-         * purchase_identifier : faba17e92e2f5b47e4a2bba8c969258b2425a8da
-         * identifier : cc2ed09eb212f419f2b8ba0edf0be584321855c8
+         * id : 1910
+         * contract_id : 51
+         * user_id : 2
+         * purchase_identifier : b0624c00eaba7090a717774fe0f5f8da6104d2fb
          * order_no : 1
-         * award_number : 262
+         * award_number : 785
          * category : 1
-         * status : 1
          */
 
         private int id;
         private int contract_id;
         private int user_id;
         private String purchase_identifier;
-        private String identifier;
         private int order_no;
         private String award_number;
         private int category;
-        private int status;
 
         public int getId() {
             return id;
@@ -194,14 +200,6 @@ public class BettingDetailBean implements Serializable {
             this.purchase_identifier = purchase_identifier;
         }
 
-        public String getIdentifier() {
-            return identifier;
-        }
-
-        public void setIdentifier(String identifier) {
-            this.identifier = identifier;
-        }
-
         public int getOrder_no() {
             return order_no;
         }
@@ -224,14 +222,6 @@ public class BettingDetailBean implements Serializable {
 
         public void setCategory(int category) {
             this.category = category;
-        }
-
-        public int getStatus() {
-            return status;
-        }
-
-        public void setStatus(int status) {
-            this.status = status;
         }
     }
 }

@@ -6,16 +6,24 @@ import block.guess.utils.okhttp.request.BaseRequest;
 
 public class BettingDetailRequest extends BaseRequest {
 
-    private String identifier;
+    private long contactid;
+    private int status;
 
-    public BettingDetailRequest(String s) {
+    public BettingDetailRequest(Long s, int status) {
         super(s);
-        this.identifier = s;
+        this.contactid = s;
+        this.status = status;
     }
 
     @Override
     public String requstUri() {
-        return ApiUtil.V1_PURCHASE + identifier;
+        String uri = "";
+        if (status == 0) {
+            uri = ApiUtil.V1_PURCHASE + "?contract_id=" + contactid;
+        } else {
+            uri = ApiUtil.V1_PURCHASE + "?contract_id=" + contactid + "&status=" + status;
+        }
+        return uri;
     }
 
     @Override

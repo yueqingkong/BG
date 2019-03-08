@@ -65,6 +65,6 @@ public class ApiUtil {
     /** 开奖历史 */
     public static final String V1_LOTTERIES = "/v1/lotteries";
     /** 购买记录详情 */
-    public static final String V1_PURCHASE = "/v1/users/purchase/";
+    public static final String V1_PURCHASE = "/v1/users/purchase";
 }
 

@@ -1,28 +1,18 @@
 package block.guess.betting;
 
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
-import block.guess.betting.bean.LotteryDetailBean;
-import block.guess.betting.bean.RandomBean;
-import block.guess.utils.share.AppInfo;
-import com.alibaba.android.arouter.facade.annotation.Autowired;
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
-
-import java.net.URLEncoder;
-
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import block.guess.R;
 import block.guess.base.BaseActivity;
 import block.guess.base.BaseFragment;
+import block.guess.betting.bean.LotteryDetailBean;
+import block.guess.betting.bean.RandomBean;
 import block.guess.betting.contract.LotteryDetailContract;
 import block.guess.betting.fragment.MyBettingFragment;
 import block.guess.betting.fragment.WinningPlayerFragment;
@@ -32,14 +22,24 @@ import block.guess.utils.SystemUtil;
 import block.guess.utils.TimeUtil;
 import block.guess.utils.okhttp.Callback.BaseCallBack;
 import block.guess.utils.okhttp.OKHttpUtil;
+import block.guess.utils.share.AppInfo;
 import block.guess.wallet.bean.CategoryEnum;
+import block.guess.widget.horizontalball.HorizontalNumberBallView;
+import block.guess.widget.horizontalball.NumberBallBean;
 import block.guess.widget.toolbar.BaseToolBar;
 import block.guess.widget.toolbar.ToolbarCallback;
 import block.guess.widget.webview.util.BlockChainUrlUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.alibaba.android.arouter.facade.annotation.Autowired;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.gson.Gson;
+
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 @Route(path = "/betting/bchlotterydetail")
 public class LotteryDetailActivity extends BaseActivity implements LotteryDetailContract.BView, ToolbarCallback {
@@ -52,12 +52,6 @@ public class LotteryDetailActivity extends BaseActivity implements LotteryDetail
     TextView txtNumber;
     @BindView(R.id.txt_datetime)
     TextView txtDatetime;
-    @BindView(R.id.txt_ball_first)
-    TextView txtBallFirst;
-    @BindView(R.id.txt_ball_second)
-    TextView txtBallSecond;
-    @BindView(R.id.txt_ball_third)
-    TextView txtBallThird;
     @BindView(R.id.constraintlayout_detail)
     ConstraintLayout constraintlayoutDetail;
     @BindView(R.id.view_diver_top)
@@ -70,6 +64,8 @@ public class LotteryDetailActivity extends BaseActivity implements LotteryDetail
     TextView txtMyBetting;
     @BindView(R.id.framelayout_lottery)
     FrameLayout framelayoutLottery;
+    @BindView(R.id.linearlayout_number)
+    HorizontalNumberBallView linearlayoutNumber;
 
     @Autowired
     long contractId;
@@ -112,7 +108,7 @@ public class LotteryDetailActivity extends BaseActivity implements LotteryDetail
 
     @Override
     public void lotteryDetailRequest() {
-        LotteryDetailRequest request = new LotteryDetailRequest("", contractId);
+        LotteryDetailRequest request = new LotteryDetailRequest(contractId);
         OKHttpUtil.client().request(request, new BaseCallBack<LotteryDetailBean>(activity) {
 
             @Override
@@ -144,24 +140,53 @@ public class LotteryDetailActivity extends BaseActivity implements LotteryDetail
             case LUCKY:
                 toolbarBase.setTitleTxt(getString(R.string.bchlucky_lottery));
                 break;
+            case LOTTO:
+                toolbarBase.setTitleTxt(getString(R.string.buy_lotto));
+                break;
         }
 
-        int id = bean.getId();
+        int id = bean.getPeriod();
         txtNumber.setText(activity.getString(R.string.contract_no_, id));
 
         String showTime = TimeUtil.timestampFormat((long) bean.getOpen_time() * 1000, TimeUtil.FORMAT_MONTH_DAY_TIME);
         txtDatetime.setText(showTime);
 
-        if (bean.getLotteries_numbers() == null || bean.getLotteries_numbers().size() == 0) {
-            txtBallFirst.setText("?");
-            txtBallSecond.setText("?");
-            txtBallThird.setText("?");
-        } else {
-            String awardNumber = bean.getLotteries_numbers().get(0).getAward_number();
-            txtBallFirst.setText(String.valueOf(awardNumber.charAt(0)));
-            txtBallSecond.setText(String.valueOf(awardNumber.charAt(1)));
-            txtBallThird.setText(String.valueOf(awardNumber.charAt(2)));
+        List<NumberBallBean> ballBeanList = new ArrayList<>();
+        if (category == CategoryEnum.D3 || category == CategoryEnum.LUCKY) {
+            for (int i = 0; i < 3; i++) {
+                NumberBallBean ballBean = new NumberBallBean();
+                ballBean.setLeft(i == 0 ? 0 : 32);
+                ballBean.setBgResId(R.drawable.shape_oval_645aff);
+                ballBean.setTxtColorId(R.color.color_white);
+                if (bean.getLotteries_numbers() == null || bean.getLotteries_numbers().size() == 0) {
+                    ballBean.setTxt("?");
+                } else {
+                    String awardNumber = bean.getLotteries_numbers().get(0).getAward_number();
+                    ballBean.setTxt(String.valueOf(awardNumber.charAt(i)));
+                }
+                ballBeanList.add(ballBean);
+            }
+        } else if (category == CategoryEnum.LOTTO) {
+            for (int i = 0; i < 7; i++) {
+                NumberBallBean ballBean = new NumberBallBean();
+                ballBean.setLeft(i == 0 ? 0 : 12);
+                ballBean.setTxtColorId(R.color.color_white);
+
+                if (i == 6) {
+                    ballBean.setBgResId(R.drawable.shape_oval_f25757);
+                } else {
+                    ballBean.setBgResId(R.drawable.shape_oval_645aff);
+                }
+                if (bean.getLotteries_numbers() == null || bean.getLotteries_numbers().size() == 0) {
+                    ballBean.setTxt("?");
+                } else {
+                    String awardNumber = bean.getLotteries_numbers().get(i).getAward_number();
+                    ballBean.setTxt(awardNumber);
+                }
+                ballBeanList.add(ballBean);
+            }
         }
+        linearlayoutNumber.setData(ballBeanList);
 
         random(bean);
         endingHeight(bean);

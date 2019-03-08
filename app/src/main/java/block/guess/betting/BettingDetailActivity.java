@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
@@ -33,6 +34,8 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 
+import java.util.List;
+
 @Route(path = "/betting/bchdetail")
 public class BettingDetailActivity extends BaseActivity implements BettingDetailContract.BView, ToolbarCallback {
 
@@ -57,6 +60,8 @@ public class BettingDetailActivity extends BaseActivity implements BettingDetail
 
     @Autowired
     long contractId;
+    @Autowired
+    int status;
     @Autowired
     String identifier;
 
@@ -87,12 +92,12 @@ public class BettingDetailActivity extends BaseActivity implements BettingDetail
 
     @Override
     public void contractDetailRequest() {
-        BettingDetailRequest request = new BettingDetailRequest(identifier);
-        OKHttpUtil.client().request(request, new BaseCallBack<BettingDetailBean>(activity) {
+        BettingDetailRequest request = new BettingDetailRequest(contractId,status);
+        OKHttpUtil.client().request(request, new BaseCallBack<List<BettingDetailBean>>(activity) {
 
             @Override
-            public void success(BettingDetailBean bean) {
-                contractDetail(bean);
+            public void success(List<BettingDetailBean> bean) {
+                contractDetail(bean.get(0));
             }
 
             @Override
@@ -187,7 +192,7 @@ public class BettingDetailActivity extends BaseActivity implements BettingDetail
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(activity.getString(R.string.no_));
-        rightTxt.setText("NO." + bettingDetailBean.getContract_id());
+        rightTxt.setText("NO." + bettingDetailBean.getPeriod());
     }
 
     @Override
@@ -226,7 +231,7 @@ public class BettingDetailActivity extends BaseActivity implements BettingDetail
     }
 
     @Override
-    public void betContent( BettingDetailBean bettingDetailBean) {
+    public void betContent(BettingDetailBean bettingDetailBean) {
         View view = findViewById(R.id.include_beting_content);
         TextView leftTxt = view.findViewById(R.id.txt_left);
         TextView rightTxt = view.findViewById(R.id.txt_right);

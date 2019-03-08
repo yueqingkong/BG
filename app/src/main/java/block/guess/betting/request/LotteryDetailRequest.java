@@ -8,8 +8,8 @@ public class LotteryDetailRequest extends BaseRequest {
 
     private long contractid;
 
-    public LotteryDetailRequest(Object obj, long id) {
-        super(obj);
+    public LotteryDetailRequest(long id) {
+        super(id);
         this.contractid = id;
     }
 

@@ -159,7 +159,7 @@ public class WinningRecordActivity extends BaseActivity implements WinningRecord
     public void itemClick(WinningRecordBean bean) {
         ARouter.getInstance().build("/betting/bchdetail")
                 .withLong("contractId", bean.getContract_id())
-                //.withString("")
+                .withInt("status",bean.getStatus())
                 .navigation(activity);
     }
 }

@@ -20,7 +20,6 @@ import block.guess.main.contract.LotteryLotteryContract;
 import block.guess.main.presenter.LotteryLotteryPresenter;
 import block.guess.main.request.LotteryPageRequest;
 import block.guess.utils.DensityUtils;
-import block.guess.utils.log.LogUtil;
 import block.guess.utils.okhttp.Callback.BaseCallBack;
 import block.guess.utils.okhttp.OKHttpUtil;
 import block.guess.widget.recyclerview.decoration.BaseItemDecoration;
@@ -250,7 +249,7 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
 
     @Override
     public void itemClick(LotteryBean bean) {
-        int contractid = bean.getId();
+        int contractid = bean.getContract_id();
         ARouter.getInstance().build("/betting/bchlotterydetail")
                 .withLong("contractId", contractid)
                 .navigation(activity);
