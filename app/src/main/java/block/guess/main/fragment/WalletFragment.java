@@ -142,22 +142,23 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
         recyclerTransactionHistory.setAdapter(walletAdapter);
         walletAdapter.setTransactionCallback(new WalletAdapter.TransactionCallback() {
             @Override
-            public void historyClick(HistoryBean historyBean) {
+            public void historyClick(HistoryBean.ItemsBean itemsBean) {
                 ARouter.getInstance().build("/wallet/transactiondetail")
-                        .withSerializable("historyBean", historyBean)
+                        .withSerializable("itemsBean", itemsBean)
                         .navigation(activity);
             }
         });
 
         scrollview.setScrollCallBack(this);
-        presenter.historyRequest(index, new BaseCallBack<List<HistoryBean>>(activity) {
+        presenter.historyRequest(index, new BaseCallBack<HistoryBean>(activity) {
             @Override
-            public void success(List<HistoryBean> beans) {
-                if (beans != null && beans.size() > 0) {
+            public void success(HistoryBean historyBean) {
+                if (historyBean != null && historyBean.getTotalItems() > 0) {
+                    List<HistoryBean.ItemsBean> itemsBeans = historyBean.getItems();
                     if (index == 1) {
-                        walletAdapter.setHistoryBeans(beans);
+                        walletAdapter.setHistoryBeans(itemsBeans);
                     } else {
-                        walletAdapter.appendHistoryBeans(beans);
+                        walletAdapter.appendHistoryBeans(itemsBeans);
                     }
                     index++;
                 } else {
@@ -257,14 +258,15 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
 
     @Override
     public void scrollBottom() {
-        presenter.historyRequest(index, new BaseCallBack<List<HistoryBean>>(activity) {
+        presenter.historyRequest(index, new BaseCallBack<HistoryBean>(activity) {
             @Override
-            public void success(List<HistoryBean> beans) {
-                if (beans != null && beans.size() > 0) {
+            public void success(HistoryBean bean) {
+                if (bean != null && bean.getTotalItems() > 0) {
+                    List<HistoryBean.ItemsBean> itemsBeans = bean.getItems();
                     if (index == 1) {
-                        walletAdapter.setHistoryBeans(beans);
+                        walletAdapter.setHistoryBeans(itemsBeans);
                     } else {
-                        walletAdapter.appendHistoryBeans(beans);
+                        walletAdapter.appendHistoryBeans(itemsBeans);
                     }
                     index++;
                 } else {

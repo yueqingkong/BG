@@ -41,7 +41,8 @@ public class GlideUtil {
     public static void avatar(final ImageView view, String string) {
         RequestOptions options = new RequestOptions().
                 fallback(R.mipmap.avatar_default).
-                error(R.mipmap.avatar_default);
+                error(R.mipmap.avatar_default).
+                placeholder(R.mipmap.avatar_default);
 
         Context context = view.getContext();
         Glide.with(context).load(string).apply(options).into(view);

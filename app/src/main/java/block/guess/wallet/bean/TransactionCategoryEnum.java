@@ -43,15 +43,15 @@ public enum TransactionCategoryEnum {
         } else if (e == SEND) {
             string = context.getResources().getString(R.string.send);
         } else if (e == RECEIVE) {
-            string = context.getResources().getString(R.string.receive);
+            string = context.getResources().getString(R.string.recharge);
         } else if (e == AWARD) {
             string = context.getResources().getString(R.string.award);
         } else if (e == PARTNER) {
             string = context.getResources().getString(R.string.partner_plan);
         } else if (e == FREE) {
-            string = context.getResources().getString(R.string.free_bch_3d);
+            string = context.getResources().getString(R.string.buy_bchfree);
         } else if (e == GIFADDRESS) {
-            string = context.getResources().getString(R.string.give);
+            string = context.getResources().getString(R.string.reward);
         } else if (e == LOTTO) {
             string = context.getResources().getString(R.string.buy_lotto);
         }else {

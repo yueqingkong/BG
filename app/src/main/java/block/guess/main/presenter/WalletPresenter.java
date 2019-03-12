@@ -26,7 +26,7 @@ public class WalletPresenter implements WalletContract.Presenter {
     }
 
     @Override
-    public void historyRequest(int index,BaseCallBack<List<HistoryBean>> callBack) {
+    public void historyRequest(int index,BaseCallBack<HistoryBean> callBack) {
         if (isRequst) {
             return;
         }
@@ -35,12 +35,12 @@ public class WalletPresenter implements WalletContract.Presenter {
         baseView.historyStartRequst();
 
         HistoryRequest request = new HistoryRequest(index);
-        OKHttpUtil.client().request(request, new BaseCallBack<List<HistoryBean>>(baseView.activity()) {
+        OKHttpUtil.client().request(request, new BaseCallBack<HistoryBean>(baseView.activity()) {
 
             @Override
-            public void success(List<HistoryBean> beans) {
+            public void success(HistoryBean bean) {
                 isRequst = false;
-                callBack.success(beans);
+                callBack.success(bean);
             }
 
             @Override

@@ -36,7 +36,7 @@ public class TransactionDetailActivity extends BaseActivity implements Transacti
     View viewDash;
 
     @Autowired
-    HistoryBean historyBean;
+    HistoryBean.ItemsBean itemsBean;
 
     private static String TAG = "_TransactionDetailActivity";
     private TransactionDetailActivity activity;
@@ -62,7 +62,7 @@ public class TransactionDetailActivity extends BaseActivity implements Transacti
         toolbarBase.setTitleTxt(getString(R.string.transaction_detile));
         toolbarBase.setToolbarCallback(this);
 
-        long diff = historyBean.getBalance_diff();
+        long diff = itemsBean.getBalance_diff();
         String showAmount = (diff > 0 ? "+" : "") + MathUtil.format(diff);
         txtBchAmount.setText(String.format("%sBCH", showAmount));
     }
@@ -74,7 +74,7 @@ public class TransactionDetailActivity extends BaseActivity implements Transacti
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(getString(R.string.category));
-        rightTxt.setText(TransactionCategoryEnum.string(activity, historyBean.getOp_category().getCategory()));
+        rightTxt.setText(TransactionCategoryEnum.string(activity, itemsBean.getOp_category().getCategory()));
     }
 
     @Override
@@ -84,7 +84,7 @@ public class TransactionDetailActivity extends BaseActivity implements Transacti
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(getString(R.string.status));
-        String status = historyBean.getConfirmations() == 0 ?
+        String status = itemsBean.getConfirmations() == 0 ?
                 getString(R.string.wait) :
                 getString(R.string.confirm);
         rightTxt.setText(status);
@@ -97,7 +97,7 @@ public class TransactionDetailActivity extends BaseActivity implements Transacti
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(getString(R.string.datetime));
-        String showTime = TimeUtil.timestampFormat(historyBean.getTime() * 1000, TimeUtil.FORMAT_TIME);
+        String showTime = TimeUtil.timestampFormat(itemsBean.getCreated_at() * 1000, TimeUtil.FORMAT_TIME);
         rightTxt.setText(showTime);
     }
 
@@ -108,14 +108,14 @@ public class TransactionDetailActivity extends BaseActivity implements Transacti
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(getString(R.string.txid));
-        rightTxt.setText(historyBean.getTxid());
+        rightTxt.setText(itemsBean.getTxid());
         rightTxt.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         rightTxt.getPaint().setAntiAlias(true);//抗锯齿
         rightTxt.setTextColor(getResources().getColor(R.color.color_132fcb));
         rightTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String txid = historyBean.getTxid();
+                String txid = itemsBean.getTxid();
                 String language = SystemUtil.language(activity);
 
                 String url = BlockChainUrlUtil.txUrl(txid, language);

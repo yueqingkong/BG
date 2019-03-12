@@ -51,6 +51,7 @@
     <string name="balance">余额</string>
     <string name="send">转账</string>
     <string name="receive">收款</string>
+    <string name="recharge">充值</string>
     <string name="transaction_history">流水</string>
     <string name="sign_out">退出</string>
     <string name="partner_plan">合伙人计划</string>
@@ -66,12 +67,14 @@
     <string name="bch">BCH</string>
     <string name="bch_win">赢 %.3f BCH</string>
     <string name="nomber_">期号 %d</string>
-    <string name="buy_bchlucky">购买 BCHLucky</string>
-    <string name="buy_bch3d">购买 BCH3D</string>
-    <string name="buy_lotto">购买 BCHLotto</string>
+    <string name="buy_bchlucky">购买BCHLucky</string>
+    <string name="buy_bch3d">购买BCH3D</string>
+    <string name="buy_bchfree">购买BCH3DFREE</string>
+    <string name="buy_lotto">购买BCHLotto</string>
     <string name="unknown">未知</string>
     <string name="award">中奖</string>
     <string name="give">赠送</string>
+    <string name="reward">奖励</string>
     <string name="three_win_200_times">选择三位数字,夺取200倍大奖</string>
     <string name="betting_three">百位</string>
     <string name="betting_two">十位</string>

@@ -51,10 +51,12 @@
     <string name="balance">Balance</string>
     <string name="send">Send</string>
     <string name="receive">Receive</string>
+    <string name="recharge">Recharge</string>
     <string name="transaction_history">Transaction History</string>
     <string name="sign_out">Sign Out</string>
     <string name="partner_plan">Partner Plan</string>
     <string name="give">Give</string>
+    <string name="reward">Reward</string>
     <string name="betting_record">Betting Record</string>
     <string name="winning_record">Winning Record</string>
     <string name="change_password">Change Password</string>
@@ -70,6 +72,7 @@
     <string name="buy_bchlucky">Buy BCHLucky</string>
     <string name="buy_lotto">Buy BCHLotto</string>
     <string name="buy_bch3d">Buy BCH3D</string>
+    <string name="buy_bchfree">Buy BCH3DFREE</string>
     <string name="unknown">Unknown</string>
     <string name="award">Award</string>
     <string name="three_win_200_times">Choose three digits and win 200 times</string>

@@ -29,6 +29,6 @@ public interface WalletContract {
 
     interface Presenter extends BasePresenter {
 
-        void historyRequest(int index, BaseCallBack<List<HistoryBean>> callBack);
+        void historyRequest(int index, BaseCallBack<HistoryBean> callBack);
     }
 }
