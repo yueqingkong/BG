@@ -125,7 +125,7 @@
     <string name="not_award">未中奖</string>
     <string name="the_wining">中奖</string>
     <string name="to_be_award">等待开奖</string>
-    <string name="bet_and_total">投注 %d, 总共: %sBCH</string>
+    <string name="bet_and_total">共%d注, 总共: %sBCH</string>
     <string name="win_amount_bch">+%sBCH</string>
     <string name="free_bch_3d">免费 BCH3D</string>
     <string name="betting_detail">购买记录</string>

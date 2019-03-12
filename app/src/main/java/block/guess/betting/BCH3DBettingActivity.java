@@ -205,10 +205,7 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
     private void gameRule() {
         String category = CategoryEnum.D3.getCategory() + "";
         String language = SystemUtil.language(activity);
-        String ruleUrl = BlockChainUrlUtil.gameRule(category, language);
-        ARouter.getInstance().build("/widget/webview")
-                .withString("url", ruleUrl)
-                .navigation(activity);
+        BlockChainUrlUtil.gameRule(activity,category, language);
     }
 
     @Override
@@ -340,10 +337,7 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
                     public void onClick(View view) {
                         String category = CategoryEnum.D3.getCategory() + "";
                         String language = SystemUtil.language(activity);
-                        String ruleUrl = BlockChainUrlUtil.gameRule(category, language);
-                        ARouter.getInstance().build("/widget/webview")
-                                .withString("url", ruleUrl)
-                                .navigation(activity);
+                        BlockChainUrlUtil.gameRule(activity,category, language);
 
                         dialog.dismiss();
                     }

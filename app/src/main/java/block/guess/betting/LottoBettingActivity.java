@@ -213,10 +213,7 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
     private void gameRule() {
         String category = CategoryEnum.LOTTO.getCategory() + "";
         String language = SystemUtil.language(activity);
-        String ruleUrl = BlockChainUrlUtil.gameRule(category, language);
-        ARouter.getInstance().build("/widget/webview")
-                .withString("url", ruleUrl)
-                .navigation(activity);
+        BlockChainUrlUtil.gameRule(activity,category, language);
     }
 
     @Override
@@ -365,12 +362,9 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
                 view.findViewById(R.id.txt_gamerule).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String category = CategoryEnum.D3.getCategory() + "";
+                        String category = CategoryEnum.LOTTO.getCategory() + "";
                         String language = SystemUtil.language(activity);
-                        String ruleUrl = BlockChainUrlUtil.gameRule(category, language);
-                        ARouter.getInstance().build("/widget/webview")
-                                .withString("url", ruleUrl)
-                                .navigation(activity);
+                        BlockChainUrlUtil.gameRule(activity,category, language);
 
                         dialog.dismiss();
                     }

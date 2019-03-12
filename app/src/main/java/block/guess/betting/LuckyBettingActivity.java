@@ -172,11 +172,7 @@ public class LuckyBettingActivity extends BaseActivity implements LuckyBettingCo
     private void gameRule() {
         String category = CategoryEnum.LUCKY.getCategory() + "";
         String language = SystemUtil.language(activity);
-        String ruleUrl = BlockChainUrlUtil.gameRule(category, language);
-
-        ARouter.getInstance().build("/widget/webview")
-                .withString("url", ruleUrl)
-                .navigation(activity);
+        BlockChainUrlUtil.gameRule(activity,category, language);
     }
 
     @Override
@@ -247,11 +243,7 @@ public class LuckyBettingActivity extends BaseActivity implements LuckyBettingCo
                     public void onClick(View view) {
                         String category = CategoryEnum.LUCKY.getCategory() + "";
                         String language = SystemUtil.language(activity);
-                        String ruleUrl = BlockChainUrlUtil.gameRule(category, language);
-
-                        ARouter.getInstance().build("/widget/webview")
-                                .withString("url", ruleUrl)
-                                .navigation(activity);
+                        BlockChainUrlUtil.gameRule(activity,category, language);
 
                         dialog.dismiss();
                     }

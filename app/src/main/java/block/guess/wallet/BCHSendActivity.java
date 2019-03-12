@@ -144,7 +144,7 @@ public class BCHSendActivity extends BaseActivity implements BCHSendContract.BVi
             txtVerifyCode.finishCount();
             SnackBarUtil.error(activity, getString(R.string.tips_empty_address_amount));
         } else {
-            presenter.withdrawalRequest(address, (long) (Float.parseFloat(amount) * StringsUtil.Unit),new BaseCallBack<Boolean>(activity){
+            presenter.withdrawalRequest(address, (long) (Float.parseFloat(amount) * StringsUtil.Unit), new BaseCallBack<Boolean>(activity) {
 
                 @Override
                 public void success(Boolean b) {
@@ -172,7 +172,7 @@ public class BCHSendActivity extends BaseActivity implements BCHSendContract.BVi
         String fee = txtFeeValue.getText().toString();
         long feeBig = (long) (Double.parseDouble(fee.substring(0, fee.length() - 3)) * MathUtil.Unit);//200-1500
 
-        if (TextUtils.isEmpty(amount) || TextUtils.isEmpty(address) || TextUtils.isEmpty(code)) {
+        if (TextUtils.isEmpty(amount) || Double.parseDouble(amount) <= 0 || TextUtils.isEmpty(address) || TextUtils.isEmpty(code)) {
             SnackBarUtil.error(activity, getString(R.string.tips_empty_address_code_amount));
         } else {
             long amountValue = (long) (Float.parseFloat(amount) * StringsUtil.Unit);

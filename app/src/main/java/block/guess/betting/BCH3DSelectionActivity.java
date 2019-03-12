@@ -234,10 +234,7 @@ public class BCH3DSelectionActivity extends BaseActivity implements BCH3dSelecti
                     public void onClick(View view) {
                         String category = CategoryEnum.D3.getCategory() + "";
                         String language = SystemUtil.language(activity);
-                        String ruleUrl = BlockChainUrlUtil.gameRule(category, language);
-                        ARouter.getInstance().build("/widget/webview")
-                                .withString("url", ruleUrl)
-                                .navigation(activity);
+                        BlockChainUrlUtil.gameRule(activity,category, language);
 
                         dialog.dismiss();
                     }

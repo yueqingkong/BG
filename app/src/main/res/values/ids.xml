@@ -178,6 +178,8 @@
     <item name="txt_bottom" type="id" />
     <item name="txt_ball" type="id" />
     <item name="txt_inc" type="id" />
+    <item name="txt_rich" type="id" />
+
 
     <!-- image -->
     <item name="img_cover" type="id" />

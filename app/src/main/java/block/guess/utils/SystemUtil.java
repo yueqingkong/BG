@@ -60,7 +60,12 @@ public class SystemUtil {
             locale = activity.getResources().getConfiguration().locale;
         }
 
-        String language = locale.getLanguage() + "-" + locale.getCountry();
+        String language = locale.getLanguage();
+        if (language.contains("zh")) {
+            language = "zh-CN";
+        } else {
+            language = "en";
+        }
         return language;
     }
 

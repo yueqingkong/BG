@@ -137,8 +137,13 @@ public class BettingRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         String number = "NO." + String.valueOf(detailBean.getId());
         holder.numberTxt.setText(number);
 
+        String explain = "";
         String amountFormat = StringsUtil.decimal(detailBean.getTotal_amount());
-        String explain = context.getString(R.string.bet_and_total, detailBean.getTimes(), amountFormat);
+        if (detailBean.getPurchase_numbers() == null || detailBean.getPurchase_numbers().size() == 0) {
+            explain = context.getString(R.string.bet_and_total, 0, amountFormat);
+        } else {
+            explain = context.getString(R.string.bet_and_total, detailBean.ownPurchase(), amountFormat);
+        }
         holder.explainTxt.setText(explain);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

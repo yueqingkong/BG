@@ -157,7 +157,7 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(activity.getString(R.string.no_));
-        rightTxt.setText("NO." + recordDetailBean.getContract_id());
+        rightTxt.setText("NO." + recordDetailBean.getId());
     }
 
     @Override
