@@ -337,6 +337,7 @@
     <item name="constraintlayout_bottom" type="id" />
     <item name="constraintlayout_empty" type="id" />
     <item name="constraintlayout_account" type="id" />
+    <item name="constraintlayout_body" type="id" />
 
     <!-- ScrollView -->
     <item name="scrollview_tab_my" type="id" />

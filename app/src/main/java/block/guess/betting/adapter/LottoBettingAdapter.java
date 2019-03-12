@@ -9,6 +9,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import block.guess.R;
 import block.guess.betting.bean.LottoBean;
@@ -58,7 +59,7 @@ public class LottoBettingAdapter extends RecyclerView.Adapter<LottoBettingAdapte
                 lottoBettingCallback.delete(lottoBean);
             }
         });
-        holder.detailTxt.setOnClickListener(new View.OnClickListener() {
+        holder.body.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 lottoBettingCallback.detail(lottoBean);
@@ -73,6 +74,8 @@ public class LottoBettingAdapter extends RecyclerView.Adapter<LottoBettingAdapte
     }
 
     static class LottoBettingHolder extends RecyclerView.ViewHolder {
+
+        ConstraintLayout body;
         View deleteview;
         TextView firstTxt;
         TextView secondTxt;
@@ -85,6 +88,7 @@ public class LottoBettingAdapter extends RecyclerView.Adapter<LottoBettingAdapte
 
         public LottoBettingHolder(View itemView) {
             super(itemView);
+            body = itemView.findViewById(R.id.constraintlayout_body);
             deleteview = itemView.findViewById(R.id.view_betting_delete);
             firstTxt = itemView.findViewById(R.id.txt_ball_first);
             secondTxt = itemView.findViewById(R.id.txt_ball_second);
