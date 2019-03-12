@@ -213,7 +213,7 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
     private void gameRule() {
         String category = CategoryEnum.LOTTO.getCategory() + "";
         String language = SystemUtil.language(activity);
-        BlockChainUrlUtil.gameRule(activity,category, language);
+        BlockChainUrlUtil.gameRule(activity, category, language);
     }
 
     @Override
@@ -275,10 +275,11 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
 
         txtBettingCount.setText(getString(R.string.total_select_times, select, times));
 
-        double payTotal = select * times * 0.0005;
+        double single = ((double) homeBean.getContract().getUnit()) / (100000000d);
+        double payTotal = select * times * single;
         txtBettingBch.setText(getString(R.string.pay_bch, StringsUtil.decimal((long) (payTotal * StringsUtil.Unit))));
 
-        double winTotal = times * 0.0005 * 250000;//固定倍数 25000
+        double winTotal = single * homeBean.getContract().getTimes();//固定倍数 25000
         if (select == 0) {
             winTotal = 0;
         }
@@ -323,7 +324,7 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
     public void subtract() {
         String string = editAmount.getText().toString();
         if (TextUtils.isEmpty(string) || Integer.parseInt(string) == 1) {
-            SnackBarUtil.error(activity, getString(R.string.times_at_least_,1));
+            SnackBarUtil.error(activity, getString(R.string.times_at_least_, 1));
         } else {
             Integer integer = Integer.parseInt(editAmount.getText().toString());
             integer--;
@@ -338,7 +339,7 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
         Integer integer = Integer.parseInt(editAmount.getText().toString());
         if (integer == 10) {
             SnackBarUtil.error(activity, getString(R.string.times_at_most_, integer));
-        }else {
+        } else {
             integer++;
             editAmount.setText(String.valueOf(integer));
 
@@ -364,7 +365,7 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
                     public void onClick(View view) {
                         String category = CategoryEnum.LOTTO.getCategory() + "";
                         String language = SystemUtil.language(activity);
-                        BlockChainUrlUtil.gameRule(activity,category, language);
+                        BlockChainUrlUtil.gameRule(activity, category, language);
 
                         dialog.dismiss();
                     }

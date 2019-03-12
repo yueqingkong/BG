@@ -205,7 +205,7 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
     private void gameRule() {
         String category = CategoryEnum.D3.getCategory() + "";
         String language = SystemUtil.language(activity);
-        BlockChainUrlUtil.gameRule(activity,category, language);
+        BlockChainUrlUtil.gameRule(activity, category, language);
     }
 
     @Override
@@ -267,7 +267,8 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
 
         txtBettingCount.setText(getString(R.string.total_select_times, select, times));
 
-        double payTotal = select * times * 0.0005;
+        double single = ((double) homeBean.getContract().getUnit()) / (100000000d);
+        double payTotal = select * times * single;
         txtBettingBch.setText(getString(R.string.pay_bch, StringsUtil.decimal((long) (payTotal * StringsUtil.Unit))));
 
         double winTotal = payTotal * homeBean.getContract().getTimes();
@@ -337,7 +338,7 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
                     public void onClick(View view) {
                         String category = CategoryEnum.D3.getCategory() + "";
                         String language = SystemUtil.language(activity);
-                        BlockChainUrlUtil.gameRule(activity,category, language);
+                        BlockChainUrlUtil.gameRule(activity, category, language);
 
                         dialog.dismiss();
                     }

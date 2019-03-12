@@ -13,6 +13,7 @@ import block.guess.main.bean.LotteryBean;
 import block.guess.utils.TimeUtil;
 import block.guess.widget.recyclerview.bean.LoadStatusEnum;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LotteryLottoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -106,13 +107,23 @@ public class LotteryLottoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         } else {
             List<LotteryBean.LotteriesNumbersBean> numbersBeanList = pageBean.getLotteries_numbers();
 
-            lottoViewHolder.firstTxt.setText(numbersBeanList.get(0).getAward_number());
-            lottoViewHolder.secondTxt.setText(numbersBeanList.get(1).getAward_number());
-            lottoViewHolder.thirdTxt.setText(numbersBeanList.get(2).getAward_number());
-            lottoViewHolder.fourthTxt.setText(numbersBeanList.get(3).getAward_number());
-            lottoViewHolder.fifthTxt.setText(numbersBeanList.get(4).getAward_number());
-            lottoViewHolder.sixthTxt.setText(numbersBeanList.get(5).getAward_number());
-            lottoViewHolder.seventhTxt.setText(numbersBeanList.get(6).getAward_number());
+            String blueNum = "";
+            List<String> redNums = new ArrayList<>();
+            for (LotteryBean.LotteriesNumbersBean bean : numbersBeanList) {
+                if(bean.getCategory() ==3){
+                    blueNum = bean.getAward_number();
+                }else {
+                    redNums.add(bean.getAward_number());
+                }
+            }
+
+            lottoViewHolder.firstTxt.setText(redNums.get(0));
+            lottoViewHolder.secondTxt.setText(redNums.get(1));
+            lottoViewHolder.thirdTxt.setText(redNums.get(2));
+            lottoViewHolder.fourthTxt.setText(redNums.get(3));
+            lottoViewHolder.fifthTxt.setText(redNums.get(4));
+            lottoViewHolder.sixthTxt.setText(redNums.get(5));
+            lottoViewHolder.seventhTxt.setText(blueNum);
         }
 
         long endTime = pageBean.getOpen_time() * 1000;
