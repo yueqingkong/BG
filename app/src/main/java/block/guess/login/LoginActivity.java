@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import block.guess.utils.okhttp.Callback.BaseCallBack;
 import block.guess.widget.snackbar.SnackBarUtil;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -83,10 +84,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.BView {
         statusBar(false, getResources().getColor(R.color.color_white));
 
         if (BuildConfig.DEFAULT_HINT) {
-//            editAccount.setText("762396990@qq.com");
-//            editPassword.setText("@QWer1234");
-            editAccount.setText("yinchangxin1989@gmail.com");
-            editPassword.setText("#bitmain!@#$");
+            editAccount.setText("762396990@qq.com");
+            editPassword.setText("@QWer1234");
+//            editAccount.setText("yinchangxin1989@gmail.com");
+//            editPassword.setText("#bitmain!@#$");
 //            editAccount.setText("mhl564312135@gmail.com");
 //            editPassword.setText("mohuilin");
         }
@@ -121,6 +122,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.BView {
 
     @Override
     public void signIn() {
+        txtSignIn.setEnabled(false);
+
         String email = editAccount.getText().toString();
         String password = editPassword.getText().toString();
 
@@ -128,7 +131,24 @@ public class LoginActivity extends BaseActivity implements LoginContract.BView {
             SnackBarUtil.error(activity, getString(R.string.account_password_empty));
             return;
         }
-        presenter.signIn(email, password);
+        presenter.signIn(email, password, new BaseCallBack<Boolean>(activity) {
+            @Override
+            public void success(Boolean aBoolean) {
+                txtSignIn.setEnabled(true);
+                loginSuccess();
+            }
+
+            @Override
+            public void serverError(int code, String err) {
+                txtSignIn.setEnabled(true);
+                presenter.againSignIn();
+            }
+
+            @Override
+            public void netError() {
+                txtSignIn.setEnabled(true);
+            }
+        });
     }
 
     @Override

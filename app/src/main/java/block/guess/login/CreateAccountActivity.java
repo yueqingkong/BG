@@ -123,6 +123,11 @@ public class CreateAccountActivity extends BaseActivity implements CreateAccount
     }
 
     @Override
+    public void dialogDissmiss() {
+
+    }
+
+    @Override
     public void accountCreateSuccess() {
         String email = editEmail.getText().toString();
         String password = editPassword.getText().toString();

@@ -3,6 +3,7 @@ package block.guess.widget.dialog.common;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
@@ -61,7 +62,17 @@ public class CaptChaDialog implements DialogCallback {
 
     public void showDialog(Context context) {
         this.context = context;
+
+        cancelDialog();
         DialogUtil.show(context, R.layout.dialog_captcha, this);
+    }
+
+    // 关闭上一次的弹框
+    public void cancelDialog() {
+        if (codeDialog != null && codeDialog.isShowing()) {
+            codeDialog.dismiss();
+            codeDialog = null;
+        }
     }
 
     @Override
@@ -93,6 +104,13 @@ public class CaptChaDialog implements DialogCallback {
             }
         });
         refreshTxt.performClick();
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                captCallback.dialogDissmiss();
+            }
+        });
     }
 
     private void requestCaptCha() {
@@ -174,5 +192,7 @@ public class CaptChaDialog implements DialogCallback {
 
     public interface CaptCallback {
         void inputFinish(String id, String captcha);
+
+        void dialogDissmiss();
     }
 }
