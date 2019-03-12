@@ -107,7 +107,6 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
             case WAIT:
                 txtBettingNote.setText(activity.getString(R.string.to_be_award));
                 GlideUtil.load(imgBettingResult, R.mipmap.img_tobeawarded);
-                toolbarBase.setRightTxt(R.mipmap.btn_more_big);
                 break;
             case WIN:
                 txtBettingNote.setText(activity.getString(R.string.the_wining));
@@ -123,7 +122,7 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
                 break;
         }
 
-        if (category != CategoryEnum.D3 && status == StatusEnum.WAIT) {
+        if (category != CategoryEnum.FREE && status == StatusEnum.WAIT) {
             toolbarBase.setRightTxt(R.mipmap.btn_more_big);
         }
 

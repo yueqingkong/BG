@@ -12,6 +12,7 @@ import block.guess.betting.bean.ContractDetailBean;
 import block.guess.betting.contract.PaySuccessContract;
 import block.guess.betting.presenter.PaySuccessPresenter;
 import block.guess.utils.okhttp.Callback.BaseCallBack;
+import block.guess.wallet.bean.CategoryEnum;
 import block.guess.widget.toolbar.BaseToolBar;
 import block.guess.widget.toolbar.ToolbarCallback;
 import butterknife.BindView;
@@ -39,6 +40,8 @@ public class PaySuccessActivity extends BaseActivity implements PaySuccessContra
     long contractId;
     @Autowired
     String identifier;
+    @Autowired
+    int category;
 
     private static String TAG = "_BCHPaySuccessActivity";
     private PaySuccessActivity activity;
@@ -65,6 +68,9 @@ public class PaySuccessActivity extends BaseActivity implements PaySuccessContra
         toolbarBase.setToolbarCallback(this);
 
         txtStatus(true);
+        if (CategoryEnum.parse(category) == CategoryEnum.FREE) {
+            txtPayTransfer.setVisibility(View.GONE);
+        }
     }
 
     private void txtStatus(boolean b) {

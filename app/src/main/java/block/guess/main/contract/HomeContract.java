@@ -18,7 +18,7 @@ public interface HomeContract {
 
         void awardAnim(long contractid);
 
-        void free3DReceive(long contractid,String identifier);
+        void free3DReceive(long contractid,String identifier,int category);
     }
 
     interface Presenter extends BasePresenter {

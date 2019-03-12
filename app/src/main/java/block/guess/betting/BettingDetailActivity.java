@@ -154,7 +154,7 @@ public class BettingDetailActivity extends BaseActivity implements BettingDetail
                 break;
         }
 
-        if (category != CategoryEnum.D3 && status == StatusEnum.WAIT) {
+        if (category != CategoryEnum.FREE && status == StatusEnum.WAIT) {
             toolbarBase.setRightTxt(R.mipmap.btn_more_big);
         }
 

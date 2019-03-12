@@ -212,6 +212,7 @@ public class LuckyBettingActivity extends BaseActivity implements LuckyBettingCo
         ARouter.getInstance().build("/betting/bchpaysuccess")
                 .withLong("contractId", contractid)
                 .withString("identifier", identifier)
+                .withInt("category",homeBean.getContract().getCategory())
                 .navigation(activity);
     }
 

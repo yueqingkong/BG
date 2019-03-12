@@ -83,7 +83,7 @@ public class HomePresenter implements HomeContract.Presenter {
                 long contractId = resultBean.getContract_id();
                 String identifier = resultBean.getIdentifier();
 
-                baseView.free3DReceive(contractId, identifier);
+                baseView.free3DReceive(contractId, identifier,resultBean.getCategory());
             }
 
             @Override

@@ -388,6 +388,7 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
         ARouter.getInstance().build("/betting/bchpaysuccess")
                 .withLong("contractId", contractid)
                 .withString("identifier", identifier)
+                .withInt("category",homeBean.getContract().getCategory())
                 .navigation(activity);
     }
 
