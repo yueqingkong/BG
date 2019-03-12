@@ -150,6 +150,15 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
         });
 
         scrollview.setScrollCallBack(this);
+        historyRequest();
+    }
+
+    // 流水
+    public void historyRequest() {
+        if (presenter == null) {
+            return;
+        }
+
         presenter.historyRequest(index, new BaseCallBack<HistoryBean>(activity) {
             @Override
             public void success(HistoryBean historyBean) {

@@ -254,7 +254,7 @@ public class LuckyBettingActivity extends BaseActivity implements LuckyBettingCo
                     @Override
                     public void onClick(View view) {
                         String address = homeBean.getContract().getAddress();
-                        String url = BlockChainUrlUtil.btccomAddress(address);
+                        String url = BlockChainUrlUtil.addressUrl(address, SystemUtil.language(activity));
                         ARouter.getInstance().build("/widget/webview")
                                 .withString("url", url)
                                 .navigation(activity);

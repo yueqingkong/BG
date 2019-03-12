@@ -80,6 +80,14 @@ public class MainActivity extends BaseActivity implements MainContract.BView, Ma
         onPageSelected(0);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (homeFragment != null) {
+            homeFragment.homeRequest();
+        }
+    }
+
     @OnClick({R.id.include_main, R.id.include_lottery, R.id.include_wallet, R.id.include_my})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -175,6 +183,8 @@ public class MainActivity extends BaseActivity implements MainContract.BView, Ma
                 if (walletFragment == null) {
                     walletFragment = WalletFragment.wallet();
                 }
+
+                walletFragment.historyRequest();
                 baseFragment = walletFragment;
                 break;
             case 3:
