@@ -372,4 +372,7 @@
 
     <!-- ribbon -->
     <item name="ribbon" type="id" />
+
+    <!-- ribbon -->
+    <item name="swipeRefresh_layout" type="id" />
 </resources>

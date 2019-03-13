@@ -1,17 +1,12 @@
 package block.guess.my;
 
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.View;
-
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
-
-import java.util.List;
-
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import block.guess.R;
 import block.guess.base.BaseActivity;
 import block.guess.my.adapter.WinningRecordAdapter;
@@ -28,6 +23,10 @@ import block.guess.widget.toolbar.BaseToolBar;
 import block.guess.widget.toolbar.ToolbarCallback;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+
+import java.util.List;
 
 @Route(path = "/my/winningrecord")
 public class WinningRecordActivity extends BaseActivity implements WinningRecordContract.BView, WinningRecordAdapter.WinningRecordCallback, ToolbarCallback {
@@ -38,6 +37,8 @@ public class WinningRecordActivity extends BaseActivity implements WinningRecord
     RecyclerView recyclerWinningRecord;
     @BindView(R.id.constraintlayout_empty)
     ConstraintLayout constraintlayoutEmpty;
+    @BindView(R.id.swipeRefresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private static String TAG = "_WinningRecordActivity";
 
@@ -91,6 +92,18 @@ public class WinningRecordActivity extends BaseActivity implements WinningRecord
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
+
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                index = 1;
+                winningRecordRequest();
+            }
+        });
     }
 
     @Override
@@ -109,6 +122,8 @@ public class WinningRecordActivity extends BaseActivity implements WinningRecord
                 LogUtil.d(TAG, "" + beans.size());
 
                 isRequset = false;
+                swipeRefreshLayout.setRefreshing(false);
+
                 if (index == 1 && beans.size() == 0) {
                     constraintlayoutEmpty.setVisibility(View.VISIBLE);
                 } else {
@@ -159,7 +174,7 @@ public class WinningRecordActivity extends BaseActivity implements WinningRecord
     public void itemClick(WinningRecordBean bean) {
         ARouter.getInstance().build("/betting/bchdetail")
                 .withLong("contractId", bean.getContract_id())
-                .withInt("status",bean.getStatus())
+                .withInt("status", bean.getStatus())
                 .navigation(activity);
     }
 }
