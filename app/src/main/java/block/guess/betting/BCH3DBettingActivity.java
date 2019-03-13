@@ -12,6 +12,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import block.guess.base.BACallBack;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -284,10 +285,27 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
         } else if (!checkboxGameRule.isChecked()) {
             SnackBarUtil.error(activity, getString(R.string.please_agree_rule));
         } else {
+            txtPay.setAlpha(0.5f);
             txtPay.setEnabled(false);
 
             int times = Integer.parseInt(editAmount.getText().toString());
-            presenter.payClick(homeBean, times, betting3DBeans);
+            presenter.payClick(homeBean, times, betting3DBeans, new BACallBack<Boolean>() {
+
+                @Override
+                public void success(Boolean aBoolean) {
+                    txtPay.setAlpha(1f);
+                }
+
+                @Override
+                public void error(int code, String err) {
+                    txtPay.setAlpha(1f);
+                }
+
+                @Override
+                public void error() {
+                    txtPay.setAlpha(1f);
+                }
+            });
         }
     }
 
@@ -385,10 +403,11 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
 
     @Override
     public void paySuccess(long contractid, String identifier) {
+        SnackBarUtil.success(activity,getString(R.string.pay_success));
         ARouter.getInstance().build("/betting/bchpaysuccess")
                 .withLong("contractId", contractid)
                 .withString("identifier", identifier)
-                .withInt("category",homeBean.getContract().getCategory())
+                .withInt("category", homeBean.getContract().getCategory())
                 .navigation(activity);
     }
 

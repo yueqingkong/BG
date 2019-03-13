@@ -96,7 +96,8 @@ public class LotteryLottoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         int id = pageBean.getPeriod();
         lottoViewHolder.numberTxt.setText(context.getResources().getString(R.string.nomber_, id));
 
-        if (pageBean.getLotteries_numbers() == null || pageBean.getLotteries_numbers().size() == 0) {//为空的时候，还未开奖
+        if (pageBean.getStatus() != 4 || pageBean.getLotteries_numbers() == null || pageBean.getLotteries_numbers().size() == 0) {
+            //为空的时候，还未开奖
             lottoViewHolder.firstTxt.setText("?");
             lottoViewHolder.secondTxt.setText("?");
             lottoViewHolder.thirdTxt.setText("?");
@@ -110,9 +111,9 @@ public class LotteryLottoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             String blueNum = "";
             List<String> redNums = new ArrayList<>();
             for (LotteryBean.LotteriesNumbersBean bean : numbersBeanList) {
-                if(bean.getCategory() ==3){
+                if (bean.getCategory() == 3) {
                     blueNum = bean.getAward_number();
-                }else {
+                } else {
                     redNums.add(bean.getAward_number());
                 }
             }

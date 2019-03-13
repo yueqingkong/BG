@@ -2,6 +2,7 @@ package block.guess.my.presenter;
 
 import android.app.Activity;
 
+import block.guess.base.BACallBack;
 import block.guess.my.bean.PasswordBean;
 import block.guess.my.contract.ChangePasswordContract;
 import block.guess.my.request.ChangePasswordRequest;
@@ -25,24 +26,25 @@ public class ChangePasswordPresenter implements ChangePasswordContract.Presenter
     }
 
     @Override
-    public void changePassword(String oldpwd, String newpwd) {
+    public void changePassword(String oldpwd, String newpwd, BACallBack<Boolean> callBack) {
         PasswordBean passwordBean = new PasswordBean(oldpwd, newpwd);
         ChangePasswordRequest request = new ChangePasswordRequest(passwordBean);
         OKHttpUtil.client().request(request, new BaseCallBack<String>(activity) {
 
             @Override
             public void success(String o) {
+                callBack.success(true);
                 baseView.changePasswordSuccess();
             }
 
             @Override
             public void serverError(int code, String err) {
-
+                callBack.error(code, err);
             }
 
             @Override
             public void netError() {
-
+                callBack.error();
             }
         });
     }

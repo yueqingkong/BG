@@ -2,6 +2,7 @@ package block.guess.betting.contract;
 
 import java.util.List;
 
+import block.guess.base.BACallBack;
 import block.guess.base.contract.BasePresenter;
 import block.guess.base.contract.BaseView;
 import block.guess.betting.bean.LottoBean;
@@ -31,11 +32,9 @@ public interface LottoBettingContract {
         void plus();
 
         void paySuccess(long contractid,String identifier);
-
-        void payFail();
     }
 
     interface Presenter extends BasePresenter {
-        void payClick(HomeBean homeBean, int times, List<LottoBean> beans,BaseCallBack<Boolean> callBack);
+        void payClick(HomeBean homeBean, int times, List<LottoBean> beans, BACallBack<Boolean> callBack);
     }
 }

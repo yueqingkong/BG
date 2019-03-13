@@ -1,6 +1,7 @@
 package block.guess.betting.presenter;
 
 import android.app.Activity;
+import block.guess.base.BACallBack;
 import block.guess.betting.bean.BCH3dBuyBean;
 import block.guess.betting.bean.Betting3DBean;
 import block.guess.betting.bean.PayResultBean;
@@ -31,7 +32,7 @@ public class BCH3DBettingPresenter implements BCH3DBettingContract.Presenter {
     }
 
     @Override
-    public void payClick(final HomeBean bean, int times, List<Betting3DBean> beans) {
+    public void payClick(final HomeBean bean, int times, List<Betting3DBean> beans, BACallBack<Boolean> callBack) {
         BCH3dBuyBean buyBean = new BCH3dBuyBean();
         buyBean.setContract_id(bean.getContract().getId());
         buyBean.setTimes(times);
@@ -49,16 +50,19 @@ public class BCH3DBettingPresenter implements BCH3DBettingContract.Presenter {
                 long contractId = resultBean.getContract_id();
                 String identifier = resultBean.getIdentifier();
 
+                callBack.success(true);
                 baseView.paySuccess(contractId, identifier);
             }
 
             @Override
             public void serverError(int code, String err) {
+                callBack.error(code,err);
                 baseView.payFail();
             }
 
             @Override
             public void netError() {
+                callBack.error();
                 baseView.payFail();
             }
         });

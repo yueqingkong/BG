@@ -2,10 +2,12 @@ package block.guess.betting.contract;
 
 import java.util.List;
 
+import block.guess.base.BACallBack;
 import block.guess.base.contract.BasePresenter;
 import block.guess.base.contract.BaseView;
 import block.guess.betting.bean.Betting3DBean;
 import block.guess.main.bean.HomeBean;
+import block.guess.utils.okhttp.Callback.BaseCallBack;
 
 public interface BCH3DBettingContract {
 
@@ -35,6 +37,6 @@ public interface BCH3DBettingContract {
     }
 
     interface Presenter extends BasePresenter {
-        void payClick(HomeBean homeBean, int times, List<Betting3DBean> beans);
+        void payClick(HomeBean homeBean, int times, List<Betting3DBean> beans, BACallBack<Boolean> callBack);
     }
 }

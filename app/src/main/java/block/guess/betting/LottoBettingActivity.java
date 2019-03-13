@@ -12,6 +12,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import block.guess.base.BACallBack;
 import block.guess.utils.okhttp.Callback.BaseCallBack;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -292,23 +293,27 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
         } else if (!checkboxGameRule.isChecked()) {
             SnackBarUtil.error(activity, getString(R.string.please_agree_rule));
         } else {
+            txtPay.setAlpha(0.5f);
             txtPay.setEnabled(false);
 
             int times = Integer.parseInt(editAmount.getText().toString());
-            presenter.payClick(homeBean, times, bettingBeans, new BaseCallBack<Boolean>(activity) {
+            presenter.payClick(homeBean, times, bettingBeans, new BACallBack<Boolean>(){
                 @Override
                 public void success(Boolean aBoolean) {
                     txtPay.setEnabled(true);
+                    txtPay.setAlpha(1f);
                 }
 
                 @Override
-                public void serverError(int code, String err) {
+                public void error(int code, String err) {
                     txtPay.setEnabled(true);
+                    txtPay.setAlpha(1f);
                 }
 
                 @Override
-                public void netError() {
+                public void error() {
                     txtPay.setEnabled(true);
+                    txtPay.setAlpha(1f);
                 }
             });
         }
@@ -417,11 +422,6 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
                 .withString("identifier", identifier)
                 .withInt("category",homeBean.getContract().getCategory())
                 .navigation(activity);
-    }
-
-    @Override
-    public void payFail() {
-        txtPay.setEnabled(true);
     }
 
     public void setPresenter(LottoBettingContract.Presenter presenter) {

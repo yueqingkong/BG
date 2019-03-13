@@ -95,7 +95,7 @@ public class LotteryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         int id = pageBean.getPeriod();
         lotteryViewHolder.numberTxt.setText(context.getResources().getString(R.string.nomber_, id));
 
-        if (pageBean.getLotteries_numbers() == null || pageBean.getLotteries_numbers().size() == 0) {//为空的时候，还未开奖
+        if (pageBean.getStatus() != 4 ||pageBean.getLotteries_numbers() == null || pageBean.getLotteries_numbers().size() == 0) {//为空的时候，还未开奖
             lotteryViewHolder.firstTxt.setText("?");
             lotteryViewHolder.secondTxt.setText("?");
             lotteryViewHolder.thirdTxt.setText("?");

@@ -5,6 +5,7 @@ import android.app.Activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import block.guess.base.BACallBack;
 import block.guess.betting.bean.BCH3dBuyBean;
 import block.guess.betting.bean.Betting3DBean;
 import block.guess.betting.bean.LottoBean;
@@ -35,7 +36,7 @@ public class LottoBettingPresenter implements LottoBettingContract.Presenter {
     }
 
     @Override
-    public void payClick(final HomeBean homeBean, int times, List<LottoBean> beans, BaseCallBack<Boolean> callBack) {
+    public void payClick(final HomeBean homeBean, int times, List<LottoBean> beans, BACallBack<Boolean> callBack) {
         BCH3dBuyBean buyBean = new BCH3dBuyBean();
         buyBean.setContract_id(homeBean.getContract().getId());
         buyBean.setTimes(times);
@@ -61,21 +62,18 @@ public class LottoBettingPresenter implements LottoBettingContract.Presenter {
                 long contractId = resultBean.getContract_id();
                 String identifier = resultBean.getIdentifier();
 
-                baseView.paySuccess(contractId, identifier);
-
                 callBack.success(true);
+                baseView.paySuccess(contractId, identifier);
             }
 
             @Override
             public void serverError(int code, String err) {
-                baseView.payFail();
-                callBack.serverError(code, err);
+                callBack.error(code, err);
             }
 
             @Override
             public void netError() {
-                baseView.payFail();
-                callBack.netError();
+                callBack.error();
             }
         });
     }

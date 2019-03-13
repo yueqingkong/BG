@@ -1,5 +1,6 @@
 package block.guess.betting.contract;
 
+import block.guess.base.BACallBack;
 import block.guess.base.contract.BasePresenter;
 import block.guess.base.contract.BaseView;
 
@@ -16,6 +17,6 @@ public interface LuckyBettingContract {
     }
 
     interface Presenter extends BasePresenter {
-        void payRequest(long id, int times);
+        void payRequest(long id, int times, BACallBack<Boolean> callBack);
     }
 }

@@ -246,5 +246,6 @@
     <string name="address_or_email_empty">Address or emial can not be empty</string>
     <string name="email_send_success">Email Send Success</string>
     <string name="transfer">Transfer</string>
+    <string name="update_password_empty">Password cannot be empty</string>
 
 </resources>

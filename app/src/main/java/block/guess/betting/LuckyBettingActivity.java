@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import block.guess.base.BACallBack;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -200,10 +201,26 @@ public class LuckyBettingActivity extends BaseActivity implements LuckyBettingCo
             SnackBarUtil.error(activity, getString(R.string.please_agree_rule));
         } else {
             txtPay.setEnabled(false);
+            txtPay.setAlpha(0.5f);
 
             long id = homeBean.getContract().getId();
             int stakes = Integer.parseInt(string);
-            presenter.payRequest(id, stakes);
+            presenter.payRequest(id, stakes, new BACallBack<Boolean>() {
+                @Override
+                public void success(Boolean aBoolean) {
+                    txtPay.setAlpha(1f);
+                }
+
+                @Override
+                public void error(int code, String err) {
+                    txtPay.setAlpha(1f);
+                }
+
+                @Override
+                public void error() {
+                    txtPay.setAlpha(1f);
+                }
+            });
         }
     }
 

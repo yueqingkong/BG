@@ -123,6 +123,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.BView {
     @Override
     public void signIn() {
         txtSignIn.setEnabled(false);
+        txtSignIn.setAlpha(0.5f);
 
         String email = editAccount.getText().toString();
         String password = editPassword.getText().toString();
@@ -135,18 +136,23 @@ public class LoginActivity extends BaseActivity implements LoginContract.BView {
             @Override
             public void success(Boolean aBoolean) {
                 txtSignIn.setEnabled(true);
+                txtSignIn.setAlpha(1f);
+
                 loginSuccess();
             }
 
             @Override
             public void serverError(int code, String err) {
                 txtSignIn.setEnabled(true);
+                txtSignIn.setAlpha(1f);
+
                 presenter.againSignIn();
             }
 
             @Override
             public void netError() {
                 txtSignIn.setEnabled(true);
+                txtSignIn.setAlpha(1f);
             }
         });
     }

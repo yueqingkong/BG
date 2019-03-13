@@ -7,19 +7,25 @@ public class LotteryBean implements Serializable {
 
 
     /**
-     * id : 55
-     * contract_id : 2
-     * period : 1
-     * open_time : 1529060598
-     * address : 15CuxZQ4v51xyc86BDp5B4qb35kgpXDrdR
-     * lotteries_numbers : [{"id":49,"contract_id":2,"award_number":"040","open_time":1529060598,"height":534776,"category":1}]
+     * id : 83
+     * contract_id : 51
+     * category : 2
+     * period : 2
+     * open_time : 1529411027
+     * status : 4
+     * address : 1Ec8MQkWakX9HRdcMzgMXSHVXvPrh9vV3p
+     * end : 1529063083
+     * lotteries_numbers : [{"id":77,"contract_id":51,"award_number":"193","open_time":1529411027,"height":535360,"category":1}]
      */
 
     private int id;
     private int contract_id;
+    private int category;
     private int period;
     private int open_time;
+    private int status;
     private String address;
+    private int end;
     private List<LotteriesNumbersBean> lotteries_numbers;
 
     public int getId() {
@@ -38,6 +44,14 @@ public class LotteryBean implements Serializable {
         this.contract_id = contract_id;
     }
 
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
     public int getPeriod() {
         return period;
     }
@@ -54,12 +68,28 @@ public class LotteryBean implements Serializable {
         this.open_time = open_time;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getEnd() {
+        return end;
+    }
+
+    public void setEnd(int end) {
+        this.end = end;
     }
 
     public List<LotteriesNumbersBean> getLotteries_numbers() {
@@ -72,11 +102,11 @@ public class LotteryBean implements Serializable {
 
     public static class LotteriesNumbersBean {
         /**
-         * id : 49
-         * contract_id : 2
-         * award_number : 040
-         * open_time : 1529060598
-         * height : 534776
+         * id : 77
+         * contract_id : 51
+         * award_number : 193
+         * open_time : 1529411027
+         * height : 535360
          * category : 1
          */
 
