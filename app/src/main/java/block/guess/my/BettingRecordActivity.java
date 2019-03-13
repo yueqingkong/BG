@@ -141,12 +141,14 @@ public class BettingRecordActivity extends BaseActivity implements BettingRecord
             @Override
             public void serverError(int code, String err) {
                 isRequest = false;
+                swipeRefreshLayout.setRefreshing(false);
                 recordAdapter.setEndStatus();
             }
 
             @Override
             public void netError() {
                 isRequest = false;
+                swipeRefreshLayout.setRefreshing(false);
                 recordAdapter.setEndStatus();
             }
         });

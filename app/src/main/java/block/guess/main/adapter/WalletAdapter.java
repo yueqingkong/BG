@@ -30,6 +30,7 @@ public class WalletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void setHistoryBeans(List<HistoryBean.ItemsBean> beans) {
         statusEnum = LoadStatusEnum.STATUS_END;
+        this.historyBeans.clear();
         this.historyBeans.addAll(beans);
         notifyDataSetChanged();
     }

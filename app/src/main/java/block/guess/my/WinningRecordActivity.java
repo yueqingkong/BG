@@ -146,11 +146,13 @@ public class WinningRecordActivity extends BaseActivity implements WinningRecord
             @Override
             public void serverError(int code, String err) {
                 isRequset = false;
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void netError() {
                 isRequset = false;
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }

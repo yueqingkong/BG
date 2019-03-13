@@ -2,27 +2,16 @@ package block.guess.main.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import block.guess.utils.okhttp.Callback.BaseCallBack;
-import com.alibaba.android.arouter.launcher.ARouter;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.List;
-
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import block.guess.R;
 import block.guess.base.BaseFragment;
 import block.guess.main.adapter.WalletAdapter;
@@ -33,6 +22,7 @@ import block.guess.main.contract.WalletContract;
 import block.guess.main.presenter.WalletPresenter;
 import block.guess.utils.DensityUtils;
 import block.guess.utils.StringsUtil;
+import block.guess.utils.okhttp.Callback.BaseCallBack;
 import block.guess.utils.okhttp.Request;
 import block.guess.utils.share.AppInfo;
 import block.guess.widget.nesting.RecyclerScrollView;
@@ -41,6 +31,12 @@ import block.guess.widget.recyclerview.decoration.BaseItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.alibaba.android.arouter.launcher.ARouter;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 public class WalletFragment extends BaseFragment implements WalletContract.BView, ScrollCallBack {
 
@@ -74,6 +70,8 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
     TextView txtNoTransactionRecord;
     @BindView(R.id.scrollview)
     RecyclerScrollView scrollview;
+    @BindView(R.id.swipeRefresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private static WalletFragment walletFragment;
 
@@ -151,6 +149,18 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
 
         scrollview.setScrollCallBack(this);
         historyRequest();
+
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                index = 1;
+                historyRequest();
+            }
+        });
     }
 
     // 流水
@@ -162,6 +172,8 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
         presenter.historyRequest(index, new BaseCallBack<HistoryBean>(activity) {
             @Override
             public void success(HistoryBean historyBean) {
+                swipeRefreshLayout.setRefreshing(false);
+
                 if (historyBean != null && historyBean.getTotalItems() > 0) {
                     List<HistoryBean.ItemsBean> itemsBeans = historyBean.getItems();
                     if (index == 1) {
@@ -185,11 +197,13 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
 
             @Override
             public void serverError(int code, String err) {
+                swipeRefreshLayout.setRefreshing(false);
                 historyFail();
             }
 
             @Override
             public void netError() {
+                swipeRefreshLayout.setRefreshing(false);
                 historyFail();
             }
         });

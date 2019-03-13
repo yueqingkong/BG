@@ -1,241 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
-<block.guess.widget.nesting.RecyclerScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@id/scrollview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_f3f4fa">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@id/swipeRefresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:background="@color/color_f3f4fa">
 
-        <TextView
-            android:id="@id/txt_my_wallet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_24"
-            android:layout_marginTop="@dimen/dp_20"
-            android:text="@string/my_wallet"
-            android:textColor="@color/color_00115d"
-            android:textSize="@dimen/dp_22"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <block.guess.widget.nesting.RecyclerScrollView
+            android:layout_width="match_parent"
+            android:id="@id/scrollview"
+            android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@id/constraintlayout_wallet"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_12"
-            android:layout_marginStart="@dimen/dp_12"
-            android:layout_marginTop="@dimen/dp_20"
-            android:background="@drawable/shape_rectangle_white_r12"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_my_wallet">
-
-            <ImageView
-                android:id="@id/img_bch"
-                android:layout_width="@dimen/dp_36"
-                android:layout_height="@dimen/dp_36"
-                android:layout_marginStart="@dimen/dp_24"
-                android:layout_marginTop="@dimen/dp_24"
-                android:background="@mipmap/ic_bch"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
             <TextView
-                android:id="@id/txt_wallet_bch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_24"
-                android:layout_marginTop="@dimen/dp_16"
-                android:text="0.00000000"
-                android:textColor="@color/color_00115d"
-                android:textSize="@dimen/dp_22"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/img_bch" />
+                    android:id="@id/txt_my_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/my_wallet"
+                    android:textColor="@color/color_00115d"
+                    android:textSize="@dimen/dp_22"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_6"
-                android:layout_marginTop="@dimen/dp_16"
-                android:text="BCH"
-                android:textColor="@color/color_00115d"
-                android:textSize="@dimen/dp_16"
-                android:textStyle="bold"
-                app:layout_constraintBaseline_toBaselineOf="@id/txt_wallet_bch"
-                app:layout_constraintLeft_toRightOf="@+id/txt_wallet_bch"
-                app:layout_constraintTop_toBottomOf="@id/img_bch" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@id/constraintlayout_wallet"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_12"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:background="@drawable/shape_rectangle_white_r12"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_my_wallet">
 
-            <TextView
-                android:id="@id/txt_wallet_rmb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp_24"
-                android:layout_marginStart="@dimen/dp_24"
-                android:layout_marginTop="@dimen/dp_6"
-                android:textColor="@color/color_586085"
-                android:textSize="@dimen/dp_12"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_wallet_bch" />
+                <ImageView
+                        android:id="@id/img_bch"
+                        android:layout_width="@dimen/dp_36"
+                        android:layout_height="@dimen/dp_36"
+                        android:layout_marginStart="@dimen/dp_24"
+                        android:layout_marginTop="@dimen/dp_24"
+                        android:background="@mipmap/ic_bch"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp_24"
-                android:layout_marginTop="@dimen/dp_24"
-                android:text="@string/balance"
-                android:textColor="@color/color_8a94be"
-                android:textSize="@dimen/dp_12"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                        android:id="@id/txt_wallet_bch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_24"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:text="0.00000000"
+                        android:textColor="@color/color_00115d"
+                        android:textSize="@dimen/dp_22"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/img_bch"/>
 
-            <ImageView
-                android:layout_width="@dimen/dp_134"
-                android:layout_height="@dimen/dp_104"
-                android:background="@mipmap/img_color_line"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_6"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:text="BCH"
+                        android:textColor="@color/color_00115d"
+                        android:textSize="@dimen/dp_16"
+                        android:textStyle="bold"
+                        app:layout_constraintBaseline_toBaselineOf="@id/txt_wallet_bch"
+                        app:layout_constraintLeft_toRightOf="@+id/txt_wallet_bch"
+                        app:layout_constraintTop_toBottomOf="@id/img_bch"/>
+
+                <TextView
+                        android:id="@id/txt_wallet_rmb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_24"
+                        android:layout_marginStart="@dimen/dp_24"
+                        android:layout_marginTop="@dimen/dp_6"
+                        android:textColor="@color/color_586085"
+                        android:textSize="@dimen/dp_12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_wallet_bch"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp_24"
+                        android:layout_marginTop="@dimen/dp_24"
+                        android:text="@string/balance"
+                        android:textColor="@color/color_8a94be"
+                        android:textSize="@dimen/dp_12"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                <ImageView
+                        android:layout_width="@dimen/dp_134"
+                        android:layout_height="@dimen/dp_104"
+                        android:background="@mipmap/img_color_line"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@id/constraintlayout_send"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_72"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@drawable/shape_rectangle_white_r12"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/constraintlayout_receive"
+                    app:layout_constraintTop_toBottomOf="@id/constraintlayout_wallet">
+
+                <ImageView
+                        android:id="@id/img_send"
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginStart="@dimen/dp_24"
+                        android:background="@mipmap/ic_send"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:text="@string/send"
+                        android:textColor="@color/color_00115d"
+                        android:textSize="@dimen/dp_16"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/img_send"
+                        app:layout_constraintTop_toTopOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@id/constraintlayout_receive"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_72"
+                    android:layout_marginEnd="@dimen/dp_12"
+                    android:layout_marginStart="@dimen/dp_11"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@drawable/shape_rectangle_white_r12"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintLeft_toRightOf="@id/constraintlayout_send"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/constraintlayout_wallet">
+
+                <ImageView
+                        android:id="@id/img_receive"
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginStart="@dimen/dp_24"
+                        android:background="@mipmap/ic_receive"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:text="@string/receive"
+                        android:textColor="@color/color_00115d"
+                        android:textSize="@dimen/dp_16"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/img_receive"
+                        app:layout_constraintTop_toTopOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_12"
+                    android:layout_marginEnd="@dimen/dp_12"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@drawable/shape_rectangle_white_r12"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/constraintlayout_send">
+
+                <TextView
+                        android:id="@id/txt_transaction_history"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_24"
+                        android:layout_marginTop="@dimen/dp_18"
+                        android:text="@string/transaction_history"
+                        android:textColor="@color/color_00115d"
+                        android:textSize="@dimen/dp_15"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                <ImageView
+                        android:id="@id/img_empty_wallet"
+                        android:layout_width="@dimen/dp_235"
+                        android:layout_height="@dimen/dp_135"
+                        android:layout_marginTop="@dimen/dp_38"
+                        android:background="@mipmap/img_empty_wallet"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_transaction_history"/>
+
+                <TextView
+                        android:id="@id/txt_no_transaction_record"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_72"
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:text="@string/no_transaction_history"
+                        android:textColor="@color/color_8a94be"
+                        android:textSize="@dimen/dp_14"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/img_empty_wallet"/>
+
+                <RelativeLayout
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_transaction_history">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@id/recycler_transaction_history"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@id/constraintlayout_send"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="@dimen/dp_72"
-            android:layout_marginStart="@dimen/dp_12"
-            android:layout_marginTop="@dimen/dp_12"
-            android:background="@drawable/shape_rectangle_white_r12"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/constraintlayout_receive"
-            app:layout_constraintTop_toBottomOf="@id/constraintlayout_wallet">
-
-            <ImageView
-                android:id="@id/img_send"
-                android:layout_width="@dimen/dp_24"
-                android:layout_height="@dimen/dp_24"
-                android:layout_marginStart="@dimen/dp_24"
-                android:background="@mipmap/ic_send"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_12"
-                android:text="@string/send"
-                android:textColor="@color/color_00115d"
-                android:textSize="@dimen/dp_16"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/img_send"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@id/constraintlayout_receive"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="@dimen/dp_72"
-            android:layout_marginEnd="@dimen/dp_12"
-            android:layout_marginStart="@dimen/dp_11"
-            android:layout_marginTop="@dimen/dp_12"
-            android:background="@drawable/shape_rectangle_white_r12"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintLeft_toRightOf="@id/constraintlayout_send"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/constraintlayout_wallet">
-
-            <ImageView
-                android:id="@id/img_receive"
-                android:layout_width="@dimen/dp_24"
-                android:layout_height="@dimen/dp_24"
-                android:layout_marginStart="@dimen/dp_24"
-                android:background="@mipmap/ic_receive"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_12"
-                android:text="@string/receive"
-                android:textColor="@color/color_00115d"
-                android:textSize="@dimen/dp_16"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/img_receive"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_12"
-            android:layout_marginEnd="@dimen/dp_12"
-            android:layout_marginStart="@dimen/dp_12"
-            android:layout_marginTop="@dimen/dp_12"
-            android:background="@drawable/shape_rectangle_white_r12"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/constraintlayout_send">
-
-            <TextView
-                android:id="@id/txt_transaction_history"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_24"
-                android:layout_marginTop="@dimen/dp_18"
-                android:text="@string/transaction_history"
-                android:textColor="@color/color_00115d"
-                android:textSize="@dimen/dp_15"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@id/img_empty_wallet"
-                android:layout_width="@dimen/dp_235"
-                android:layout_height="@dimen/dp_135"
-                android:layout_marginTop="@dimen/dp_38"
-                android:background="@mipmap/img_empty_wallet"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_transaction_history" />
-
-            <TextView
-                android:id="@id/txt_no_transaction_record"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp_72"
-                android:layout_marginTop="@dimen/dp_20"
-                android:text="@string/no_transaction_history"
-                android:textColor="@color/color_8a94be"
-                android:textSize="@dimen/dp_14"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/img_empty_wallet" />
-
-            <RelativeLayout
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_8"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_transaction_history">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@id/recycler_transaction_history"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</block.guess.widget.nesting.RecyclerScrollView>
+    </block.guess.widget.nesting.RecyclerScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
