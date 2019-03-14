@@ -266,11 +266,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.BView, Ho
 
             @Override
             public void success(List<BannerBean> beanList) {
-                // TODO: 2018/11/18
-                BannerBean bannerBean = new BannerBean();
-                bannerBean.setCategory(4);
-                beanList.add(bannerBean);
-
                 bannerAdapter.updateBeans(beanList);
                 viewHorizontalDot.update(0, beanList.size());
             }
@@ -307,6 +302,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.BView, Ho
                 }
 
                 free3DBean = freeBean;
+                if (free3DBean != null) {
+                    BannerBean bannerBean = new BannerBean();
+                    bannerBean.setCategory(4);
+                    bannerAdapter.addBean(bannerBean);
+                }
+
                 if (!beanList.isEmpty()) {
                     homeAdapter.setHomeBeans(beanList);
                 }
@@ -326,6 +327,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.BView, Ho
 
     @Override
     public void free3dDialogPopup() {
+        if (free3DBean == null) {
+            return;
+        }
+
         DialogUtil.show(activity, R.layout.dialog_free3d, new DialogCallback() {
 
             private ImageView closeImg;
@@ -436,11 +441,11 @@ public class HomeFragment extends BaseFragment implements HomeContract.BView, Ho
     }
 
     @Override
-    public void free3DReceive(long contractid, String identifier,int category) {
+    public void free3DReceive(long contractid, String identifier, int category) {
         ARouter.getInstance().build("/betting/bchpaysuccess")
                 .withLong("contractId", contractid)
                 .withString("identifier", identifier)
-                .withInt("category",category)
+                .withInt("category", category)
                 .navigation(activity);
     }
 
