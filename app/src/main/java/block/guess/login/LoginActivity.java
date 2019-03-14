@@ -88,8 +88,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.BView {
             editPassword.setText("@QWer1234");
             //editAccount.setText("yinchangxin1989@gmail.com");
             //editPassword.setText("#bitmain!@#$");
-//            editAccount.setText("mhl564312135@gmail.com");
-//            editPassword.setText("mohuilin28");
+            //editAccount.setText("mhl564312135@gmail.com");
+            //editPassword.setText("mohuilin28");
         }
     }
 

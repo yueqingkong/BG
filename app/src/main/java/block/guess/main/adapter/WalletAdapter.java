@@ -94,12 +94,13 @@ public class WalletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         holder.categoryImg.setBackgroundResource(TransactionCategoryEnum.resourceId(context, category));
         holder.categoryTxt.setText(TransactionCategoryEnum.string(context, category));
 
+        String showTime = "";
         if (itemsBean.getCreated_at() == 0) {
-            holder.timestampTxt.setText("");
+            showTime = TimeUtil.timestampFormat(TimeUtil.timestamp(), TimeUtil.FORMAT_TIME);
         } else {
-            String showTime = TimeUtil.timestampFormat(itemsBean.getCreated_at() * 1000, TimeUtil.FORMAT_TIME);
-            holder.timestampTxt.setText(showTime);
+            showTime = TimeUtil.timestampFormat(itemsBean.getCreated_at() * 1000, TimeUtil.FORMAT_TIME);
         }
+        holder.timestampTxt.setText(showTime);
 
         long diff = itemsBean.getBalance_diff();
         String showAmount = (diff > 0 ? "+" : "") + MathUtil.format(diff);

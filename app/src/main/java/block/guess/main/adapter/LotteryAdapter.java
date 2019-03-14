@@ -13,6 +13,7 @@ import block.guess.main.bean.LotteryBean;
 import block.guess.utils.TimeUtil;
 import block.guess.widget.recyclerview.bean.LoadStatusEnum;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LotteryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -49,6 +50,8 @@ public class LotteryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void clearBeans() {
         if (lotteryBeans != null) {
             lotteryBeans.clear();
+        }else {
+            lotteryBeans = new ArrayList<>();
         }
         notifyDataSetChanged();
     }
@@ -146,32 +149,6 @@ public class LotteryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             firstTxt = itemView.findViewById(R.id.txt_ball_first);
             secondTxt = itemView.findViewById(R.id.txt_ball_second);
             thirdTxt = itemView.findViewById(R.id.txt_ball_third);
-            timeTxt = itemView.findViewById(R.id.txt_time);
-        }
-    }
-
-    static class LottoViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView numberTxt;
-        private TextView firstTxt;
-        private TextView secondTxt;
-        private TextView thirdTxt;
-        private TextView fourthTxt;
-        private TextView fifthTxt;
-        private TextView sixthTxt;
-        private TextView seventhTxt;
-        private TextView timeTxt;
-
-        public LottoViewHolder(View itemView) {
-            super(itemView);
-            numberTxt = itemView.findViewById(R.id.txt_no_);
-            firstTxt = itemView.findViewById(R.id.txt_ball_first);
-            secondTxt = itemView.findViewById(R.id.txt_ball_second);
-            thirdTxt = itemView.findViewById(R.id.txt_ball_third);
-            fourthTxt = itemView.findViewById(R.id.txt_ball_third);
-            fifthTxt = itemView.findViewById(R.id.txt_ball_third);
-            sixthTxt = itemView.findViewById(R.id.txt_ball_third);
-            seventhTxt = itemView.findViewById(R.id.txt_ball_third);
             timeTxt = itemView.findViewById(R.id.txt_time);
         }
     }

@@ -122,7 +122,7 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
                 break;
         }
 
-        if (category != CategoryEnum.FREE && status == StatusEnum.WAIT) {
+        if (category != CategoryEnum.FREE && status == StatusEnum.WAIT && recordDetailBean.getSend_to_friend() == 0) {
             toolbarBase.setRightTxt(R.mipmap.btn_more_big);
         }
 

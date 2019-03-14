@@ -141,11 +141,11 @@
     <string name="bch3d_lottery">BCH3D Lottery</string>
     <string name="bchlucky_lottery">BCHLucky Lottery</string>
     <string name="contract_no_">期号.%d</string>
-    <string name="random_org_number">随机数 : %s</string>
+    <string name="random_org_number">random.org 随机数 : %s</string>
     <string name="verify">验证</string>
-    <string name="ending_height">结束投注区块高度</string>
-    <string name="block_height">区块高度</string>
-    <string name="end_time_betting">投注结束时间</string>
+    <string name="ending_height">结束投注块高度</string>
+    <string name="block_height">开奖块高度</string>
+    <string name="end_time_betting">结束投注时间</string>
     <string name="contract_address">合约地址</string>
     <string name="winning_player">中奖玩家</string>
     <string name="my_betting">我的投注</string>

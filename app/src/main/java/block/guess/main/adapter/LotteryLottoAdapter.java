@@ -50,6 +50,8 @@ public class LotteryLottoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void clearBeans() {
         if (lotteryBeans != null) {
             lotteryBeans.clear();
+        } else {
+            lotteryBeans = new ArrayList<>();
         }
         notifyDataSetChanged();
     }

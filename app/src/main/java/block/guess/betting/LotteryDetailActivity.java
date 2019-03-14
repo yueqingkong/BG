@@ -236,13 +236,13 @@ public class LotteryDetailActivity extends BaseActivity implements LotteryDetail
 
         leftTxt.setText(getString(R.string.ending_height));
 
-        int endingHeight = bean.getOpen_height();
+        int endingHeight = bean.getHeight();
         rightTxt.setTextColor(getResources().getColor(R.color.color_132fcb));
         rightTxt.setText(String.valueOf(endingHeight));
         rightTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int height = bean.getOpen_height();
+                int height = bean.getHeight();
                 String language = SystemUtil.language(activity);
 
                 String url = BlockChainUrlUtil.blockUrl(String.valueOf(height), language);
@@ -261,13 +261,13 @@ public class LotteryDetailActivity extends BaseActivity implements LotteryDetail
 
         leftTxt.setText(getString(R.string.block_height));
 
-        int blockHeight = bean.getHeight();
+        int blockHeight = bean.getOpen_height();
         rightTxt.setTextColor(getResources().getColor(R.color.color_132fcb));
         rightTxt.setText(String.valueOf(blockHeight));
         rightTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int height = bean.getHeight();
+                int height = bean.getOpen_height();
                 String language = SystemUtil.language(activity);
 
                 String url = BlockChainUrlUtil.blockUrl(String.valueOf(height), language);
