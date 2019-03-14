@@ -9,6 +9,7 @@ import block.guess.R;
 
 public enum TransactionCategoryEnum {
     SEND(1),
+    CONTRACT(2),
     AWARD(3),
     RECEIVE(6),
     PARTNER(7),
@@ -54,7 +55,9 @@ public enum TransactionCategoryEnum {
             string = context.getResources().getString(R.string.reward);
         } else if (e == LOTTO) {
             string = context.getResources().getString(R.string.buy_lotto);
-        }else {
+        } else if (e == CONTRACT) {
+            string = context.getResources().getString(R.string.contract);
+        } else {
             string = context.getResources().getString(R.string.unknown);
         }
         return string;
@@ -82,7 +85,7 @@ public enum TransactionCategoryEnum {
             resourceid = R.mipmap.ic_giftcolor;
         } else if (e == LOTTO) {
             resourceid = R.mipmap.ic_bchlotto;
-        }else {
+        } else {
             resourceid = R.mipmap.ic_send;
         }
         return resourceid;

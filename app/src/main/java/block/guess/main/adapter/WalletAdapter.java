@@ -85,7 +85,12 @@ public class WalletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     protected void onBHistoryindViewHolder(@NonNull WalletViewHolder holder, int position) {
         final HistoryBean.ItemsBean itemsBean = historyBeans.get(position);
 
-        int category = itemsBean.getOp_category().getCategory();
+        int category = 0;
+        if (itemsBean.getOp_category() == null) {
+            category = -1;
+        } else {
+            category = itemsBean.getOp_category().getCategory();
+        }
         holder.categoryImg.setBackgroundResource(TransactionCategoryEnum.resourceId(context, category));
         holder.categoryTxt.setText(TransactionCategoryEnum.string(context, category));
 

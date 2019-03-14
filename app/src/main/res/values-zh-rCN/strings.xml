@@ -72,6 +72,7 @@
     <string name="buy_bchfree">购买BCH3DFREE</string>
     <string name="buy_lotto">购买BCHLotto</string>
     <string name="unknown">未知</string>
+    <string name="contract">合约</string>
     <string name="award">中奖</string>
     <string name="give">赠送</string>
     <string name="reward">奖励</string>
