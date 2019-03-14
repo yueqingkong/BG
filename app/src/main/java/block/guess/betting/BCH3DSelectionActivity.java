@@ -5,12 +5,14 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import block.guess.utils.log.LogUtil;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -76,6 +78,7 @@ public class BCH3DSelectionActivity extends BaseActivity implements BCH3dSelecti
     @Autowired
     ArrayList<Betting3DBean> betting3DBeans;
 
+    private static String TAG = "_BCH3DSelectionActivity";
     private Activity activity;
     private RecyclerView recyclerThree;
     private RecyclerView recyclerTwo;
@@ -115,7 +118,7 @@ public class BCH3DSelectionActivity extends BaseActivity implements BCH3dSelecti
         toolbarBase.setToolbarCallback(this);
 
         viewClock.init(homeBean.getContract().getEnd());
-        txtStageNumber.setText(getString(R.string.betting_bch3d_stage, homeBean.getContract().getId()));
+        txtStageNumber.setText(getString(R.string.betting_bch3d_stage, homeBean.getContract().getPeriod()));
         txtDateEnd.init(R.string.betting_bch3d_end, homeBean.getContract().getStart(), homeBean.getContract().getEnd());
 
         findViewById(R.id.include_ball_item_one).findViewById(R.id.view_centre).setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -234,7 +237,7 @@ public class BCH3DSelectionActivity extends BaseActivity implements BCH3dSelecti
                     public void onClick(View view) {
                         String category = CategoryEnum.D3.getCategory() + "";
                         String language = SystemUtil.language(activity);
-                        BlockChainUrlUtil.gameRule(activity,category, language);
+                        BlockChainUrlUtil.gameRule(activity, category, language);
 
                         dialog.dismiss();
                     }
@@ -319,7 +322,7 @@ public class BCH3DSelectionActivity extends BaseActivity implements BCH3dSelecti
         }
     }
 
-    private static final int SENSOR_VALUE = 14;
+    private static final int SENSOR_VALUE = 50;
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
     private long lastVibratorTime = 0;
@@ -336,19 +339,35 @@ public class BCH3DSelectionActivity extends BaseActivity implements BCH3dSelecti
         sensorManager.unregisterListener(this);
     }
 
+    private long mLastTimestamp = 0L;
+    private float lastAX;
+    private float lastAY;
+    private float lastAZ;
+
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        int sensorType = sensorEvent.sensor.getType();
-        float[] values = sensorEvent.values;
+        float ax = sensorEvent.values[0];
+        float ay = sensorEvent.values[1];
+        float az = sensorEvent.values[2] - SensorManager.GRAVITY_EARTH;
 
-        if (TimeUtil.timestamp() - lastVibratorTime > 2000) {
-            lastVibratorTime = TimeUtil.timestamp();
+        boolean canShake = false;
+        if (Math.abs(ax) > 12 && ax * lastAX <= 0) {
+            canShake = true;
+            lastAX = ax;
+        } else if (Math.abs(ay) > 12 && ay * lastAY <= 0) {
+            canShake = true;
+            lastAY = ay;
+        } else if (Math.abs(az) > 12 && az * lastAZ <= 0) {
+            canShake = true;
+            lastAZ = az;
+        }
 
-            if (sensorType == Sensor.TYPE_ACCELEROMETER) {
-                if ((Math.abs(values[0]) > SENSOR_VALUE || Math.abs(values[1]) > SENSOR_VALUE || Math.abs(values[2]) > SENSOR_VALUE)) {
-                    shakeSingleBetting();
-                }
+        if (canShake) {
+            if (TimeUtil.timestamp() - mLastTimestamp < 1000) {
+                return;
             }
+            mLastTimestamp = TimeUtil.timestamp();
+            shakeSingleBetting();
         }
     }
 

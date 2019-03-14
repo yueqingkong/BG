@@ -108,7 +108,7 @@ public class LuckyBettingActivity extends BaseActivity implements LuckyBettingCo
         toolbarBase.setRightTxt(R.mipmap.btn_more_big);
         toolbarBase.setToolbarCallback(this);
 
-        txtLucky.setText(getString(R.string.betting_bchlucky_stage, homeBean.getContract().getId()));
+        txtLucky.setText(getString(R.string.betting_bchlucky_stage, homeBean.getContract().getPeriod()));
 
         int total = (int) homeBean.getContract().getTimes();
         int remain = homeBean.getContract().getRemaining();

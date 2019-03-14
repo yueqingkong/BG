@@ -138,7 +138,7 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
         toolbarBase.setToolbarCallback(this);
 
         viewClock.init(homeBean.getContract().getEnd());
-        txtStageNumber.setText(getString(R.string.betting_bch3d_stage, homeBean.getContract().getId()));
+        txtStageNumber.setText(getString(R.string.betting_bch3d_stage, homeBean.getContract().getPeriod()));
         txtDateEnd.init(R.string.betting_bch3d_end, homeBean.getContract().getStart(), homeBean.getContract().getEnd());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);

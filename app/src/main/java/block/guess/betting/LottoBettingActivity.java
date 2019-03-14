@@ -141,7 +141,7 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
         GlideUtil.load(imgCategory, R.mipmap.ic_bchlotto_home);
 
         viewClock.init(homeBean.getContract().getEnd());
-        txtStageNumber.setText(getString(R.string.betting_lotto_stage, homeBean.getContract().getId()));
+        txtStageNumber.setText(getString(R.string.betting_lotto_stage, homeBean.getContract().getPeriod()));
         txtDateEnd.init(R.string.betting_bch3d_end, homeBean.getContract().getStart(), homeBean.getContract().getEnd());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);

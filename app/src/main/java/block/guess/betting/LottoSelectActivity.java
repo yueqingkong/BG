@@ -76,7 +76,7 @@ public class LottoSelectActivity extends BaseActivity implements LottoSelectCont
     @Autowired
     ArrayList<LottoBean> bettingBeans;
 
-    private static final int SENSOR_VALUE = 14;
+    private static final int SENSOR_VALUE = 30;
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
     private long lastVibratorTime = 0;
@@ -118,7 +118,7 @@ public class LottoSelectActivity extends BaseActivity implements LottoSelectCont
 
         GlideUtil.load(imgCategory, R.mipmap.ic_bchlotto_home);
         viewClock.init(homeBean.getContract().getEnd());
-        txtStageNumber.setText(getString(R.string.betting_lotto_stage, homeBean.getContract().getId()));
+        txtStageNumber.setText(getString(R.string.betting_lotto_stage, homeBean.getContract().getPeriod()));
         txtDateEnd.init(R.string.betting_bch3d_end, homeBean.getContract().getStart(), homeBean.getContract().getEnd());
 
         findViewById(R.id.include_ball_item_one).findViewById(R.id.view_centre).setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -315,19 +315,35 @@ public class LottoSelectActivity extends BaseActivity implements LottoSelectCont
         });
     }
 
+    private long mLastTimestamp = 0L;
+    private float lastAX;
+    private float lastAY;
+    private float lastAZ;
+
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        int sensorType = sensorEvent.sensor.getType();
-        float[] values = sensorEvent.values;
+        float ax = sensorEvent.values[0];
+        float ay = sensorEvent.values[1];
+        float az = sensorEvent.values[2] - SensorManager.GRAVITY_EARTH;
 
-        if (TimeUtil.timestamp() - lastVibratorTime > 2000) {
-            lastVibratorTime = TimeUtil.timestamp();
+        boolean canShake = false;
+        if (Math.abs(ax) > 12 && ax * lastAX <= 0) {
+            canShake = true;
+            lastAX = ax;
+        } else if (Math.abs(ay) > 12 && ay * lastAY <= 0) {
+            canShake = true;
+            lastAY = ay;
+        } else if (Math.abs(az) > 12 && az * lastAZ <= 0) {
+            canShake = true;
+            lastAZ = az;
+        }
 
-            if (sensorType == Sensor.TYPE_ACCELEROMETER) {
-                if ((Math.abs(values[0]) > SENSOR_VALUE || Math.abs(values[1]) > SENSOR_VALUE || Math.abs(values[2]) > SENSOR_VALUE)) {
-                    shaking();
-                }
+        if (canShake) {
+            if (TimeUtil.timestamp() - mLastTimestamp < 1000) {
+                return;
             }
+            mLastTimestamp = TimeUtil.timestamp();
+            shaking();
         }
     }
 

@@ -111,6 +111,7 @@ public class BettingRecordActivity extends BaseActivity implements BettingRecord
 
         isRequest = true;
         recordAdapter.setLoadingStatus();
+
         BettingRecordRequest recordRequest = new BettingRecordRequest(index);
         OKHttpUtil.client().request(recordRequest, new BaseCallBack<List<RecordDetailBean>>(activity) {
 
@@ -118,12 +119,6 @@ public class BettingRecordActivity extends BaseActivity implements BettingRecord
             public void success(List<RecordDetailBean> beans) {
                 isRequest = false;
                 swipeRefreshLayout.setRefreshing(false);
-
-                if (index == 1 && beans.size() == 0) {
-                    constraintlayoutEmpty.setVisibility(View.VISIBLE);
-                } else {
-                    constraintlayoutEmpty.setVisibility(View.GONE);
-                }
 
                 if (beans.size() > 0) {
                     if (index == 1) {
@@ -135,6 +130,12 @@ public class BettingRecordActivity extends BaseActivity implements BettingRecord
                     index++;
                 } else {
                     recordAdapter.setEndStatus();
+                }
+
+                if(recordAdapter.getItemCount()<=1){
+                    constraintlayoutEmpty.setVisibility(View.VISIBLE);
+                }else {
+                    constraintlayoutEmpty.setVisibility(View.GONE);
                 }
             }
 
