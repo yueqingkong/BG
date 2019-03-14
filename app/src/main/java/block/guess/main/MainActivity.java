@@ -86,6 +86,10 @@ public class MainActivity extends BaseActivity implements MainContract.BView, Ma
         if (homeFragment != null) {
             homeFragment.homeRequest();
         }
+
+        if (walletFragment != null) {
+            walletFragment.historyRequest();
+        }
     }
 
     @OnClick({R.id.include_main, R.id.include_lottery, R.id.include_wallet, R.id.include_my})

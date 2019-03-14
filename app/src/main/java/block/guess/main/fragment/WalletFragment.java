@@ -157,7 +157,6 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
 
             @Override
             public void onRefresh() {
-                index = 1;
                 historyRequest();
             }
         });
@@ -165,6 +164,7 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
 
     // 流水
     public void historyRequest() {
+        index = 1;
         if (presenter == null) {
             return;
         }

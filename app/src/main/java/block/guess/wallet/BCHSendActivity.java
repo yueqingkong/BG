@@ -3,6 +3,9 @@ package block.guess.wallet;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -75,6 +78,21 @@ public class BCHSendActivity extends BaseActivity implements BCHSendContract.BVi
 
     private BCHSendActivity activity;
     private BCHSendContract.Presenter presenter;
+
+    private Handler handler = new Handler(Looper.myLooper()) {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 120:
+                    txtSend.setEnabled(true);
+                    txtSend.setAlpha(1f);
+                    activity.finish();
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -175,21 +193,28 @@ public class BCHSendActivity extends BaseActivity implements BCHSendContract.BVi
         if (TextUtils.isEmpty(amount) || Double.parseDouble(amount) <= 0 || TextUtils.isEmpty(address) || TextUtils.isEmpty(code)) {
             SnackBarUtil.error(activity, getString(R.string.tips_empty_address_code_amount));
         } else {
+            txtSend.setEnabled(false);
+            txtSend.setAlpha(0.5f);
             long amountValue = (long) (Float.parseFloat(amount) * StringsUtil.Unit);
+
             presenter.withdrawalConfirm(address, amountValue, code, feeBig, new BaseCallBack<Boolean>(activity) {
                 @Override
                 public void success(Boolean aBoolean) {
-                    activity.finish();
                     SnackBarUtil.success(activity, getString(R.string.withdraw_success));
+                    handler.sendEmptyMessageDelayed(120, 2000);
                 }
 
                 @Override
                 public void serverError(int code, String err) {
+                    txtSend.setEnabled(true);
+                    txtSend.setAlpha(1f);
                     SnackBarUtil.error(activity, err);
                 }
 
                 @Override
                 public void netError() {
+                    txtSend.setEnabled(true);
+                    txtSend.setAlpha(1f);
                     SnackBarUtil.error(activity, getString(R.string.error_network_timeout));
                 }
             });
