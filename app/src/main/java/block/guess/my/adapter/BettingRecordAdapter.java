@@ -134,7 +134,7 @@ public class BettingRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
                 break;
         }
 
-        String number = "NO." + String.valueOf(detailBean.getId());
+        String number = "NO." + String.valueOf(detailBean.getPeriod());
         holder.numberTxt.setText(number);
 
         String explain = "";

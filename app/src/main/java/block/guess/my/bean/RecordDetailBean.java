@@ -56,6 +56,7 @@ public class RecordDetailBean implements Serializable {
     private Object blue_numbers;
     private Object free_shot_numbers;
     private ArrayList<PurchaseNumbersBean> purchase_numbers;
+    private String period;
 
     public int getId() {
         return id;
@@ -818,5 +819,13 @@ public class RecordDetailBean implements Serializable {
         public void setCategory(int category) {
             this.category = category;
         }
+    }
+
+    public String getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(String period) {
+        this.period = period;
     }
 }

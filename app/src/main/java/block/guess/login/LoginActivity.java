@@ -84,12 +84,12 @@ public class LoginActivity extends BaseActivity implements LoginContract.BView {
         statusBar(false, getResources().getColor(R.color.color_white));
 
         if (BuildConfig.DEFAULT_HINT) {
-            //editAccount.setText("762396990@qq.com");
-            //editPassword.setText("@QWer1234");
-//            editAccount.setText("yinchangxin1989@gmail.com");
-//            editPassword.setText("#bitmain!@#$");
-            editAccount.setText("mhl564312135@gmail.com");
-            editPassword.setText("mohuilin28");
+            editAccount.setText("762396990@qq.com");
+            editPassword.setText("@QWer1234");
+            //editAccount.setText("yinchangxin1989@gmail.com");
+            //editPassword.setText("#bitmain!@#$");
+//            editAccount.setText("mhl564312135@gmail.com");
+//            editPassword.setText("mohuilin28");
         }
     }
 

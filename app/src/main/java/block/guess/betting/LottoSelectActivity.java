@@ -144,12 +144,24 @@ public class LottoSelectActivity extends BaseActivity implements LottoSelectCont
 
             @Override
             public boolean numberContain(int number) {
-                return currentBean.containsNumber(number);
+                String numStr = "";
+                if(number<10){
+                    numStr = "0"+number;
+                }else {
+                    numStr = String.valueOf(number);
+                }
+                return currentBean.containsNumber(numStr);
             }
 
             @Override
             public void selectNumber(int number) {
-                currentBean.selectNumber(number);
+                String numStr = "";
+                if(number<10){
+                    numStr = "0"+numStr;
+                }else {
+                    numStr = String.valueOf(number);
+                }
+                currentBean.selectNumber(numStr);
             }
         });
 
@@ -161,12 +173,24 @@ public class LottoSelectActivity extends BaseActivity implements LottoSelectCont
 
             @Override
             public boolean numberContain(int number) {
-                return currentBean.purpleContain(number);
+                String numStr = "";
+                if(number<10){
+                    numStr = "0"+number;
+                }else {
+                    numStr = String.valueOf(number);
+                }
+                return currentBean.purpleContain(numStr);
             }
 
             @Override
             public void selectNumber(int number) {
-                currentBean.selectPurple(number);
+                String numStr = "";
+                if(number<10){
+                    numStr = "0"+numStr;
+                }else {
+                    numStr = String.valueOf(number);
+                }
+                currentBean.selectPurple(numStr);
             }
         });
 

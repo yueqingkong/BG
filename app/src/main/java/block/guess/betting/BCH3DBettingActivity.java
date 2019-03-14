@@ -272,7 +272,7 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
         double payTotal = select * times * single;
         txtBettingBch.setText(getString(R.string.pay_bch, StringsUtil.decimal((long) (payTotal * StringsUtil.Unit))));
 
-        double winTotal = payTotal * homeBean.getContract().getTimes();
+        double winTotal = single * homeBean.getContract().getTimes();
         if (select == 0) {
             winTotal = 0;
         }

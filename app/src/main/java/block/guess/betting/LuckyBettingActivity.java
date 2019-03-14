@@ -173,7 +173,7 @@ public class LuckyBettingActivity extends BaseActivity implements LuckyBettingCo
     private void gameRule() {
         String category = CategoryEnum.LUCKY.getCategory() + "";
         String language = SystemUtil.language(activity);
-        BlockChainUrlUtil.gameRule(activity,category, language);
+        BlockChainUrlUtil.gameRule(activity, category, language);
     }
 
     @Override
@@ -187,9 +187,12 @@ public class LuckyBettingActivity extends BaseActivity implements LuckyBettingCo
             stakes = Integer.parseInt(string);
         }
 
-        long payAmount = 100000 * stakes;
-        txtBettingCount.setText(getString(R.string.decimal_bch, StringsUtil.decimal(payAmount)));
-        txtLuckyMax.setText(getString(R.string.decimal_bch, StringsUtil.decimal(payAmount * 1000)));
+        double single = ((double) homeBean.getContract().getUnit()) / (100000000d);
+        double payTotal = stakes * single;
+        double winTotal = single * homeBean.getContract().getTimes();
+
+        txtBettingCount.setText(getString(R.string.decimal_bch, StringsUtil.decimal(payTotal)));
+        txtLuckyMax.setText(getString(R.string.decimal_bch, StringsUtil.decimal(winTotal)));
     }
 
     @Override
@@ -225,11 +228,11 @@ public class LuckyBettingActivity extends BaseActivity implements LuckyBettingCo
     }
 
     @Override
-    public void paySuccess(long contractid,String identifier) {
+    public void paySuccess(long contractid, String identifier) {
         ARouter.getInstance().build("/betting/bchpaysuccess")
                 .withLong("contractId", contractid)
                 .withString("identifier", identifier)
-                .withInt("category",homeBean.getContract().getCategory())
+                .withInt("category", homeBean.getContract().getCategory())
                 .navigation(activity);
     }
 
@@ -261,7 +264,7 @@ public class LuckyBettingActivity extends BaseActivity implements LuckyBettingCo
                     public void onClick(View view) {
                         String category = CategoryEnum.LUCKY.getCategory() + "";
                         String language = SystemUtil.language(activity);
-                        BlockChainUrlUtil.gameRule(activity,category, language);
+                        BlockChainUrlUtil.gameRule(activity, category, language);
 
                         dialog.dismiss();
                     }

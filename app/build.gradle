@@ -56,7 +56,6 @@ def releaseTime() {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation files('libs/zxing.jar')
 
     // android 系统组件
     implementation 'androidx.appcompat:appcompat:1.0.2'

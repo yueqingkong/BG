@@ -42,8 +42,8 @@ public class LottoBettingAdapter extends RecyclerView.Adapter<LottoBettingAdapte
     @Override
     public void onBindViewHolder(@NonNull LottoBettingHolder holder, int position) {
         final LottoBean lottoBean = lottoBeanList.get(position);
-        List<Integer> numberList = lottoBean.numberLists();
-        Integer purpleNumber = lottoBean.purpleNumber();
+        List<String> numberList = lottoBean.numberLists();
+        String purpleNumber = lottoBean.purpleNumber();
 
         holder.firstTxt.setText(String.valueOf(numberList.get(0)));
         holder.secondTxt.setText(String.valueOf(numberList.get(1)));

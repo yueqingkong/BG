@@ -5,18 +5,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.text.TextUtils;
 import block.guess.utils.MathUtil;
 
 public class LottoBean implements Serializable {
 
-    private ArrayList<Integer> numberLists = new ArrayList<>();
-    private Integer purpleNumber;
+    private ArrayList<String> numberLists = new ArrayList<>();
+    private String purpleNumber;
 
-    public boolean containsNumber(Integer num) {
+    public boolean containsNumber(String num) {
         return numberLists.contains(num);
     }
 
-    public void selectNumber(Integer num) {
+    public void selectNumber(String num) {
         boolean contains = numberLists.contains(num);
         if (contains) {
             numberLists.remove(num);
@@ -27,11 +28,11 @@ public class LottoBean implements Serializable {
         }
     }
 
-    public boolean purpleContain(Integer num) {
+    public boolean purpleContain(String num) {
         return num.equals(purpleNumber);
     }
 
-    public void selectPurple(Integer num) {
+    public void selectPurple(String num) {
         this.purpleNumber = num;
     }
 
@@ -39,29 +40,43 @@ public class LottoBean implements Serializable {
      * 生成随机数
      */
     public void randomNumber() {
-        Map<Integer, Integer> numberMap = new HashMap<>();
+        Map<Integer, String> numberMap = new HashMap<>();
         while (true) {
             int random = MathUtil.randomInMax(33) + 1;
             if (numberMap.containsKey(random)) {
                 continue;
             } else {
-                numberMap.put(random, random);
+                String randomStr = "";
+                if (random < 10) {
+                    randomStr = "0" + random;
+                } else {
+                    randomStr = String.valueOf(random);
+                }
+                numberMap.put(random, randomStr);
                 if (numberMap.size() == 6) {
                     break;
                 }
             }
         }
         numberLists.clear();
-        numberLists.addAll(numberMap.keySet());
+        numberLists.addAll(numberMap.values());
 
-        purpleNumber = MathUtil.randomInMax(16) + 1;
+        // 蓝球
+        Integer purpleRandom = MathUtil.randomInMax(16) + 1;
+        String purpleStr = "";
+        if (purpleRandom < 10) {
+            purpleStr = "0" + purpleRandom;
+        } else {
+            purpleStr = String.valueOf(purpleRandom);
+        }
+        purpleNumber = purpleStr;
     }
 
     public boolean isAvailable() {
-        boolean available = numberLists.size() == 6 && purpleNumber > 0;
+        boolean available = numberLists.size() == 6 && !TextUtils.isEmpty(purpleNumber);
         if (available) {
-            for (Integer integer : numberLists) {
-                available = integer > 0;
+            for (String integer : numberLists) {
+                available = !TextUtils.isEmpty(integer);
                 if (!available) {
                     break;
                 }
@@ -70,16 +85,16 @@ public class LottoBean implements Serializable {
         return available;
     }
 
-    public ArrayList<Integer> numberLists() {
+    public ArrayList<String> numberLists() {
         return numberLists;
     }
 
-    public Integer purpleNumber() {
+    public String purpleNumber() {
         return purpleNumber;
     }
 
     public void clear() {
         numberLists.clear();
-        purpleNumber = 0;
+        purpleNumber = "";
     }
 }

@@ -6,6 +6,7 @@ import android.content.Context;
 import com.alibaba.android.arouter.launcher.ARouter;
 
 import androidx.multidex.MultiDex;
+import com.xsj.crasheye.Crasheye;
 
 public class BaseApp extends Application {
 
@@ -22,6 +23,7 @@ public class BaseApp extends Application {
         ARouter.openLog();// 打印日志
         ARouter.openDebug();// 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         ARouter.init(this);
+        Crasheye.init(this, "fe81fda0");//日志分析
     }
 
     @Override
