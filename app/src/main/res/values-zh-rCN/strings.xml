@@ -60,7 +60,7 @@
     <string name="change_password">修改密码</string>
     <string name="about_us">关于我们</string>
     <string name="refresh_code">刷新Code</string>
-    <string name="captcha_png">/v1/captcha/%s.png</string>
+    <string name="captcha_png">/api/v1/captcha/%s.png</string>
     <string name="note">进度</string>
     <string name="progress_">%d/%d</string>
     <string name="over_note_lottery">满1000注开奖</string>

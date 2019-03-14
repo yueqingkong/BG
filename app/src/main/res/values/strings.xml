@@ -62,7 +62,7 @@
     <string name="change_password">Change Password</string>
     <string name="about_us">About Us</string>
     <string name="refresh_code">Refresh Code</string>
-    <string name="captcha_png">/v1/captcha/%s.png</string>
+    <string name="captcha_png">/api/v1/captcha/%s.png</string>
     <string name="note">Note</string>
     <string name="progress_">%d/%d</string>
     <string name="over_note_lottery">Over 1,000 Note Lottery</string>

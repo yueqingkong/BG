@@ -115,8 +115,10 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
         isRequest = true;
         if (category == 3) {
             lotteryLottoAdapter.setLoadingStatus();
+            lotteryLottoAdapter.clearBeans();
         } else {
             lotteryAdapter.setLoadingStatus();
+            lotteryAdapter.clearBeans();
         }
 
         LotteryPageRequest pageRequest = new LotteryPageRequest(category, index);
@@ -138,7 +140,7 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
 
                         index++;
                     } else {
-                        imgEmpty.setVisibility(lotteryLottoAdapter.getItemCount() == 1 ? View.VISIBLE : View.GONE);
+                        imgEmpty.setVisibility(lotteryLottoAdapter.getItemCount() <=1 ? View.VISIBLE : View.GONE);
                         lotteryLottoAdapter.setEndStatus();
                     }
                 } else {
@@ -153,7 +155,7 @@ public class LotteryLotteryFragment extends BaseFragment implements LotteryLotte
 
                         index++;
                     } else {
-                        imgEmpty.setVisibility(lotteryAdapter.getItemCount() == 1 ? View.VISIBLE : View.GONE);
+                        imgEmpty.setVisibility(lotteryAdapter.getItemCount() <= 1 ? View.VISIBLE : View.GONE);
                         lotteryAdapter.setEndStatus();
                     }
                 }

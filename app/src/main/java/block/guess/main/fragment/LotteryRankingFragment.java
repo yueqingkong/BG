@@ -109,6 +109,7 @@ public class LotteryRankingFragment extends BaseFragment implements LotteryRanki
 
         category = 0;
         presenter.rankingRequest(category);
+        rankingAdapter.clearBeans();
     }
 
     @Override
@@ -122,6 +123,7 @@ public class LotteryRankingFragment extends BaseFragment implements LotteryRanki
 
         category = 1;
         presenter.rankingRequest(category);
+        rankingAdapter.clearBeans();
     }
 
     @Override
@@ -135,6 +137,7 @@ public class LotteryRankingFragment extends BaseFragment implements LotteryRanki
 
         category = 2;
         presenter.rankingRequest(category);
+        rankingAdapter.clearBeans();
     }
 
     @Override
