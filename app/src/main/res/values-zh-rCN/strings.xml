@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Block</string>
+    <string name="app_name">BlockGuess</string>
     <string name="inc">© 2018 BlockGuess Inc</string>
 
     <string name="first_step">第一步</string>
@@ -16,6 +16,7 @@
     <string name="forget_password">忘记密码?</string>
     <string name="sign_in">登录</string>
     <string name="donot_have_account">还没创建有账户？</string>
+    <string name="account_password_empty">账号或密码为空</string>
     <string name="sign_up">注册</string>
     <string name="create_u_account">创建账户</string>
     <string name="invitation_code">邀请码</string>
@@ -50,6 +51,7 @@
     <string name="balance">余额</string>
     <string name="send">转账</string>
     <string name="receive">收款</string>
+    <string name="recharge">充值</string>
     <string name="transaction_history">流水</string>
     <string name="sign_out">退出</string>
     <string name="partner_plan">合伙人计划</string>
@@ -58,16 +60,22 @@
     <string name="change_password">修改密码</string>
     <string name="about_us">关于我们</string>
     <string name="refresh_code">刷新Code</string>
-    <string name="captcha_png">/v1/captcha/%s.png</string>
+    <string name="captcha_png">/api/v1/captcha/%s.png</string>
     <string name="note">进度</string>
     <string name="progress_">%d/%d</string>
     <string name="over_note_lottery">满1000注开奖</string>
     <string name="bch">BCH</string>
     <string name="bch_win">赢 %.3f BCH</string>
     <string name="nomber_">期号 %d</string>
-    <string name="buy_bchlucky">购买 BCHLucky</string>
-    <string name="buy_bch3d">购买 BCH3D</string>
+    <string name="buy_bchlucky">购买BCHLucky</string>
+    <string name="buy_bch3d">购买BCH3D</string>
+    <string name="buy_bchfree">购买BCH3DFREE</string>
+    <string name="buy_lotto">购买BCHLotto</string>
+    <string name="unknown">未知</string>
+    <string name="contract">合约</string>
     <string name="award">中奖</string>
+    <string name="give">赠送</string>
+    <string name="reward">奖励</string>
     <string name="three_win_200_times">选择三位数字,夺取200倍大奖</string>
     <string name="betting_three">百位</string>
     <string name="betting_two">十位</string>
@@ -88,12 +96,17 @@
     <string name="clear_all">清空所有</string>
     <string name="total_select_times">共%d注 x %d倍</string>
     <string name="betting_count_max">最多投8注</string>
+    <string name="betting_count_">最多投%d注</string>
+
     <string name="pay_bch">%sBCH</string>
     <string name="max_will">，最高可赢取</string>
     <string name="buy">买</string>
     <string name="times">倍</string>
     <string name="pay">付款</string>
     <string name="betting_at_least_one">至少投一注</string>
+    <string name="times_at_least_">至少%d倍</string>
+    <string name="times_at_most_">最多%d倍</string>
+    <string name="betting_at_most_">最多%d注</string>
     <string name="please_agree_rule">请勾选同意规则</string>
     <string name="betting_bchlucky">投注 BCHLucky</string>
     <string name="betting_bchlucky_stage">BCHLucyk 第 %d 期</string>
@@ -113,7 +126,7 @@
     <string name="not_award">未中奖</string>
     <string name="the_wining">中奖</string>
     <string name="to_be_award">等待开奖</string>
-    <string name="bet_and_total">投注 %d, 总共: %sBCH</string>
+    <string name="bet_and_total">共%d注, 总共: %sBCH</string>
     <string name="win_amount_bch">+%sBCH</string>
     <string name="free_bch_3d">免费 BCH3D</string>
     <string name="betting_detail">购买记录</string>
@@ -128,11 +141,11 @@
     <string name="bch3d_lottery">BCH3D Lottery</string>
     <string name="bchlucky_lottery">BCHLucky Lottery</string>
     <string name="contract_no_">期号.%d</string>
-    <string name="random_org_number">random.org Random : %s</string>
+    <string name="random_org_number">random.org 随机数 : %s</string>
     <string name="verify">验证</string>
-    <string name="ending_height">结束投注区块高度</string>
-    <string name="block_height">区块高度</string>
-    <string name="end_time_betting">投注结束时间</string>
+    <string name="ending_height">结束投注块高度</string>
+    <string name="block_height">开奖块高度</string>
+    <string name="end_time_betting">结束投注时间</string>
     <string name="contract_address">合约地址</string>
     <string name="winning_player">中奖玩家</string>
     <string name="my_betting">我的投注</string>
@@ -227,4 +240,8 @@
     <string name="tens">十</string>
     <string name="units">个</string>
     <string name="choose_six_red_ball">选择6个红球</string>
+    <string name="address_or_email_empty">地址或邮箱不能为空</string>
+    <string name="email_send_success">邮件已发送</string>
+    <string name="transfer">转账</string>
+    <string name="update_password_empty">密码不能为空</string>
 </resources>

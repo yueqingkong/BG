@@ -2,20 +2,15 @@ package block.guess.betting.contract;
 
 import block.guess.base.contract.BasePresenter;
 import block.guess.base.contract.BaseView;
+import block.guess.betting.bean.ContractDetailBean;
+import block.guess.utils.okhttp.Callback.BaseCallBack;
 
-public interface BCHLuckyBettingContract {
+public interface PaySuccessContract {
 
     interface BView extends BaseView<Presenter> {
-        void updateLuckyTips();
-
-        void payClick();
-
-        void paySuccess();
-
-        void payFail();
     }
 
     interface Presenter extends BasePresenter {
-        void payRequest(long id, int times);
+
     }
 }

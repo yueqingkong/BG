@@ -12,6 +12,8 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import block.guess.base.BACallBack;
+import block.guess.utils.okhttp.Callback.BaseCallBack;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -139,7 +141,7 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
         GlideUtil.load(imgCategory, R.mipmap.ic_bchlotto_home);
 
         viewClock.init(homeBean.getContract().getEnd());
-        txtStageNumber.setText(getString(R.string.betting_lotto_stage, homeBean.getContract().getId()));
+        txtStageNumber.setText(getString(R.string.betting_lotto_stage, homeBean.getContract().getPeriod()));
         txtDateEnd.init(R.string.betting_bch3d_end, homeBean.getContract().getStart(), homeBean.getContract().getEnd());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
@@ -212,29 +214,26 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
     private void gameRule() {
         String category = CategoryEnum.LOTTO.getCategory() + "";
         String language = SystemUtil.language(activity);
-        String ruleUrl = BlockChainUrlUtil.gameRule(category, language);
-        ARouter.getInstance().build("/widget/webview")
-                .withString("url", ruleUrl)
-                .navigation(activity);
+        BlockChainUrlUtil.gameRule(activity, category, language);
     }
 
     @Override
     public void singleClick() {
-        if (bettingBeans.size() < 8) {
+        if (bettingBeans.size() < 5) {
             LottoBean lottoBean = new LottoBean();
             lottoBean.randomNumber();
             bettingBeans.add(lottoBean);
 
             updateBeans(bettingBeans);
         } else {
-            SnackBarUtil.error(activity, activity.getString(R.string.betting_count_max));
+            SnackBarUtil.error(activity, activity.getString(R.string.betting_count_, 5));
         }
     }
 
     @Override
     public void fourClick() {
-        if (bettingBeans.size() < 8) {
-            int remain = 8 - bettingBeans.size();
+        if (bettingBeans.size() < 5) {
+            int remain = 5 - bettingBeans.size();
             if (remain > 4) {
                 remain = 4;
             }
@@ -247,19 +246,19 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
 
             updateBeans(bettingBeans);
         } else {
-            SnackBarUtil.error(activity, activity.getString(R.string.betting_count_max));
+            SnackBarUtil.error(activity, activity.getString(R.string.betting_count_, 5));
         }
     }
 
     @Override
     public void handsClick() {
-        if (bettingBeans.size() < 8) {
+        if (bettingBeans.size() < 5) {
             ARouter.getInstance().build("/betting/lottoselect")
                     .withSerializable("homeBean", homeBean)
                     .withSerializable("bettingBeans", bettingBeans)
                     .navigation(activity);
         } else {
-            SnackBarUtil.error(activity, activity.getString(R.string.betting_count_max));
+            SnackBarUtil.error(activity, activity.getString(R.string.betting_count_, 5));
         }
     }
 
@@ -277,10 +276,11 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
 
         txtBettingCount.setText(getString(R.string.total_select_times, select, times));
 
-        double payTotal = select * times * 0.0005;
+        double single = ((double) homeBean.getContract().getUnit()) / (100000000d);
+        double payTotal = select * times * single;
         txtBettingBch.setText(getString(R.string.pay_bch, StringsUtil.decimal((long) (payTotal * StringsUtil.Unit))));
 
-        double winTotal = times * 0.0005 * 200;
+        double winTotal = single * homeBean.getContract().getTimes();//固定倍数 25000
         if (select == 0) {
             winTotal = 0;
         }
@@ -293,10 +293,29 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
         } else if (!checkboxGameRule.isChecked()) {
             SnackBarUtil.error(activity, getString(R.string.please_agree_rule));
         } else {
+            txtPay.setAlpha(0.5f);
             txtPay.setEnabled(false);
 
             int times = Integer.parseInt(editAmount.getText().toString());
-            presenter.payClick(homeBean, times, bettingBeans);
+            presenter.payClick(homeBean, times, bettingBeans, new BACallBack<Boolean>(){
+                @Override
+                public void success(Boolean aBoolean) {
+                    txtPay.setEnabled(true);
+                    txtPay.setAlpha(1f);
+                }
+
+                @Override
+                public void error(int code, String err) {
+                    txtPay.setEnabled(true);
+                    txtPay.setAlpha(1f);
+                }
+
+                @Override
+                public void error() {
+                    txtPay.setEnabled(true);
+                    txtPay.setAlpha(1f);
+                }
+            });
         }
     }
 
@@ -310,7 +329,7 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
     public void subtract() {
         String string = editAmount.getText().toString();
         if (TextUtils.isEmpty(string) || Integer.parseInt(string) == 1) {
-            SnackBarUtil.error(activity, getString(R.string.betting_at_least_one));
+            SnackBarUtil.error(activity, getString(R.string.times_at_least_, 1));
         } else {
             Integer integer = Integer.parseInt(editAmount.getText().toString());
             integer--;
@@ -323,10 +342,14 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
     @Override
     public void plus() {
         Integer integer = Integer.parseInt(editAmount.getText().toString());
-        integer++;
-        editAmount.setText(String.valueOf(integer));
+        if (integer == 10) {
+            SnackBarUtil.error(activity, getString(R.string.times_at_most_, integer));
+        } else {
+            integer++;
+            editAmount.setText(String.valueOf(integer));
 
-        timesNotes();
+            timesNotes();
+        }
     }
 
     @Override
@@ -345,12 +368,9 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
                 view.findViewById(R.id.txt_gamerule).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String category = CategoryEnum.D3.getCategory() + "";
+                        String category = CategoryEnum.LOTTO.getCategory() + "";
                         String language = SystemUtil.language(activity);
-                        String ruleUrl = BlockChainUrlUtil.gameRule(category, language);
-                        ARouter.getInstance().build("/widget/webview")
-                                .withString("url", ruleUrl)
-                                .navigation(activity);
+                        BlockChainUrlUtil.gameRule(activity, category, language);
 
                         dialog.dismiss();
                     }
@@ -360,7 +380,7 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
                     @Override
                     public void onClick(View view) {
                         String address = homeBean.getContract().getAddress();
-                        String url = BlockChainUrlUtil.btccomAddress(address);
+                        String url = BlockChainUrlUtil.addressUrl(address, SystemUtil.language(activity));
                         ARouter.getInstance().build("/widget/webview")
                                 .withString("url", url)
                                 .navigation(activity);
@@ -396,15 +416,12 @@ public class LottoBettingActivity extends BaseActivity implements LottoBettingCo
     }
 
     @Override
-    public void paySuccess(long contractid) {
+    public void paySuccess(long contractid, String identifier) {
         ARouter.getInstance().build("/betting/bchpaysuccess")
                 .withLong("contractId", contractid)
+                .withString("identifier", identifier)
+                .withInt("category",homeBean.getContract().getCategory())
                 .navigation(activity);
-    }
-
-    @Override
-    public void payFail() {
-        txtPay.setEnabled(true);
     }
 
     public void setPresenter(LottoBettingContract.Presenter presenter) {

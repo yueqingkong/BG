@@ -2,11 +2,13 @@ package block.guess.betting;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import block.guess.widget.snackbar.SnackBarUtil;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -15,8 +17,8 @@ import androidx.annotation.Nullable;
 import block.guess.R;
 import block.guess.base.BaseActivity;
 import block.guess.betting.bean.GiftSendBean;
-import block.guess.betting.contract.BCHGiftContract;
-import block.guess.betting.presenter.BCHGiftPresenter;
+import block.guess.betting.contract.GiveFriendContract;
+import block.guess.betting.presenter.GiveFriendPresenter;
 import block.guess.betting.request.GiftFriendRequest;
 import block.guess.betting.request.TxhashPublishRequest;
 import block.guess.betting.bean.TxhashBean;
@@ -30,7 +32,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @Route(path = "/betting/bchgift")
-public class BCHGiftActivity extends BaseActivity implements BCHGiftContract.BView, ToolbarCallback {
+public class GiveFriendActivity extends BaseActivity implements GiveFriendContract.BView, ToolbarCallback {
 
     @BindView(R.id.toolbar_base)
     BaseToolBar toolbarBase;
@@ -51,8 +53,8 @@ public class BCHGiftActivity extends BaseActivity implements BCHGiftContract.BVi
     String txhash;
 
     private static String TAG = "_BCHGiftActivity";
-    private BCHGiftActivity activity;
-    private BCHGiftContract.Presenter presenter;
+    private GiveFriendActivity activity;
+    private GiveFriendContract.Presenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,14 +63,14 @@ public class BCHGiftActivity extends BaseActivity implements BCHGiftContract.BVi
         ButterKnife.bind(this);
         ARouter.getInstance().inject(this);
 
-        new BCHGiftPresenter(this).start();
+        new GiveFriendPresenter(this).start();
     }
 
     @Override
     public void init() {
         activity = this;
         getSupportActionBar().hide();
-        statusBar(false,getResources().getColor(R.color.color_white));
+        statusBar(false, getResources().getColor(R.color.color_white));
 
         toolbarBase.setLeftTxt(R.mipmap.btn_return_gray);
         toolbarBase.setTitleTxt(getString(R.string.gift_friend));
@@ -97,6 +99,11 @@ public class BCHGiftActivity extends BaseActivity implements BCHGiftContract.BVi
     public void giftRequest() {
         String address = editAccount.getText().toString();
         String email = editEmail.getText().toString();
+        if (TextUtils.isEmpty(address) && TextUtils.isEmpty(email)) {
+            SnackBarUtil.error(activity, getString(R.string.address_or_email_empty));
+            return;
+        }
+
         GiftSendBean giftSendBean = new GiftSendBean(identifier, address, email);
         GiftFriendRequest request = new GiftFriendRequest(giftSendBean);
         OKHttpUtil.client().request(request, new BaseCallBack<String>(activity) {
@@ -149,7 +156,7 @@ public class BCHGiftActivity extends BaseActivity implements BCHGiftContract.BVi
     }
 
     @Override
-    public void presenter(BCHGiftContract.Presenter presenter) {
+    public void presenter(GiveFriendContract.Presenter presenter) {
         this.presenter = presenter;
     }
 

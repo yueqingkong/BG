@@ -1,17 +1,12 @@
 package block.guess.my;
 
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.View;
-
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
-
-import java.util.List;
-
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import block.guess.R;
 import block.guess.base.BaseActivity;
 import block.guess.my.adapter.BettingRecordAdapter;
@@ -27,6 +22,10 @@ import block.guess.widget.toolbar.BaseToolBar;
 import block.guess.widget.toolbar.ToolbarCallback;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+
+import java.util.List;
 
 @Route(path = "/my/bettingrecord")
 public class BettingRecordActivity extends BaseActivity implements BettingRecordContract.BView, BettingRecordAdapter.BettingRecordCallback, ToolbarCallback {
@@ -37,6 +36,8 @@ public class BettingRecordActivity extends BaseActivity implements BettingRecord
     RecyclerView recyclerBettingRecord;
     @BindView(R.id.constraintlayout_empty)
     ConstraintLayout constraintlayoutEmpty;
+    @BindView(R.id.swipeRefresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private BettingRecordActivity activity;
     private BettingRecordAdapter recordAdapter;
@@ -88,6 +89,18 @@ public class BettingRecordActivity extends BaseActivity implements BettingRecord
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
+
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                index = 1;
+                recordDetails();
+            }
+        });
     }
 
     @Override
@@ -98,18 +111,14 @@ public class BettingRecordActivity extends BaseActivity implements BettingRecord
 
         isRequest = true;
         recordAdapter.setLoadingStatus();
+
         BettingRecordRequest recordRequest = new BettingRecordRequest(index);
         OKHttpUtil.client().request(recordRequest, new BaseCallBack<List<RecordDetailBean>>(activity) {
 
             @Override
             public void success(List<RecordDetailBean> beans) {
                 isRequest = false;
-
-                if (index == 1 && beans.size() == 0) {
-                    constraintlayoutEmpty.setVisibility(View.VISIBLE);
-                } else {
-                    constraintlayoutEmpty.setVisibility(View.GONE);
-                }
+                swipeRefreshLayout.setRefreshing(false);
 
                 if (beans.size() > 0) {
                     if (index == 1) {
@@ -122,17 +131,25 @@ public class BettingRecordActivity extends BaseActivity implements BettingRecord
                 } else {
                     recordAdapter.setEndStatus();
                 }
+
+                if(recordAdapter.getItemCount()<=1){
+                    constraintlayoutEmpty.setVisibility(View.VISIBLE);
+                }else {
+                    constraintlayoutEmpty.setVisibility(View.GONE);
+                }
             }
 
             @Override
             public void serverError(int code, String err) {
                 isRequest = false;
+                swipeRefreshLayout.setRefreshing(false);
                 recordAdapter.setEndStatus();
             }
 
             @Override
             public void netError() {
                 isRequest = false;
+                swipeRefreshLayout.setRefreshing(false);
                 recordAdapter.setEndStatus();
             }
         });

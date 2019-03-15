@@ -4,18 +4,18 @@ import block.guess.utils.ApiUtil;
 import block.guess.utils.okhttp.bean.HttpMethodEnum;
 import block.guess.utils.okhttp.request.BaseRequest;
 
-public class BCHContractDetailRequest extends BaseRequest {
+public class LotteryDetailRequest extends BaseRequest {
 
     private long contractid;
 
-    public BCHContractDetailRequest(Object obj, long id) {
-        super(obj);
+    public LotteryDetailRequest(long id) {
+        super(id);
         this.contractid = id;
     }
 
     @Override
     public String requstUri() {
-        return ApiUtil.V1_CONTRACTS + contractid;
+        return ApiUtil.V1_LOTTERIES + "/" + contractid;
     }
 
     @Override

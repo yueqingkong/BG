@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import block.guess.base.BACallBack;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -19,7 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import block.guess.R;
 import block.guess.base.BaseActivity;
-import block.guess.betting.contract.BCHLuckyBettingContract;
+import block.guess.betting.contract.LuckyBettingContract;
 import block.guess.betting.presenter.BCHLuckyBettingPresenter;
 import block.guess.main.bean.HomeBean;
 import block.guess.utils.DensityUtils;
@@ -38,7 +39,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @Route(path = "/betting/bchluckybetting")
-public class LuckyBettingActivity extends BaseActivity implements BCHLuckyBettingContract.BView, ProgressBarView.ProgressCallBack, ToolbarCallback {
+public class LuckyBettingActivity extends BaseActivity implements LuckyBettingContract.BView, ProgressBarView.ProgressCallBack, ToolbarCallback {
 
     @BindView(R.id.toolbar_base)
     BaseToolBar toolbarBase;
@@ -85,7 +86,7 @@ public class LuckyBettingActivity extends BaseActivity implements BCHLuckyBettin
     HomeBean homeBean;
 
     private LuckyBettingActivity activity;
-    private BCHLuckyBettingContract.Presenter presenter;
+    private LuckyBettingContract.Presenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,7 +108,7 @@ public class LuckyBettingActivity extends BaseActivity implements BCHLuckyBettin
         toolbarBase.setRightTxt(R.mipmap.btn_more_big);
         toolbarBase.setToolbarCallback(this);
 
-        txtLucky.setText(getString(R.string.betting_bchlucky_stage, homeBean.getContract().getId()));
+        txtLucky.setText(getString(R.string.betting_bchlucky_stage, homeBean.getContract().getPeriod()));
 
         int total = (int) homeBean.getContract().getTimes();
         int remain = homeBean.getContract().getRemaining();
@@ -172,11 +173,7 @@ public class LuckyBettingActivity extends BaseActivity implements BCHLuckyBettin
     private void gameRule() {
         String category = CategoryEnum.LUCKY.getCategory() + "";
         String language = SystemUtil.language(activity);
-        String ruleUrl = BlockChainUrlUtil.gameRule(category, language);
-
-        ARouter.getInstance().build("/widget/webview")
-                .withString("url", ruleUrl)
-                .navigation(activity);
+        BlockChainUrlUtil.gameRule(activity, category, language);
     }
 
     @Override
@@ -190,9 +187,12 @@ public class LuckyBettingActivity extends BaseActivity implements BCHLuckyBettin
             stakes = Integer.parseInt(string);
         }
 
-        long payAmount = 100000 * stakes;
-        txtBettingCount.setText(getString(R.string.decimal_bch, StringsUtil.decimal(payAmount)));
-        txtLuckyMax.setText(getString(R.string.decimal_bch, StringsUtil.decimal(payAmount * 1000)));
+        double single = ((double) homeBean.getContract().getUnit()) / (100000000d);
+        double payTotal = stakes * single;
+        double winTotal = single * homeBean.getContract().getTimes();
+
+        txtBettingCount.setText(getString(R.string.decimal_bch, StringsUtil.decimal(payTotal)));
+        txtLuckyMax.setText(getString(R.string.decimal_bch, StringsUtil.decimal(winTotal)));
     }
 
     @Override
@@ -204,18 +204,35 @@ public class LuckyBettingActivity extends BaseActivity implements BCHLuckyBettin
             SnackBarUtil.error(activity, getString(R.string.please_agree_rule));
         } else {
             txtPay.setEnabled(false);
+            txtPay.setAlpha(0.5f);
 
             long id = homeBean.getContract().getId();
             int stakes = Integer.parseInt(string);
-            presenter.payRequest(id, stakes);
+            presenter.payRequest(id, stakes, new BACallBack<Boolean>() {
+                @Override
+                public void success(Boolean aBoolean) {
+                    txtPay.setAlpha(1f);
+                }
+
+                @Override
+                public void error(int code, String err) {
+                    txtPay.setAlpha(1f);
+                }
+
+                @Override
+                public void error() {
+                    txtPay.setAlpha(1f);
+                }
+            });
         }
     }
 
     @Override
-    public void paySuccess() {
-        long contractid = homeBean.getContract().getId();
+    public void paySuccess(long contractid, String identifier) {
         ARouter.getInstance().build("/betting/bchpaysuccess")
                 .withLong("contractId", contractid)
+                .withString("identifier", identifier)
+                .withInt("category", homeBean.getContract().getCategory())
                 .navigation(activity);
     }
 
@@ -225,7 +242,7 @@ public class LuckyBettingActivity extends BaseActivity implements BCHLuckyBettin
     }
 
     @Override
-    public void presenter(BCHLuckyBettingContract.Presenter presenter) {
+    public void presenter(LuckyBettingContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
@@ -247,11 +264,7 @@ public class LuckyBettingActivity extends BaseActivity implements BCHLuckyBettin
                     public void onClick(View view) {
                         String category = CategoryEnum.LUCKY.getCategory() + "";
                         String language = SystemUtil.language(activity);
-                        String ruleUrl = BlockChainUrlUtil.gameRule(category, language);
-
-                        ARouter.getInstance().build("/widget/webview")
-                                .withString("url", ruleUrl)
-                                .navigation(activity);
+                        BlockChainUrlUtil.gameRule(activity, category, language);
 
                         dialog.dismiss();
                     }
@@ -261,7 +274,7 @@ public class LuckyBettingActivity extends BaseActivity implements BCHLuckyBettin
                     @Override
                     public void onClick(View view) {
                         String address = homeBean.getContract().getAddress();
-                        String url = BlockChainUrlUtil.btccomAddress(address);
+                        String url = BlockChainUrlUtil.addressUrl(address, SystemUtil.language(activity));
                         ARouter.getInstance().build("/widget/webview")
                                 .withString("url", url)
                                 .navigation(activity);

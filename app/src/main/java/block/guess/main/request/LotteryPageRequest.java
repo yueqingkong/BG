@@ -2,12 +2,12 @@ package block.guess.main.request;
 
 import java.util.List;
 
-import block.guess.main.bean.LotteryPageBean;
+import block.guess.main.bean.LotteryBean;
 import block.guess.utils.ApiUtil;
 import block.guess.utils.okhttp.bean.HttpMethodEnum;
 import block.guess.utils.okhttp.request.BaseRequest;
 
-public class LotteryPageRequest extends BaseRequest<List<LotteryPageBean>> {
+public class LotteryPageRequest extends BaseRequest<List<LotteryBean>> {
 
     private int category;
     private int pageIndex;

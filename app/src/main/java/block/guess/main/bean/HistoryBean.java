@@ -7,208 +7,73 @@ public class HistoryBean implements Serializable{
 
 
     /**
-     * txid : ecd7e87f9f5312425aa85965e2df90a5e8ada8fedeb66c977f342b2c61bcce5e
-     * version : 1
-     * locktime : 0
-     * isCoinBase : false
-     * vin : [{"txid":"a84c09fc2485ccece386f6cc73d7b75ca632c73d3bc326766b042dcdb3cb503d","vout":2,"addr":"1EdhBic1pCNsCYk97BA8B9sE1zn7Qscu9h","value":0.82291248,"valueSat":82291248}]
-     * vout : [{"value":"0.00400000","scriptPubKey":{"addresses":["19ph8L92Q1uUKUNExksgGYRXrGMaD1daXW"]}},{"value":"0.00000000","scriptPubKey":{"addresses":null}},{"value":"0.81890883","scriptPubKey":{"addresses":["1EdhBic1pCNsCYk97BA8B9sE1zn7Qscu9h"]}}]
-     * blockhash : 000000000000000001438319134f82c0c48bd8f8e90000520873724ee735b3d3
-     * confirmations : 433
-     * time : 1535793819
-     * blocktime : 1535793819
-     * created_at : 1535793819
-     * valueOut : 0.82290883
-     * valueIn : 0.82291248
-     * fees : 3.65E-6
-     * size : 316
-     * op_category : {"category":8}
-     * balance_diff : -400365
+     * totalItems : 48
+     * from : 0
+     * to : 10
+     * items : [{"txid":"68228e0c721959dd0b17b61b5ac5c85cbe70da4c9c4cf57d47e5bc3540e238f4","confirmations":75,"created_at":1552321578,"op_category":{"category":6},"balance_diff":10000},{"txid":"9f2a2b3206cc287520c953526cba84804cbf9918bf422f72fe0577685777584a","confirmations":1537,"created_at":1551438391,"op_category":{"category":12},"balance_diff":568},{"txid":"be5bad469c4b460dbf6abc5c4ddc11dc1b6b5fede92bfddae0210a80a89dd8c1","confirmations":1543,"created_at":1551432464,"op_category":{"category":8},"balance_diff":-200359},{"txid":"968de50bfdf82a42c1495d13defdc85e7e4d59b69e9acf2a267b0dce39a8ce0c","confirmations":1544,"created_at":1551429291,"op_category":{"category":6},"balance_diff":1000000},{"txid":"9f57ef2dd8f2d406a4a4a1db425c533450d24958f414b5dff29ddf3702ecabb9","confirmations":20985,"created_at":1539688371,"op_category":{"category":11},"balance_diff":568},{"txid":"e483fdbc772a7d6b1172e8d011a0867f8c7aff22e814257b083465fb6b3d6eed","confirmations":21745,"created_at":1539224549,"op_category":{"category":11},"balance_diff":568},{"txid":"41f5b742e5272e2aa1a667099da491cd4eccb33956a1c4a655308a9b42440e97","confirmations":23441,"created_at":1538203229,"op_category":{"category":12},"balance_diff":568},{"txid":"1985944f97cbe03a9d359210d024904be6882bd7e1107eef5eb45af6278d638a","confirmations":23459,"created_at":1538193610,"op_category":{"category":11},"balance_diff":568},{"txid":"856b2b36c5011b35fcd966ffc82d3be71fa1fcd653773924d0ef8d6027db2720","confirmations":23702,"created_at":1538050500,"op_category":{"category":11},"balance_diff":568},{"txid":"4620e391697c1de8c3f66bce11dfdf42bbf0fe40903f94361e3d5420df451cef","confirmations":23883,"created_at":1537943842,"op_category":{"category":11},"balance_diff":568}]
+     * pages_total : 5
      */
-    private String txid;
-    private int version;
-    private int locktime;
-    private boolean isCoinBase;
-    private String blockhash;
-    private int confirmations;
-    private long time;
-    private int blocktime;
-    private int created_at;
-    private double valueOut;
-    private double valueIn;
-    private double fees;
-    private int size;
-    private OpCategoryBean op_category;
-    private long balance_diff;
-    private List<VinBean> vin;
-    private List<VoutBean> vout;
 
-    public String getTxid() {
-        return txid;
+    private int totalItems;
+    private int from;
+    private int to;
+    private int pages_total;
+    private List<ItemsBean> items;
+
+    public int getTotalItems() {
+        return totalItems;
     }
 
-    public void setTxid(String txid) {
-        this.txid = txid;
+    public void setTotalItems(int totalItems) {
+        this.totalItems = totalItems;
     }
 
-    public int getVersion() {
-        return version;
+    public int getFrom() {
+        return from;
     }
 
-    public void setVersion(int version) {
-        this.version = version;
+    public void setFrom(int from) {
+        this.from = from;
     }
 
-    public int getLocktime() {
-        return locktime;
+    public int getTo() {
+        return to;
     }
 
-    public void setLocktime(int locktime) {
-        this.locktime = locktime;
+    public void setTo(int to) {
+        this.to = to;
     }
 
-    public boolean isIsCoinBase() {
-        return isCoinBase;
+    public int getPages_total() {
+        return pages_total;
     }
 
-    public void setIsCoinBase(boolean isCoinBase) {
-        this.isCoinBase = isCoinBase;
+    public void setPages_total(int pages_total) {
+        this.pages_total = pages_total;
     }
 
-    public String getBlockhash() {
-        return blockhash;
+    public List<ItemsBean> getItems() {
+        return items;
     }
 
-    public void setBlockhash(String blockhash) {
-        this.blockhash = blockhash;
+    public void setItems(List<ItemsBean> items) {
+        this.items = items;
     }
 
-    public int getConfirmations() {
-        return confirmations;
-    }
-
-    public void setConfirmations(int confirmations) {
-        this.confirmations = confirmations;
-    }
-
-    public long getTime() {
-        return time;
-    }
-
-    public void setTime(long time) {
-        this.time = time;
-    }
-
-    public int getBlocktime() {
-        return blocktime;
-    }
-
-    public void setBlocktime(int blocktime) {
-        this.blocktime = blocktime;
-    }
-
-    public int getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(int created_at) {
-        this.created_at = created_at;
-    }
-
-    public double getValueOut() {
-        return valueOut;
-    }
-
-    public void setValueOut(double valueOut) {
-        this.valueOut = valueOut;
-    }
-
-    public double getValueIn() {
-        return valueIn;
-    }
-
-    public void setValueIn(double valueIn) {
-        this.valueIn = valueIn;
-    }
-
-    public double getFees() {
-        return fees;
-    }
-
-    public void setFees(double fees) {
-        this.fees = fees;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public OpCategoryBean getOp_category() {
-        return op_category;
-    }
-
-    public void setOp_category(OpCategoryBean op_category) {
-        this.op_category = op_category;
-    }
-
-    public long getBalance_diff() {
-        return balance_diff;
-    }
-
-    public void setBalance_diff(long balance_diff) {
-        this.balance_diff = balance_diff;
-    }
-
-    public List<VinBean> getVin() {
-        return vin;
-    }
-
-    public void setVin(List<VinBean> vin) {
-        this.vin = vin;
-    }
-
-    public List<VoutBean> getVout() {
-        return vout;
-    }
-
-    public void setVout(List<VoutBean> vout) {
-        this.vout = vout;
-    }
-
-    public static class OpCategoryBean implements Serializable{
+    public static class ItemsBean implements Serializable{
         /**
-         * category : 8
-         */
-
-        private int category;
-
-        public int getCategory() {
-            return category;
-        }
-
-        public void setCategory(int category) {
-            this.category = category;
-        }
-    }
-
-    public static class VinBean implements Serializable{
-        /**
-         * txid : a84c09fc2485ccece386f6cc73d7b75ca632c73d3bc326766b042dcdb3cb503d
-         * vout : 2
-         * addr : 1EdhBic1pCNsCYk97BA8B9sE1zn7Qscu9h
-         * value : 0.82291248
-         * valueSat : 82291248
+         * txid : 68228e0c721959dd0b17b61b5ac5c85cbe70da4c9c4cf57d47e5bc3540e238f4
+         * confirmations : 75
+         * created_at : 1552321578
+         * op_category : {"category":6}
+         * balance_diff : 10000
          */
 
         private String txid;
-        private int vout;
-        private String addr;
-        private double value;
-        private int valueSat;
+        private int confirmations;
+        private long created_at;
+        private OpCategoryBean op_category;
+        private int balance_diff;
 
         public String getTxid() {
             return txid;
@@ -218,73 +83,51 @@ public class HistoryBean implements Serializable{
             this.txid = txid;
         }
 
-        public int getVout() {
-            return vout;
+        public int getConfirmations() {
+            return confirmations;
         }
 
-        public void setVout(int vout) {
-            this.vout = vout;
+        public void setConfirmations(int confirmations) {
+            this.confirmations = confirmations;
         }
 
-        public String getAddr() {
-            return addr;
+        public long getCreated_at() {
+            return created_at;
         }
 
-        public void setAddr(String addr) {
-            this.addr = addr;
+        public void setCreated_at(long created_at) {
+            this.created_at = created_at;
         }
 
-        public double getValue() {
-            return value;
+        public OpCategoryBean getOp_category() {
+            return op_category;
         }
 
-        public void setValue(double value) {
-            this.value = value;
+        public void setOp_category(OpCategoryBean op_category) {
+            this.op_category = op_category;
         }
 
-        public int getValueSat() {
-            return valueSat;
+        public int getBalance_diff() {
+            return balance_diff;
         }
 
-        public void setValueSat(int valueSat) {
-            this.valueSat = valueSat;
-        }
-    }
-
-    public static class VoutBean implements Serializable{
-        /**
-         * value : 0.00400000
-         * scriptPubKey : {"addresses":["19ph8L92Q1uUKUNExksgGYRXrGMaD1daXW"]}
-         */
-
-        private String value;
-        private ScriptPubKeyBean scriptPubKey;
-
-        public String getValue() {
-            return value;
+        public void setBalance_diff(int balance_diff) {
+            this.balance_diff = balance_diff;
         }
 
-        public void setValue(String value) {
-            this.value = value;
-        }
+        public static class OpCategoryBean implements Serializable{
+            /**
+             * category : 6
+             */
 
-        public ScriptPubKeyBean getScriptPubKey() {
-            return scriptPubKey;
-        }
+            private int category;
 
-        public void setScriptPubKey(ScriptPubKeyBean scriptPubKey) {
-            this.scriptPubKey = scriptPubKey;
-        }
-
-        public static class ScriptPubKeyBean implements Serializable{
-            private List<String> addresses;
-
-            public List<String> getAddresses() {
-                return addresses;
+            public int getCategory() {
+                return category;
             }
 
-            public void setAddresses(List<String> addresses) {
-                this.addresses = addresses;
+            public void setCategory(int category) {
+                this.category = category;
             }
         }
     }

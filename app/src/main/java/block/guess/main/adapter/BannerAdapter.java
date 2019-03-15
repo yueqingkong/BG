@@ -36,6 +36,11 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.AdvertHold
         lauchTimer();
     }
 
+    public void addBean(BannerBean bean){
+        bannerBeanList.add(bean);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public AdvertHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

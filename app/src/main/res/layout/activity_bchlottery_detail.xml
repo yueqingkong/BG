@@ -1,214 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_white">
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:background="@color/color_white">
 
     <block.guess.widget.toolbar.BaseToolBar
-        android:id="@id/toolbar_base"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@id/toolbar_base"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@id/constraintlayout_detail"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_92"
-        android:layout_marginEnd="@dimen/dp_12"
-        android:layout_marginStart="@dimen/dp_12"
-        android:layout_marginTop="@dimen/dp_20"
-        android:background="@drawable/shape_rectangle_f3f4fa_r12"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_base">
-
-        <TextView
-            android:id="@id/txt_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_24"
-            android:layout_marginTop="@dimen/dp_16"
-            android:textColor="@color/color_586085"
-            android:textSize="@dimen/dp_14"
+            android:id="@id/constraintlayout_detail"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_92"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/shape_rectangle_f3f4fa_r12"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@id/txt_datetime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginEnd="@dimen/dp_75"
-            android:layout_marginTop="@dimen/dp_16"
-            android:textColor="@color/color_8a94be"
-            android:textSize="@dimen/dp_14"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar_base">
 
         <TextView
-            android:id="@id/txt_ball_first"
-            android:layout_width="@dimen/dp_34"
-            android:layout_height="@dimen/dp_34"
-            android:layout_marginStart="@dimen/dp_24"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@drawable/shape_oval_645aff"
-            android:gravity="center"
-            android:textColor="@color/color_white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_number" />
+                android:id="@id/txt_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="@color/color_586085"
+                android:textSize="@dimen/dp_14"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@id/txt_ball_second"
-            android:layout_width="@dimen/dp_34"
-            android:layout_height="@dimen/dp_34"
-            android:layout_marginStart="@dimen/dp_18"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@drawable/shape_oval_645aff"
-            android:gravity="center"
-            android:textColor="@color/color_white"
-            app:layout_constraintLeft_toRightOf="@id/txt_ball_first"
-            app:layout_constraintTop_toBottomOf="@id/txt_number" />
+                android:id="@id/txt_datetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginEnd="@dimen/dp_75"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="@color/color_8a94be"
+                android:textSize="@dimen/dp_14"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:id="@id/txt_ball_third"
-            android:layout_width="@dimen/dp_34"
-            android:layout_height="@dimen/dp_34"
-            android:layout_marginStart="@dimen/dp_18"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@drawable/shape_oval_645aff"
-            android:gravity="center"
-            android:textColor="@color/color_white"
-            app:layout_constraintLeft_toRightOf="@id/txt_ball_second"
-            app:layout_constraintTop_toBottomOf="@id/txt_number" />
+        <block.guess.widget.horizontalball.HorizontalNumberBallView
+                android:id="@id/linearlayout_number"
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_number"
+                android:layout_height="@dimen/dp_34"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
-        android:id="@id/view_diver_top"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/px_1"
-        android:layout_marginEnd="@dimen/dp_20"
-        android:layout_marginStart="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_20"
-        android:background="@color/color_d2d8f1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraintlayout_detail" />
+            android:id="@id/view_diver_top"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/px_1"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@color/color_d2d8f1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraintlayout_detail"/>
 
     <include
-        android:id="@id/include_random"
-        layout="@layout/part_txt_left_right"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_40"
-        android:layout_marginEnd="@dimen/dp_20"
-        android:layout_marginStart="@dimen/dp_20"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_diver_top" />
+            android:id="@id/include_random"
+            layout="@layout/part_txt_left_right"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_diver_top"/>
 
     <include
-        android:id="@id/include_height_ending"
-        layout="@layout/part_txt_left_right"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_40"
-        android:layout_marginEnd="@dimen/dp_20"
-        android:layout_marginStart="@dimen/dp_20"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/include_random" />
+            android:id="@id/include_height_ending"
+            layout="@layout/part_txt_left_right"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include_random"/>
 
     <include
-        android:id="@id/include_height_lottery"
-        layout="@layout/part_txt_left_right"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_40"
-        android:layout_marginEnd="@dimen/dp_20"
-        android:layout_marginStart="@dimen/dp_20"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/include_height_ending" />
+            android:id="@id/include_height_lottery"
+            layout="@layout/part_txt_left_right"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include_height_ending"/>
 
     <include
-        android:id="@id/include_end_time"
-        layout="@layout/part_txt_left_right"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_40"
-        android:layout_marginEnd="@dimen/dp_20"
-        android:layout_marginStart="@dimen/dp_20"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/include_height_lottery" />
+            android:id="@id/include_end_time"
+            layout="@layout/part_txt_left_right"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include_height_lottery"/>
 
     <include
-        android:id="@id/include_address"
-        layout="@layout/part_txt_left_right"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_40"
-        android:layout_marginEnd="@dimen/dp_20"
-        android:layout_marginStart="@dimen/dp_20"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/include_end_time" />
+            android:id="@id/include_address"
+            layout="@layout/part_txt_left_right"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include_end_time"/>
 
     <View
-        android:id="@id/view_diver_bottom"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/px_1"
-        android:layout_marginEnd="@dimen/dp_20"
-        android:layout_marginStart="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_10"
-        android:background="@color/color_d2d8f1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/include_address" />
+            android:id="@id/view_diver_bottom"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/px_1"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/color_d2d8f1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include_address"/>
 
 
     <TextView
-        android:id="@id/txt_winning_player"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_30"
-        android:layout_marginStart="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_20"
-        android:background="@drawable/selector_rectangle_645aff_white_r6_left"
-        android:gravity="center"
-        android:textSize="@dimen/dp_13"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/txt_my_betting"
-        app:layout_constraintTop_toBottomOf="@id/view_diver_bottom" />
+            android:id="@id/txt_winning_player"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/selector_rectangle_645aff_white_r6_left"
+            android:gravity="center"
+            android:textSize="@dimen/dp_13"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/txt_my_betting"
+            app:layout_constraintTop_toBottomOf="@id/view_diver_bottom"/>
 
     <TextView
-        android:id="@id/txt_my_betting"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_30"
-        android:layout_marginEnd="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_20"
-        android:background="@drawable/selector_rectangle_645aff_white_r6_right"
-        android:gravity="center"
-        android:textSize="@dimen/dp_13"
-        app:layout_constraintLeft_toRightOf="@id/txt_winning_player"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_diver_bottom" />
+            android:id="@id/txt_my_betting"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/selector_rectangle_645aff_white_r6_right"
+            android:gravity="center"
+            android:textSize="@dimen/dp_13"
+            app:layout_constraintLeft_toRightOf="@id/txt_winning_player"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_diver_bottom"/>
 
     <View
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/px_1"
-        android:layout_marginEnd="@dimen/dp_20"
-        android:layout_marginStart="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_20"
-        android:background="@color/color_d2d8f1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_winning_player" />
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/px_1"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@color/color_d2d8f1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_winning_player"/>
 
     <FrameLayout
-        android:id="@id/framelayout_lottery"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_0"
-        android:layout_marginTop="@dimen/dp_20"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_winning_player" />
+            android:id="@id/framelayout_lottery"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_0"
+            android:layout_marginTop="@dimen/dp_20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_winning_player"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,6 +22,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     private String email;
     private String password;
+    private CaptChaDialog captChaDialog;
 
     public LoginPresenter(LoginContract.BView view) {
         this.baseView = view;
@@ -37,7 +38,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void signIn(final String email, final String password) {
+    public void signIn(final String email, final String password, BaseCallBack<Boolean> callBack) {
         this.email = email;
         this.password = password;
 
@@ -47,27 +48,31 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             @Override
             public void success(UserInfoBean infoBean) {
-                SnackBarUtil.success(activity,activity.getString(R.string.login_success));
+                SnackBarUtil.success(activity, activity.getString(R.string.login_success));
                 AppInfo.getAppInfo().setInfoUser(infoBean);
 
-                baseView.loginSuccess();
+                callBack.success(true);
             }
 
             @Override
             public void serverError(int code, String err) {
-                againSignIn();
+                callBack.serverError(code, err);
             }
 
             @Override
             public void netError() {
-
+                callBack.netError();
             }
         });
     }
 
     @Override
     public void againSignIn() {
-        CaptChaDialog dialog = new CaptChaDialog(new CaptChaDialog.CaptCallback() {
+        if (captChaDialog != null) {
+            return;
+        }
+
+        captChaDialog = new CaptChaDialog(new CaptChaDialog.CaptCallback() {
 
             @Override
             public void inputFinish(String id, String captcha) {
@@ -77,7 +82,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                     @Override
                     public void success(UserInfoBean infoBean) {
-                        SnackBarUtil.success(activity,activity.getString(R.string.login_success));
+                        SnackBarUtil.success(activity, activity.getString(R.string.login_success));
                         AppInfo.getAppInfo().setInfoUser(infoBean);
 
                         baseView.loginSuccess();
@@ -93,7 +98,12 @@ public class LoginPresenter implements LoginContract.Presenter {
                     }
                 });
             }
+
+            @Override
+            public void dialogDissmiss() {
+                captChaDialog = null;
+            }
         });
-        dialog.showDialog(activity);
+        captChaDialog.showDialog(activity);
     }
 }

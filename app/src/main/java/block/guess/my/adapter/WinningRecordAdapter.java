@@ -13,8 +13,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import block.guess.R;
-import block.guess.main.adapter.LotteryLotteryAdapter;
-import block.guess.main.adapter.WalletAdapter;
 import block.guess.my.bean.WinningRecordBean;
 import block.guess.utils.StringsUtil;
 import block.guess.utils.TimeUtil;
@@ -87,7 +85,7 @@ public class WinningRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
     protected void onBindRecordViewHolder(@NonNull WiningRecorHolder holder, int position) {
         final WinningRecordBean detailBean = recordDetailBeans.get(position);
 
-        CategoryEnum category = CategoryEnum.parse(detailBean.getContract().getCategory());
+        CategoryEnum category = CategoryEnum.parse(detailBean.getCategory());
         switch (category) {
             case D3:
                 GlideUtil.load(holder.categoryImg, R.mipmap.img_bch_3_d_small);
@@ -103,7 +101,7 @@ public class WinningRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
                 break;
         }
 
-        String showTime = TimeUtil.timestampFormat(detailBean.getContract().getStart() * 1000, TimeUtil.FORMAT_MONTH_DAY_TIME);
+        String showTime = TimeUtil.timestampFormat(detailBean.getCreated_at(), TimeUtil.FORMAT_MONTH_DAY_TIME);
         holder.dateTimeTxt.setText(showTime);
 
         holder.resultTxt.setText(context.getString(R.string.the_wining));
@@ -111,11 +109,11 @@ public class WinningRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
         String showWin = context.getString(R.string.win_amount_bch, StringsUtil.decimal(detailBean.getReward()));
         holder.winTxt.setText(showWin);
 
-        String number = context.getString(R.string.no_period, detailBean.getContract().getPeriod());
+        String number = context.getString(R.string.no_period, detailBean.getPeriod());
         holder.numberTxt.setText(number);
 
-        String amountFormat = StringsUtil.decimal(detailBean.getContract().getTotal_amount());
-        String explain = context.getString(R.string.bet_and_total, detailBean.getContract().getTimes(), amountFormat);
+        String amountFormat = StringsUtil.decimal(detailBean.getReward());
+        String explain = context.getString(R.string.bet_and_total, detailBean.getTimes(), amountFormat);
         holder.explainTxt.setText(explain);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

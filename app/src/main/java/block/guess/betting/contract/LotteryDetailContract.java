@@ -3,24 +3,25 @@ package block.guess.betting.contract;
 import block.guess.base.BaseFragment;
 import block.guess.base.contract.BasePresenter;
 import block.guess.base.contract.BaseView;
+import block.guess.betting.bean.LotteryDetailBean;
 
-public interface BCHLotteryDetailContract {
+public interface LotteryDetailContract {
 
     interface BView extends BaseView<Presenter> {
 
         void lotteryDetailRequest();
 
-        void lotteryDetail();
+        void lotteryDetail(LotteryDetailBean bean);
 
-        void random();
+        void random(LotteryDetailBean bean);
 
-        void endingHeight();
+        void endingHeight(LotteryDetailBean bean);
 
-        void lotteryHeight();
+        void lotteryHeight(LotteryDetailBean bean);
 
-        void endingBetting();
+        void endingBetting(LotteryDetailBean bean);
 
-        void contractAddress();
+        void contractAddress(LotteryDetailBean bean);
 
         void winningPlayerClick();
 

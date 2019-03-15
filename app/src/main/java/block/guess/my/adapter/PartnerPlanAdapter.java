@@ -57,7 +57,7 @@ public class PartnerPlanAdapter extends RecyclerView.Adapter<PartnerPlanAdapter.
     private void partnerDynamicHolder(@NonNull PartnerPlanHolder holder, PartnerDynamicBean bean) {
         long reward = bean.getReward();
 
-        holder.leftTxt.setText(context.getString(R.string.dynamic_income));
+        holder.leftTxt.setText(bean.getUsername());
 
         String showDivi = "+"+StringsUtil.decimal(reward)+"BCH";
         holder.rightTxt.setText(showDivi);

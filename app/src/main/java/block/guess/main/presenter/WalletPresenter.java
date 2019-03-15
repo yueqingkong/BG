@@ -1,15 +1,12 @@
 package block.guess.main.presenter;
 
-import java.util.List;
-
-import block.guess.main.bean.BalanceBean;
 import block.guess.main.bean.HistoryBean;
 import block.guess.main.contract.WalletContract;
-import block.guess.main.request.BalanceRequest;
 import block.guess.main.request.HistoryRequest;
-import block.guess.utils.log.LogUtil;
 import block.guess.utils.okhttp.Callback.BaseCallBack;
 import block.guess.utils.okhttp.OKHttpUtil;
+
+import java.util.List;
 
 public class WalletPresenter implements WalletContract.Presenter {
 
@@ -29,7 +26,7 @@ public class WalletPresenter implements WalletContract.Presenter {
     }
 
     @Override
-    public void historyRequest(int index) {
+    public void historyRequest(int index,BaseCallBack<HistoryBean> callBack) {
         if (isRequst) {
             return;
         }
@@ -38,15 +35,12 @@ public class WalletPresenter implements WalletContract.Presenter {
         baseView.historyStartRequst();
 
         HistoryRequest request = new HistoryRequest(index);
-        OKHttpUtil.client().request(request, new BaseCallBack<List<HistoryBean>>(baseView.activity()) {
+        OKHttpUtil.client().request(request, new BaseCallBack<HistoryBean>(baseView.activity()) {
 
             @Override
-            public void success(List<HistoryBean> beans) {
+            public void success(HistoryBean bean) {
                 isRequst = false;
-                if (beans != null) {
-                    LogUtil.d(TAG, "" + beans.size());
-                    baseView.historyList(beans);
-                }
+                callBack.success(bean);
             }
 
             @Override

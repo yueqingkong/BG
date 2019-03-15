@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="@dimen/dp_155"
-        android:layout_height="@dimen/dp_148"
-        android:layout_marginTop="@dimen/dp_200"
-        android:background="@mipmap/img_logo_launch"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@id/img_cover"
+            android:layout_width="@dimen/dp_155"
+            android:layout_height="@dimen/dp_148"
+            android:layout_marginTop="@dimen/dp_200"
+            android:background="@mipmap/img_logo_launch"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_30"
-        android:text="@string/inc"
-        android:textColor="@color/color_8da2b5"
-        android:textSize="@dimen/dp_14"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent" />
+            android:id="@id/txt_inc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:text="@string/inc"
+            android:textColor="@color/color_8da2b5"
+            android:textSize="@dimen/dp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

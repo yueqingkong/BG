@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -24,18 +25,19 @@ public class WalletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private Context context;
 
     private LoadStatusEnum statusEnum;
-    private List<HistoryBean> historyBeans;
+    private List<HistoryBean.ItemsBean> historyBeans = new ArrayList<>();
     private TransactionCallback transactionCallback;
 
-    public void setHistoryBeans(List<HistoryBean> historyBeans) {
+    public void setHistoryBeans(List<HistoryBean.ItemsBean> beans) {
         statusEnum = LoadStatusEnum.STATUS_END;
-        this.historyBeans = historyBeans;
+        this.historyBeans.clear();
+        this.historyBeans.addAll(beans);
         notifyDataSetChanged();
     }
 
-    public void appendHistoryBeans(List<HistoryBean> historyBeans) {
+    public void appendHistoryBeans(List<HistoryBean.ItemsBean> beans) {
         statusEnum = LoadStatusEnum.STATUS_END;
-        this.historyBeans.addAll(historyBeans);
+        this.historyBeans.addAll(beans);
         notifyDataSetChanged();
     }
 
@@ -81,23 +83,33 @@ public class WalletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     protected void onBHistoryindViewHolder(@NonNull WalletViewHolder holder, int position) {
-        final HistoryBean historyBean = historyBeans.get(position);
+        final HistoryBean.ItemsBean itemsBean = historyBeans.get(position);
 
-        int category = historyBean.getOp_category().getCategory();
+        int category = 0;
+        if (itemsBean.getOp_category() == null) {
+            category = -1;
+        } else {
+            category = itemsBean.getOp_category().getCategory();
+        }
         holder.categoryImg.setBackgroundResource(TransactionCategoryEnum.resourceId(context, category));
         holder.categoryTxt.setText(TransactionCategoryEnum.string(context, category));
 
-        String showTime = TimeUtil.timestampFormat(historyBean.getTime() * 1000, TimeUtil.FORMAT_TIME);
+        String showTime = "";
+        if (itemsBean.getCreated_at() == 0) {
+            showTime = TimeUtil.timestampFormat(TimeUtil.timestamp(), TimeUtil.FORMAT_TIME);
+        } else {
+            showTime = TimeUtil.timestampFormat(itemsBean.getCreated_at() * 1000, TimeUtil.FORMAT_TIME);
+        }
         holder.timestampTxt.setText(showTime);
 
-        long diff = historyBean.getBalance_diff();
+        long diff = itemsBean.getBalance_diff();
         String showAmount = (diff > 0 ? "+" : "") + MathUtil.format(diff);
         holder.amountTxt.setText(String.format("%sBCH", showAmount));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transactionCallback.historyClick(historyBean);
+                transactionCallback.historyClick(itemsBean);
             }
         });
     }
@@ -152,6 +164,6 @@ public class WalletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public interface TransactionCallback {
 
-        void historyClick(HistoryBean historyBean);
+        void historyClick(HistoryBean.ItemsBean itemsBean);
     }
 }

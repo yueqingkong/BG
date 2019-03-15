@@ -68,6 +68,11 @@ public class VerifyTextView extends AppCompatTextView implements View.OnTouchLis
     }
 
     public void finishCount() {
+        if (downTimer != null) {
+            downTimer.cancel();
+            downTimer = null;
+        }
+
         setBackgroundResource(R.drawable.shape_rectangle_45ceb4_r6);
         setText(getResources().getString(R.string.verify_code));
     }

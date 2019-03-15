@@ -7,7 +7,7 @@ public interface LotteryLotteryContract {
 
     interface BView extends BaseView<Presenter> {
 
-        void lotteryRequest();
+        void lotteryRequest(int category);
 
         void d3Click();
 

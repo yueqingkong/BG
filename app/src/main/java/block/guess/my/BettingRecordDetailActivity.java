@@ -96,6 +96,10 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
                 GlideUtil.load(imgBettingCategory, R.mipmap.img_bch_3_d_small);
                 txtBettingCategory.setText(activity.getString(R.string.free_bch_3d));
                 break;
+            case LOTTO:
+                GlideUtil.load(imgBettingCategory, R.mipmap.ic_bchlotto_home);
+                txtBettingCategory.setText(activity.getString(R.string.buy_lotto));
+                break;
         }
 
         StatusEnum status = StatusEnum.parse(recordDetailBean.getStatus());
@@ -103,7 +107,6 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
             case WAIT:
                 txtBettingNote.setText(activity.getString(R.string.to_be_award));
                 GlideUtil.load(imgBettingResult, R.mipmap.img_tobeawarded);
-                toolbarBase.setRightTxt(R.mipmap.btn_more_big);
                 break;
             case WIN:
                 txtBettingNote.setText(activity.getString(R.string.the_wining));
@@ -119,7 +122,7 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
                 break;
         }
 
-        if (category != CategoryEnum.D3 && status == StatusEnum.WAIT) {
+        if (category != CategoryEnum.FREE && status == StatusEnum.WAIT && recordDetailBean.getSend_to_friend() == 0) {
             toolbarBase.setRightTxt(R.mipmap.btn_more_big);
         }
 
@@ -153,7 +156,7 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(activity.getString(R.string.no_));
-        rightTxt.setText("NO." + recordDetailBean.getContract().getId());
+        rightTxt.setText("NO." + recordDetailBean.getId());
     }
 
     @Override
@@ -163,11 +166,12 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         if (category == CategoryEnum.LUCKY
-                || category == CategoryEnum.FREE) {
+                || category == CategoryEnum.FREE
+                || category == CategoryEnum.LOTTO) {
             view.setVisibility(View.GONE);
         }
         leftTxt.setText(activity.getString(R.string.times));
-        rightTxt.setText("" + recordDetailBean.getContract().getTimes());
+        rightTxt.setText("" + recordDetailBean.getTimes());
     }
 
     @Override
@@ -182,7 +186,7 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
         if (category == CategoryEnum.FREE) {
             stringBuffer.append("1");
         } else {
-            stringBuffer.append(recordDetailBean.getTimes());
+            stringBuffer.append(recordDetailBean.getPurchase_numbers().size());
         }
         rightTxt.setText("" + stringBuffer.toString());
     }
@@ -215,22 +219,7 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(activity.getString(R.string.amount));
-        long unit = recordDetailBean.getContract().getUnit();
-        long times = recordDetailBean.getContract().getTimes();
-        long amount = 0l;
-
-        switch (category) {
-            case LUCKY:
-                amount = unit * times;
-                break;
-            case FREE:
-                amount = unit;
-                break;
-            case D3:
-                amount = unit * times * recordDetailBean.getPurchase_numbers().size();
-                break;
-        }
-        String amountTxt = StringsUtil.decimal(amount) + "BCH";
+        String amountTxt = StringsUtil.decimal(recordDetailBean.getTotal_amount()) + "BCH";
         rightTxt.setText(amountTxt);
     }
 
@@ -241,7 +230,7 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(activity.getString(R.string.datetime));
-        rightTxt.setText(TimeUtil.timestampFormat(((long) recordDetailBean.getContract().getStart()) * 1000, TimeUtil.FORMAT_TIME));
+        rightTxt.setText(TimeUtil.timestampFormat(recordDetailBean.getCreated_at() * 1000, TimeUtil.FORMAT_TIME));
     }
 
     @Override
@@ -253,12 +242,12 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
         leftTxt.setText(activity.getString(R.string.txid));
 
         rightTxt.setTextColor(activity.getResources().getColor(R.color.color_132fcb));
-        String ellipsis = StringsUtil.ellipsisStartEnd(recordDetailBean.getContract().getCreate_tx_hash());
+        String ellipsis = StringsUtil.ellipsisStartEnd(recordDetailBean.getTx_hash());
         rightTxt.setText(ellipsis);
         rightTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String hash = recordDetailBean.getContract().getCreate_tx_hash();
+                String hash = recordDetailBean.getTx_hash();
                 String language = SystemUtil.language(activity);
 
                 String url = BlockChainUrlUtil.txUrl(hash, language);
@@ -276,7 +265,7 @@ public class BettingRecordDetailActivity extends BaseActivity implements Betting
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(activity.getString(R.string.wining_number));
-        StatusEnum statusEnum = StatusEnum.parse(recordDetailBean.getContract().getStatus());
+        StatusEnum statusEnum = StatusEnum.parse(recordDetailBean.getStatus());
         if (statusEnum == StatusEnum.WIN) {
             viewBottom.setVisibility(View.VISIBLE);
             view.setVisibility(View.VISIBLE);

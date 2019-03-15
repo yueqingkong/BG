@@ -2,6 +2,7 @@ package block.guess.main.presenter;
 
 import android.app.Activity;
 
+import block.guess.betting.bean.PayResultBean;
 import com.alibaba.android.arouter.launcher.ARouter;
 
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class HomePresenter implements HomeContract.Presenter {
     }
 
     @Override
-    public void freen3DReceive(final int contractid, BCH3dBuyBean.RandomItem item) {
+    public void freen3DReceive(int contractid, BCH3dBuyBean.RandomItem item) {
         BCH3dBuyBean buyBean = new BCH3dBuyBean();
         buyBean.setContract_id(contractid);
         buyBean.setTimes(1);
@@ -76,14 +77,13 @@ public class HomePresenter implements HomeContract.Presenter {
         buyBean.setFree_shot_numbers(randomItems);
 
         BCH3DBuyRequest request = new BCH3DBuyRequest(buyBean);
-        OKHttpUtil.client().request(request, new BaseCallBack<String>(activity) {
+        OKHttpUtil.client().request(request, new BaseCallBack<PayResultBean>(activity) {
             @Override
-            public void success(String o) {
-                LogUtil.d(TAG, o);
+            public void success(PayResultBean resultBean) {
+                long contractId = resultBean.getContract_id();
+                String identifier = resultBean.getIdentifier();
 
-                ARouter.getInstance().build("/betting/bchpaysuccess")
-                        .withLong("contractId", (long) contractid)
-                        .navigation(activity);
+                baseView.free3DReceive(contractId, identifier,resultBean.getCategory());
             }
 
             @Override

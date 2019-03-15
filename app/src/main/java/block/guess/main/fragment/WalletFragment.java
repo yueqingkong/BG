@@ -2,26 +2,16 @@ package block.guess.main.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.alibaba.android.arouter.launcher.ARouter;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.List;
-
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import block.guess.R;
 import block.guess.base.BaseFragment;
 import block.guess.main.adapter.WalletAdapter;
@@ -32,6 +22,7 @@ import block.guess.main.contract.WalletContract;
 import block.guess.main.presenter.WalletPresenter;
 import block.guess.utils.DensityUtils;
 import block.guess.utils.StringsUtil;
+import block.guess.utils.okhttp.Callback.BaseCallBack;
 import block.guess.utils.okhttp.Request;
 import block.guess.utils.share.AppInfo;
 import block.guess.widget.nesting.RecyclerScrollView;
@@ -40,6 +31,12 @@ import block.guess.widget.recyclerview.decoration.BaseItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.alibaba.android.arouter.launcher.ARouter;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 public class WalletFragment extends BaseFragment implements WalletContract.BView, ScrollCallBack {
 
@@ -73,6 +70,8 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
     TextView txtNoTransactionRecord;
     @BindView(R.id.scrollview)
     RecyclerScrollView scrollview;
+    @BindView(R.id.swipeRefresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private static WalletFragment walletFragment;
 
@@ -112,7 +111,6 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
-            index = 0;
             Request.request().balanceRequest(activity);
         }
     }
@@ -142,15 +140,73 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
         recyclerTransactionHistory.setAdapter(walletAdapter);
         walletAdapter.setTransactionCallback(new WalletAdapter.TransactionCallback() {
             @Override
-            public void historyClick(HistoryBean historyBean) {
+            public void historyClick(HistoryBean.ItemsBean itemsBean) {
                 ARouter.getInstance().build("/wallet/transactiondetail")
-                        .withSerializable("historyBean", historyBean)
+                        .withSerializable("itemsBean", itemsBean)
                         .navigation(activity);
             }
         });
 
         scrollview.setScrollCallBack(this);
-        presenter.historyRequest(index);
+        historyRequest();
+
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                historyRequest();
+            }
+        });
+    }
+
+    // 流水
+    public void historyRequest() {
+        index = 1;
+        if (presenter == null) {
+            return;
+        }
+
+        presenter.historyRequest(index, new BaseCallBack<HistoryBean>(activity) {
+            @Override
+            public void success(HistoryBean historyBean) {
+                swipeRefreshLayout.setRefreshing(false);
+
+                if (historyBean != null && historyBean.getTotalItems() > 0) {
+                    List<HistoryBean.ItemsBean> itemsBeans = historyBean.getItems();
+                    if (index == 1) {
+                        walletAdapter.setHistoryBeans(itemsBeans);
+                    } else {
+                        walletAdapter.appendHistoryBeans(itemsBeans);
+                    }
+                    index++;
+                } else {
+                    walletAdapter.setEndStatus();
+                }
+
+                if (walletAdapter.getItemCount() == 0) {
+                    imgEmptyWallet.setVisibility(View.VISIBLE);
+                    txtNoTransactionRecord.setVisibility(View.VISIBLE);
+                } else {
+                    imgEmptyWallet.setVisibility(View.GONE);
+                    txtNoTransactionRecord.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void serverError(int code, String err) {
+                swipeRefreshLayout.setRefreshing(false);
+                historyFail();
+            }
+
+            @Override
+            public void netError() {
+                swipeRefreshLayout.setRefreshing(false);
+                historyFail();
+            }
+        });
     }
 
     @Override
@@ -170,28 +226,6 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
     @Override
     public void historyStartRequst() {
         walletAdapter.setLoadingStatus();
-    }
-
-    @Override
-    public void historyList(List<HistoryBean> beans) {
-        if (beans.size() > 0) {
-            if (index == 1) {
-                walletAdapter.setHistoryBeans(beans);
-            } else {
-                walletAdapter.appendHistoryBeans(beans);
-            }
-            index++;
-        } else {
-            walletAdapter.setEndStatus();
-        }
-
-        if (walletAdapter.getItemCount() == 0) {
-            imgEmptyWallet.setVisibility(View.VISIBLE);
-            txtNoTransactionRecord.setVisibility(View.VISIBLE);
-        } else {
-            imgEmptyWallet.setVisibility(View.GONE);
-            txtNoTransactionRecord.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -247,7 +281,40 @@ public class WalletFragment extends BaseFragment implements WalletContract.BView
 
     @Override
     public void scrollBottom() {
-        presenter.historyRequest(index);
+        presenter.historyRequest(index, new BaseCallBack<HistoryBean>(activity) {
+            @Override
+            public void success(HistoryBean bean) {
+                if (bean != null && bean.getTotalItems() > 0) {
+                    List<HistoryBean.ItemsBean> itemsBeans = bean.getItems();
+                    if (index == 1) {
+                        walletAdapter.setHistoryBeans(itemsBeans);
+                    } else {
+                        walletAdapter.appendHistoryBeans(itemsBeans);
+                    }
+                    index++;
+                } else {
+                    walletAdapter.setEndStatus();
+                }
+
+                if (walletAdapter.getItemCount() == 0) {
+                    imgEmptyWallet.setVisibility(View.VISIBLE);
+                    txtNoTransactionRecord.setVisibility(View.VISIBLE);
+                } else {
+                    imgEmptyWallet.setVisibility(View.GONE);
+                    txtNoTransactionRecord.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void serverError(int code, String err) {
+                historyFail();
+            }
+
+            @Override
+            public void netError() {
+                historyFail();
+            }
+        });
     }
 
     @Override

@@ -93,7 +93,10 @@ public class ProgressBarView extends View {
         } else {
             progressPaint.setStrokeCap(Paint.Cap.ROUND);
 
-            progress = progress - startX;
+            if (progress > height) {
+                progress = progress - startX;
+            }
+
             canvas.drawLine(0, startY, progress, endY, progressPaint);
         }
     }

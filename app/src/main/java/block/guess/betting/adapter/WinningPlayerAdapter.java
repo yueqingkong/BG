@@ -13,15 +13,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import block.guess.R;
 import block.guess.betting.bean.ContractDetailBean;
+import block.guess.betting.bean.LotteryDetailBean;
 import block.guess.utils.StringsUtil;
 import block.guess.utils.imageload.GlideUtil;
 
 public class WinningPlayerAdapter extends RecyclerView.Adapter<WinningPlayerAdapter.WinningPlayerViewHolder> {
 
     private Context context;
-    private List<ContractDetailBean.WinnerListBean> winningPlayerList;
+    private List<LotteryDetailBean.WinnerListBean> winningPlayerList;
 
-    public WinningPlayerAdapter(List<ContractDetailBean.WinnerListBean> list) {
+    public WinningPlayerAdapter(List<LotteryDetailBean.WinnerListBean> list) {
         this.winningPlayerList = list;
     }
 
@@ -36,9 +37,9 @@ public class WinningPlayerAdapter extends RecyclerView.Adapter<WinningPlayerAdap
 
     @Override
     public void onBindViewHolder(@NonNull WinningPlayerViewHolder holder, int position) {
-        ContractDetailBean.WinnerListBean bean = winningPlayerList.get(position);
+        LotteryDetailBean.WinnerListBean bean = winningPlayerList.get(position);
 
-        GlideUtil.load(holder.avatarImg, bean.getAvatar());
+        GlideUtil.avatar(holder.avatarImg, bean.getAvatar());
         holder.nameTxt.setText(bean.getUsername());
 
         holder.txidTxt.setText(context.getString(R.string.txid));
@@ -46,7 +47,7 @@ public class WinningPlayerAdapter extends RecyclerView.Adapter<WinningPlayerAdap
         holder.txidValueTxt.setText(txid);
 
         holder.timeTxt.setText(context.getString(R.string.times));
-        holder.timeValueTxt.setText(String.valueOf(bean.getPurchase_numbers().size()));
+        holder.timeValueTxt.setText(String.valueOf(bean.getTimes()));
 
         holder.amountTxt.setText("+" + StringsUtil.decimal(bean.getReward()) + "BCH");
     }

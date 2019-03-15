@@ -86,24 +86,9 @@ public class PartnerPlanActivity extends BaseActivity implements PartnerPlanCont
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partnet_plan);
         ButterKnife.bind(this);
-        new PartnerPlanPresenter(this).start();
         ARouter.getInstance().inject(this);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (TextUtils.isEmpty(txtCode.getText().toString())) {
-            UserInfoBean infoBean = AppInfo.getAppInfo().getInfoUser();
-            if (infoBean != null) {
-                inviteeCode = infoBean.getInvite_code();
-                txtCode.setText(inviteeCode);
-
-                presenter.financeRequest();
-                presenter.inviteeRequest();
-                presenter.rewardRequest();
-            }
-        }
+        new PartnerPlanPresenter(this).start();
     }
 
     @Override
@@ -124,6 +109,10 @@ public class PartnerPlanActivity extends BaseActivity implements PartnerPlanCont
         recyclerList.setLayoutManager(layoutManager);
         planAdapter = new PartnerPlanAdapter();
         recyclerList.setAdapter(planAdapter);
+
+        presenter.financeRequest();
+        presenter.inviteeRequest();
+        presenter.rewardRequest();
     }
 
     @OnClick({R.id.img_close, R.id.txt_rules, R.id.txt_invite, R.id.txt_partner_list, R.id.txt_partner_dynamic})

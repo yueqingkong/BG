@@ -12,13 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import block.guess.R;
 import block.guess.betting.bean.ContractDetailBean;
+import block.guess.betting.bean.LotteryDetailBean;
+import block.guess.utils.StringsUtil;
 
 public class MyBettingAdapter extends RecyclerView.Adapter<MyBettingAdapter.MyBettingViewHolder> {
 
     private Context context;
-    private List<ContractDetailBean.PurchaseHistoryBean> historyBeanList;
+    private List<LotteryDetailBean.PurchaseHistoryBean> historyBeanList;
 
-    public MyBettingAdapter(List<ContractDetailBean.PurchaseHistoryBean> beans) {
+    public MyBettingAdapter(List<LotteryDetailBean.PurchaseHistoryBean> beans) {
         this.historyBeanList = beans;
     }
 
@@ -51,7 +53,7 @@ public class MyBettingAdapter extends RecyclerView.Adapter<MyBettingAdapter.MyBe
 
         leftTxt.setText(context.getString(R.string.times));
 
-        ContractDetailBean.PurchaseHistoryBean bean = historyBeanList.get(position);
+        LotteryDetailBean.PurchaseHistoryBean bean = historyBeanList.get(position);
         rightTxt.setText(String.valueOf(bean.getTimes()));
     }
 
@@ -61,8 +63,8 @@ public class MyBettingAdapter extends RecyclerView.Adapter<MyBettingAdapter.MyBe
 
         leftTxt.setText(context.getString(R.string.bet));
 
-        ContractDetailBean.PurchaseHistoryBean bean = historyBeanList.get(position);
-        rightTxt.setText(String.valueOf(bean.getPurchase_numbers().size()));
+        LotteryDetailBean.PurchaseHistoryBean bean = historyBeanList.get(position);
+        rightTxt.setText(String.valueOf(bean.getTimes()));
     }
 
     private void contentHolder(@NonNull MyBettingViewHolder holder, int position) {
@@ -71,17 +73,17 @@ public class MyBettingAdapter extends RecyclerView.Adapter<MyBettingAdapter.MyBe
 
         leftTxt.setText(context.getString(R.string.bet));
 
-        ContractDetailBean.PurchaseHistoryBean bean = historyBeanList.get(position);
+        LotteryDetailBean.PurchaseHistoryBean bean = historyBeanList.get(position);
 
         StringBuffer stringBuffer = new StringBuffer();
-        int length = bean.getPurchase_numbers().size();
-        for (int i = 0; i < length; i++) {
-            ContractDetailBean.PurchaseHistoryBean.PurchaseNumbersBean numbersBean = bean.getPurchase_numbers().get(i);
-            stringBuffer.append(numbersBean.getAward_number());
-            if (!(i == 0 || i == length - 1)) {
-                stringBuffer.append(",");
-            }
-        }
+//        int length = bean.getCategory().size();
+//        for (int i = 0; i < length; i++) {
+//            ContractDetailBean.PurchaseHistoryBean.PurchaseNumbersBean numbersBean = bean.getPurchase_numbers().get(i);
+//            stringBuffer.append(numbersBean.getAward_number());
+//            if (!(i == 0 || i == length - 1)) {
+//                stringBuffer.append(",");
+//            }
+//        }
         rightTxt.setText(stringBuffer.toString());
     }
 
@@ -89,10 +91,10 @@ public class MyBettingAdapter extends RecyclerView.Adapter<MyBettingAdapter.MyBe
         TextView leftTxt = holder.amountView.findViewById(R.id.txt_left);
         TextView rightTxt = holder.amountView.findViewById(R.id.txt_right);
 
-        leftTxt.setText(context.getString(R.string.bet));
+        leftTxt.setText(context.getString(R.string.wining_amount));
 
-        ContractDetailBean.PurchaseHistoryBean bean = historyBeanList.get(position);
-        rightTxt.setText(String.valueOf(bean.getContract().getAddress()));
+        LotteryDetailBean.PurchaseHistoryBean bean = historyBeanList.get(position);
+        rightTxt.setText(StringsUtil.decimal(bean.getTotal_amount()));
     }
 
     static class MyBettingViewHolder extends RecyclerView.ViewHolder {

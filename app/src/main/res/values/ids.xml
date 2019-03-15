@@ -69,6 +69,7 @@
     <item name="txt_ball_fourth" type="id" />
     <item name="txt_ball_fifth" type="id" />
     <item name="txt_ball_sixth" type="id" />
+    <item name="txt_ball_seventh" type="id" />
     <item name="txt_ball_purple" type="id" />
     <item name="txt_god_player" type="id" />
     <item name="txt_super_player" type="id" />
@@ -176,9 +177,12 @@
     <item name="txt_betting" type="id" />
     <item name="txt_bottom" type="id" />
     <item name="txt_ball" type="id" />
+    <item name="txt_inc" type="id" />
+    <item name="txt_rich" type="id" />
 
 
     <!-- image -->
+    <item name="img_cover" type="id" />
     <item name="img_banner" type="id" />
     <item name="img_close" type="id" />
     <item name="img_guide_direct" type="id" />
@@ -270,6 +274,7 @@
 
     <!-- linearlayout -->
     <item name="linearlayout_top" type="id" />
+    <item name="linearlayout_number" type="id" />
 
     <!-- viewpager -->
     <item name="viewpager_main" type="id" />
@@ -332,6 +337,7 @@
     <item name="constraintlayout_bottom" type="id" />
     <item name="constraintlayout_empty" type="id" />
     <item name="constraintlayout_account" type="id" />
+    <item name="constraintlayout_body" type="id" />
 
     <!-- ScrollView -->
     <item name="scrollview_tab_my" type="id" />
@@ -366,4 +372,7 @@
 
     <!-- ribbon -->
     <item name="ribbon" type="id" />
+
+    <!-- ribbon -->
+    <item name="swipeRefresh_layout" type="id" />
 </resources>

@@ -30,6 +30,13 @@ public class LotteryRankingAdapter extends RecyclerView.Adapter<LotteryRankingAd
         notifyDataSetChanged();
     }
 
+    public void clearBeans(){
+        if (rankingBeanList != null) {
+            rankingBeanList.clear();
+        }
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public LuckyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -59,7 +66,7 @@ public class LotteryRankingAdapter extends RecyclerView.Adapter<LotteryRankingAd
         }
 
         String avatar = rankingBean.getAvatar();
-        GlideUtil.load(holder.avatarImg, avatar);
+        GlideUtil.avatar(holder.avatarImg, avatar);
 
         String name = rankingBean.getUsername();
         holder.nameTxt.setText(StringsUtil.nameEllipsis(name, 11));
@@ -70,7 +77,9 @@ public class LotteryRankingAdapter extends RecyclerView.Adapter<LotteryRankingAd
         String reward = rankingBean.getReward();
         if (!TextUtils.isEmpty(reward)) {
             long win = Long.parseLong(reward);
-            holder.winTxt.setText(String.format("+%.1fBCH", ((double) win) / (100000000)));
+            holder.winTxt.setText(String.format("+%sBCH", StringsUtil.decimal(win)));
+        }else {
+            holder.winTxt.setText("");
         }
     }
 

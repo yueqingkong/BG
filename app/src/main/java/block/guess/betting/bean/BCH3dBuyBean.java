@@ -8,6 +8,9 @@ public class BCH3dBuyBean {
     private int times;
     private List<String> award_numbers;
     private List<RandomItem> free_shot_numbers;
+    private int category;//1:bch3d 2:WINTREASURE 3:LOTTO 4:BCH3DFREE
+    private String[][] red_numbers;
+    private String[][] blue_numbers;
 
     public class RandomItem {
         private String number;
@@ -53,5 +56,29 @@ public class BCH3dBuyBean {
 
     public void setFree_shot_numbers(List<RandomItem> free_shot_numbers) {
         this.free_shot_numbers = free_shot_numbers;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public String[][] getRed_numbers() {
+        return red_numbers;
+    }
+
+    public void setRed_numbers(String[][] red_numbers) {
+        this.red_numbers = red_numbers;
+    }
+
+    public String[][] getBlue_numbers() {
+        return blue_numbers;
+    }
+
+    public void setBlue_numbers(String[][] blue_numbers) {
+        this.blue_numbers = blue_numbers;
     }
 }

@@ -57,6 +57,11 @@ public class ForgetPasswordPresenter implements ForgetPasswordContract.Presenter
                     }
                 });
             }
+
+            @Override
+            public void dialogDissmiss() {
+
+            }
         });
         dialog.showDialog(activity);
     }

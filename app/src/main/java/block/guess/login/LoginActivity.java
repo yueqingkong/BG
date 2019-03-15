@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import block.guess.utils.okhttp.Callback.BaseCallBack;
+import block.guess.widget.snackbar.SnackBarUtil;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -84,10 +86,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.BView {
         if (BuildConfig.DEFAULT_HINT) {
             editAccount.setText("762396990@qq.com");
             editPassword.setText("@QWer1234");
-//            editAccount.setText("yinchangxin1989@gmail.com");
-//            editPassword.setText("#bitmain!@#$");
-//            editAccount.setText("mhl564312135@gmail.com");
-//            editPassword.setText("mohuilin");
+            //editAccount.setText("yinchangxin1989@gmail.com");
+            //editPassword.setText("#bitmain!@#$");
+            //editAccount.setText("mhl564312135@gmail.com");
+            //editPassword.setText("mohuilin28");
         }
     }
 
@@ -120,9 +122,39 @@ public class LoginActivity extends BaseActivity implements LoginContract.BView {
 
     @Override
     public void signIn() {
+        txtSignIn.setEnabled(false);
+        txtSignIn.setAlpha(0.5f);
+
         String email = editAccount.getText().toString();
         String password = editPassword.getText().toString();
-        presenter.signIn(email, password);
+
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            SnackBarUtil.error(activity, getString(R.string.account_password_empty));
+            return;
+        }
+        presenter.signIn(email, password, new BaseCallBack<Boolean>(activity) {
+            @Override
+            public void success(Boolean aBoolean) {
+                txtSignIn.setEnabled(true);
+                txtSignIn.setAlpha(1f);
+
+                loginSuccess();
+            }
+
+            @Override
+            public void serverError(int code, String err) {
+                txtSignIn.setEnabled(true);
+                txtSignIn.setAlpha(1f);
+
+                presenter.againSignIn();
+            }
+
+            @Override
+            public void netError() {
+                txtSignIn.setEnabled(true);
+                txtSignIn.setAlpha(1f);
+            }
+        });
     }
 
     @Override

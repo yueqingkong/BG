@@ -1,11 +1,13 @@
 package block.guess.my;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import block.guess.base.BACallBack;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 
@@ -57,8 +59,8 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
         toolbarBase.setToolbarCallback(this);
 
         if (BuildConfig.DEFAULT_HINT) {
-            editPasswordOld.setText("qwer1234");
-            editPasswordNew.setText("qwer1234");
+            editPasswordOld.setText("@QWer1234");
+            editPasswordNew.setText("@QWer1234");
         }
     }
 
@@ -82,7 +84,33 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
         String oldpass = editPasswordOld.getText().toString();
         String newpass = editPasswordNew.getText().toString();
 
-        presenter.changePassword(oldpass, newpass);
+        if(TextUtils.isEmpty(oldpass)||TextUtils.isEmpty(newpass)){
+            SnackBarUtil.error(activity, activity.getString(R.string.update_password_empty));
+            return;
+        }
+
+        txtChangeNow.setEnabled(false);
+        txtChangeNow.setAlpha(0.5f);
+
+        presenter.changePassword(oldpass, newpass, new BACallBack<Boolean>() {
+            @Override
+            public void success(Boolean aBoolean) {
+                txtChangeNow.setEnabled(true);
+                txtChangeNow.setAlpha(1f);
+            }
+
+            @Override
+            public void error(int code, String err) {
+                txtChangeNow.setEnabled(true);
+                txtChangeNow.setAlpha(1f);
+            }
+
+            @Override
+            public void error() {
+                txtChangeNow.setEnabled(true);
+                txtChangeNow.setAlpha(1f);
+            }
+        });
     }
 
     @Override

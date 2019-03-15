@@ -1,47 +1,48 @@
 package block.guess.betting;
 
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
-import com.alibaba.android.arouter.facade.annotation.Autowired;
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
-
-import java.net.URLEncoder;
-
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import block.guess.R;
 import block.guess.base.BaseActivity;
 import block.guess.base.BaseFragment;
-import block.guess.betting.bean.ContractDetailBean;
-import block.guess.betting.contract.BCHLotteryDetailContract;
+import block.guess.betting.bean.LotteryDetailBean;
+import block.guess.betting.bean.RandomBean;
+import block.guess.betting.contract.LotteryDetailContract;
 import block.guess.betting.fragment.MyBettingFragment;
 import block.guess.betting.fragment.WinningPlayerFragment;
-import block.guess.betting.presenter.BCHLotteryDetailPresenter;
-import block.guess.betting.request.BCHContractDetailRequest;
+import block.guess.betting.presenter.LotteryDetailPresenter;
+import block.guess.betting.request.LotteryDetailRequest;
 import block.guess.utils.SystemUtil;
 import block.guess.utils.TimeUtil;
-import block.guess.utils.log.LogUtil;
 import block.guess.utils.okhttp.Callback.BaseCallBack;
 import block.guess.utils.okhttp.OKHttpUtil;
+import block.guess.utils.share.AppInfo;
 import block.guess.wallet.bean.CategoryEnum;
+import block.guess.widget.horizontalball.HorizontalNumberBallView;
+import block.guess.widget.horizontalball.NumberBallBean;
 import block.guess.widget.toolbar.BaseToolBar;
 import block.guess.widget.toolbar.ToolbarCallback;
 import block.guess.widget.webview.util.BlockChainUrlUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.alibaba.android.arouter.facade.annotation.Autowired;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.google.gson.Gson;
+
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 @Route(path = "/betting/bchlotterydetail")
-public class BCHLotteryDetailActivity extends BaseActivity implements BCHLotteryDetailContract.BView, ToolbarCallback {
+public class LotteryDetailActivity extends BaseActivity implements LotteryDetailContract.BView, ToolbarCallback {
 
     private static final String TAG = "_BCHLotteryDetailActivity";
 
@@ -51,12 +52,6 @@ public class BCHLotteryDetailActivity extends BaseActivity implements BCHLottery
     TextView txtNumber;
     @BindView(R.id.txt_datetime)
     TextView txtDatetime;
-    @BindView(R.id.txt_ball_first)
-    TextView txtBallFirst;
-    @BindView(R.id.txt_ball_second)
-    TextView txtBallSecond;
-    @BindView(R.id.txt_ball_third)
-    TextView txtBallThird;
     @BindView(R.id.constraintlayout_detail)
     ConstraintLayout constraintlayoutDetail;
     @BindView(R.id.view_diver_top)
@@ -69,17 +64,19 @@ public class BCHLotteryDetailActivity extends BaseActivity implements BCHLottery
     TextView txtMyBetting;
     @BindView(R.id.framelayout_lottery)
     FrameLayout framelayoutLottery;
+    @BindView(R.id.linearlayout_number)
+    HorizontalNumberBallView linearlayoutNumber;
 
     @Autowired
     long contractId;
 
-    private BCHLotteryDetailActivity activity;
-    private BCHLotteryDetailContract.Presenter presenter;
+    private LotteryDetailActivity activity;
+    private LotteryDetailContract.Presenter presenter;
     private BaseFragment currentFragment;
     private WinningPlayerFragment playerFragment;
     private MyBettingFragment bettingFragment;
 
-    private ContractDetailBean contractDetailBean = null;
+    private LotteryDetailBean lotteryDetailBean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,7 +85,7 @@ public class BCHLotteryDetailActivity extends BaseActivity implements BCHLottery
         ButterKnife.bind(this);
         ARouter.getInstance().inject(this);
 
-        new BCHLotteryDetailPresenter(this).start();
+        new LotteryDetailPresenter(this).start();
     }
 
     @Override
@@ -111,15 +108,13 @@ public class BCHLotteryDetailActivity extends BaseActivity implements BCHLottery
 
     @Override
     public void lotteryDetailRequest() {
-        BCHContractDetailRequest request = new BCHContractDetailRequest("", contractId);
-        OKHttpUtil.client().request(request, new BaseCallBack<ContractDetailBean>(activity) {
+        LotteryDetailRequest request = new LotteryDetailRequest(contractId);
+        OKHttpUtil.client().request(request, new BaseCallBack<LotteryDetailBean>(activity) {
 
             @Override
-            public void success(ContractDetailBean bean) {
-                LogUtil.d(TAG, "" + bean.getContract().getId());
-
-                contractDetailBean = bean;
-                lotteryDetail();
+            public void success(LotteryDetailBean bean) {
+                lotteryDetailBean = bean;
+                lotteryDetail(bean);
             }
 
             @Override
@@ -135,8 +130,8 @@ public class BCHLotteryDetailActivity extends BaseActivity implements BCHLottery
     }
 
     @Override
-    public void lotteryDetail() {
-        CategoryEnum category = CategoryEnum.parse(contractDetailBean.getContract().getCategory());
+    public void lotteryDetail(LotteryDetailBean bean) {
+        CategoryEnum category = CategoryEnum.parse(bean.getCategory());
         switch (category) {
             case D3:
             case FREE:
@@ -145,48 +140,79 @@ public class BCHLotteryDetailActivity extends BaseActivity implements BCHLottery
             case LUCKY:
                 toolbarBase.setTitleTxt(getString(R.string.bchlucky_lottery));
                 break;
+            case LOTTO:
+                toolbarBase.setTitleTxt(getString(R.string.buy_lotto));
+                break;
         }
 
-        int id = contractDetailBean.getContract().getId();
+        int id = bean.getPeriod();
         txtNumber.setText(activity.getString(R.string.contract_no_, id));
 
-        String showTime = TimeUtil.timestampFormat((long) contractDetailBean.getContract().getStart() * 1000, TimeUtil.FORMAT_MONTH_DAY_TIME);
+        String showTime = TimeUtil.timestampFormat((long) bean.getOpen_time() * 1000, TimeUtil.FORMAT_MONTH_DAY_TIME);
         txtDatetime.setText(showTime);
 
-        String awardNumber = contractDetailBean.getContract().getAward_number();
-        if (TextUtils.isEmpty(awardNumber)) {
-            awardNumber = "???";
-        } else {
-            random();
-            endingHeight();
-            lotteryHeight();
-            endingBetting();
-            contractAddress();
+        List<NumberBallBean> ballBeanList = new ArrayList<>();
+        if (category == CategoryEnum.D3 || category == CategoryEnum.LUCKY) {
+            for (int i = 0; i < 3; i++) {
+                NumberBallBean ballBean = new NumberBallBean();
+                ballBean.setLeft(i == 0 ? 0 : 32);
+                ballBean.setBgResId(R.drawable.shape_oval_645aff);
+                ballBean.setTxtColorId(R.color.color_white);
+                if (bean.getLotteries_numbers() == null || bean.getLotteries_numbers().size() == 0) {
+                    ballBean.setTxt("?");
+                } else {
+                    String awardNumber = bean.getLotteries_numbers().get(0).getAward_number();
+                    ballBean.setTxt(String.valueOf(awardNumber.charAt(i)));
+                }
+                ballBeanList.add(ballBean);
+            }
+        } else if (category == CategoryEnum.LOTTO) {
+            for (int i = 0; i < 7; i++) {
+                NumberBallBean ballBean = new NumberBallBean();
+                ballBean.setLeft(i == 0 ? 0 : 12);
+                ballBean.setTxtColorId(R.color.color_white);
 
-            winningPlayerClick();
+                if (i == 6) {
+                    ballBean.setBgResId(R.drawable.shape_oval_f25757);
+                } else {
+                    ballBean.setBgResId(R.drawable.shape_oval_645aff);
+                }
+                if (bean.getLotteries_numbers() == null || bean.getLotteries_numbers().size() == 0) {
+                    ballBean.setTxt("?");
+                } else {
+                    String awardNumber = bean.getLotteries_numbers().get(i).getAward_number();
+                    ballBean.setTxt(awardNumber);
+                }
+                ballBeanList.add(ballBean);
+            }
         }
-        txtBallFirst.setText(String.valueOf(awardNumber.charAt(0)));
-        txtBallSecond.setText(String.valueOf(awardNumber.charAt(1)));
-        txtBallThird.setText(String.valueOf(awardNumber.charAt(2)));
+        linearlayoutNumber.setData(ballBeanList);
+
+        random(bean);
+        endingHeight(bean);
+        lotteryHeight(bean);
+        endingBetting(bean);
+        contractAddress(bean);
+
+        winningPlayerClick();
     }
 
     @Override
-    public void random() {
+    public void random(LotteryDetailBean bean) {
         View view = findViewById(R.id.include_random);
         TextView leftTxt = view.findViewById(R.id.txt_left);
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
-        if (contractDetailBean.getLottery() != null) {
-            leftTxt.setText(getString(R.string.random_org_number, contractDetailBean.getLottery().getRandom_number()));
-        }
+        leftTxt.setText(getString(R.string.random_org_number, bean.getRandom_number()));
+
         rightTxt.setTextColor(getResources().getColor(R.color.color_132fcb));
         rightTxt.setText(getString(R.string.verify));
         rightTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-                    String random = contractDetailBean.getLottery().getRandom();
-                    String signnature = contractDetailBean.getLottery().getSignature();
+                    String random = bean.getRandom_number();
+                    String signnature = bean.getSignature();
                     String data = "format=json&random=" +
                             URLEncoder.encode(new String(random.getBytes("UTF-8")))
                             + "&signature=" + URLEncoder.encode(new String(signnature.getBytes("UTF-8")));
@@ -203,20 +229,20 @@ public class BCHLotteryDetailActivity extends BaseActivity implements BCHLottery
     }
 
     @Override
-    public void endingHeight() {
+    public void endingHeight(LotteryDetailBean bean) {
         View view = findViewById(R.id.include_height_ending);
         TextView leftTxt = view.findViewById(R.id.txt_left);
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(getString(R.string.ending_height));
 
-        int endingHeight = contractDetailBean.getContract().getLottery().getHeight();
+        int endingHeight = bean.getHeight();
         rightTxt.setTextColor(getResources().getColor(R.color.color_132fcb));
         rightTxt.setText(String.valueOf(endingHeight));
         rightTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int height = contractDetailBean.getContract().getLottery().getHeight();
+                int height = bean.getHeight();
                 String language = SystemUtil.language(activity);
 
                 String url = BlockChainUrlUtil.blockUrl(String.valueOf(height), language);
@@ -228,20 +254,20 @@ public class BCHLotteryDetailActivity extends BaseActivity implements BCHLottery
     }
 
     @Override
-    public void lotteryHeight() {
+    public void lotteryHeight(LotteryDetailBean bean) {
         View view = findViewById(R.id.include_height_lottery);
         TextView leftTxt = view.findViewById(R.id.txt_left);
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(getString(R.string.block_height));
 
-        int blockHeight = contractDetailBean.getContract().getLottery().getOpen_height();
+        int blockHeight = bean.getOpen_height();
         rightTxt.setTextColor(getResources().getColor(R.color.color_132fcb));
         rightTxt.setText(String.valueOf(blockHeight));
         rightTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int height = contractDetailBean.getContract().getLottery().getOpen_height();
+                int height = bean.getOpen_height();
                 String language = SystemUtil.language(activity);
 
                 String url = BlockChainUrlUtil.blockUrl(String.valueOf(height), language);
@@ -253,32 +279,33 @@ public class BCHLotteryDetailActivity extends BaseActivity implements BCHLottery
     }
 
     @Override
-    public void endingBetting() {
+    public void endingBetting(LotteryDetailBean bean) {
         View view = findViewById(R.id.include_end_time);
         TextView leftTxt = view.findViewById(R.id.txt_left);
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(getString(R.string.end_time_betting));
 
-        long dateTime = contractDetailBean.getContract().getEnd();
-        rightTxt.setText(TimeUtil.timestampFormat(dateTime * 1000, TimeUtil.FORMAT_TIME));
+        RandomBean randomBean = new Gson().fromJson(bean.getRandom(), RandomBean.class);
+        String dateTime = randomBean.getCompletionTime();
+        rightTxt.setText(dateTime);
     }
 
     @Override
-    public void contractAddress() {
+    public void contractAddress(LotteryDetailBean bean) {
         View view = findViewById(R.id.include_address);
         TextView leftTxt = view.findViewById(R.id.txt_left);
         TextView rightTxt = view.findViewById(R.id.txt_right);
 
         leftTxt.setText(getString(R.string.contract_address));
 
-        String addrrss = contractDetailBean.getContract().getAddress();
+        String addrrss = bean.getAddress();
         rightTxt.setTextColor(getResources().getColor(R.color.color_132fcb));
         rightTxt.setText(addrrss);
         rightTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String address = contractDetailBean.getContract().getAddress();
+                String address = bean.getAddress();
                 String language = SystemUtil.language(activity);
 
                 String url = BlockChainUrlUtil.addressUrl(address, language);
@@ -302,7 +329,7 @@ public class BCHLotteryDetailActivity extends BaseActivity implements BCHLottery
     }
 
     @Override
-    public void presenter(BCHLotteryDetailContract.Presenter presenter) {
+    public void presenter(LotteryDetailContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
@@ -325,8 +352,8 @@ public class BCHLotteryDetailActivity extends BaseActivity implements BCHLottery
 
         if (playerFragment == null) {
             playerFragment = WinningPlayerFragment.fragment();
-            if (contractDetailBean != null && contractDetailBean.getWinner_list() != null) {
-                playerFragment.setWiningPlayerList(contractDetailBean.getWinner_list());
+            if (lotteryDetailBean != null && lotteryDetailBean.getWinner_list() != null) {
+                playerFragment.setWiningPlayerList(lotteryDetailBean.getWinner_list());
             }
         }
         switchFragment(playerFragment);
@@ -341,8 +368,8 @@ public class BCHLotteryDetailActivity extends BaseActivity implements BCHLottery
 
         if (bettingFragment == null) {
             bettingFragment = MyBettingFragment.fragment();
-            if (contractDetailBean != null && contractDetailBean.getPurchase_history() != null) {
-                bettingFragment.setPurchaseHistoryBeanList(contractDetailBean.getPurchase_history());
+            if (AppInfo.getAppInfo().userExist() && lotteryDetailBean != null && lotteryDetailBean.getPurchase_history() != null) {
+                bettingFragment.setPurchaseHistoryBeanList(lotteryDetailBean.getPurchase_history());
             }
         }
         switchFragment(bettingFragment);

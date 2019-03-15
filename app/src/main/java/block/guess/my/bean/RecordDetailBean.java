@@ -1,5 +1,8 @@
 package block.guess.my.bean;
 
+import block.guess.login.bean.UserInfoBean;
+import block.guess.utils.share.AppInfo;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +10,7 @@ import java.util.List;
 public class RecordDetailBean implements Serializable {
 
     /**
-     * Id : 168
+     * id : 168
      * identifier : a98a6795c3236618f8003b35db0e1a491a4cb097
      * user_id : 2
      * contract_id : 663
@@ -31,7 +34,7 @@ public class RecordDetailBean implements Serializable {
      * free_shot_numbers : null
      */
 
-    private int Id;
+    private int id;
     private String identifier;
     private int user_id;
     private int contract_id;
@@ -53,13 +56,14 @@ public class RecordDetailBean implements Serializable {
     private Object blue_numbers;
     private Object free_shot_numbers;
     private ArrayList<PurchaseNumbersBean> purchase_numbers;
+    private String period;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int Id) {
-        this.Id = Id;
+        this.id = Id;
     }
 
     public String getIdentifier() {
@@ -226,11 +230,24 @@ public class RecordDetailBean implements Serializable {
         return purchase_numbers;
     }
 
+    public int ownPurchase() {
+        int count = 0;
+        UserInfoBean infoBean = AppInfo.getAppInfo().getInfoUser();
+        if (infoBean != null && purchase_numbers != null) {
+            for (PurchaseNumbersBean numbersBean : purchase_numbers) {
+                if (numbersBean.user_id == infoBean.getId()) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
     public void setPurchase_numbers(ArrayList<PurchaseNumbersBean> purchase_numbers) {
         this.purchase_numbers = purchase_numbers;
     }
 
-    public static class ContractBean implements Serializable{
+    public static class ContractBean implements Serializable {
         /**
          * id : 663
          * period : 8
@@ -536,7 +553,7 @@ public class RecordDetailBean implements Serializable {
         }
     }
 
-    public static class LotteryBean implements Serializable{
+    public static class LotteryBean implements Serializable {
         /**
          * Id : 658
          * contract_id : 663
@@ -661,7 +678,7 @@ public class RecordDetailBean implements Serializable {
             this.lotteries_numbers = lotteries_numbers;
         }
 
-        public static class LotteriesNumbersBean implements Serializable{
+        public static class LotteriesNumbersBean implements Serializable {
             /**
              * Id : 652
              * contract_id : 663
@@ -802,5 +819,13 @@ public class RecordDetailBean implements Serializable {
         public void setCategory(int category) {
             this.category = category;
         }
+    }
+
+    public String getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(String period) {
+        this.period = period;
     }
 }

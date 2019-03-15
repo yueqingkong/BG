@@ -103,6 +103,10 @@ public class BettingRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
                 GlideUtil.load(holder.categoryImg, R.mipmap.img_bch_3_d_small);
                 holder.categoryTxt.setText(context.getString(R.string.free_bch_3d));
                 break;
+            case LOTTO:
+                GlideUtil.load(holder.categoryImg, R.mipmap.ic_bchlotto_home);
+                holder.categoryTxt.setText(context.getString(R.string.bch_lotto));
+                break;
         }
 
         String showTime = TimeUtil.timestampFormat(detailBean.getCreated_at() * 1000, TimeUtil.FORMAT_MONTH_DAY_TIME);
@@ -130,11 +134,16 @@ public class BettingRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
                 break;
         }
 
-        String number = "NO." + String.valueOf(detailBean.getId());
+        String number = "NO." + String.valueOf(detailBean.getPeriod());
         holder.numberTxt.setText(number);
 
+        String explain = "";
         String amountFormat = StringsUtil.decimal(detailBean.getTotal_amount());
-        String explain = context.getString(R.string.bet_and_total, detailBean.getTimes(), amountFormat);
+        if (detailBean.getPurchase_numbers() == null || detailBean.getPurchase_numbers().size() == 0) {
+            explain = context.getString(R.string.bet_and_total, 0, amountFormat);
+        } else {
+            explain = context.getString(R.string.bet_and_total, detailBean.ownPurchase(), amountFormat);
+        }
         holder.explainTxt.setText(explain);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

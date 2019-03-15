@@ -109,7 +109,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
     private void bchLucky(@NonNull BCHLuckyHolder holder, HomeBean homeBean) {
         long unit = homeBean.getContract().getUnit();
         long times = homeBean.getContract().getTimes();
-        int remain = 1000 - homeBean.getContract().getRemaining();
+        int remain = homeBean.getContract().getRemaining();
 
         double single = ((double) unit) / (100000000d);
         double win = single * times;

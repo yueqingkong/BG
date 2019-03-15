@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Block</string>
+    <string name="app_name">BlockGuess</string>
     <string name="inc">© 2018 BlockGuess Inc</string>
 
     <string name="first_step">First step</string>
@@ -15,6 +15,7 @@
     <string name="sign_in_continue">Sign in continue to BlockGuess!</string>
     <string name="forget_password">Forgot Password?</string>
     <string name="sign_in">Sign in</string>
+    <string name="account_password_empty">Account or Password is empty!</string>
     <string name="donot_have_account">Don‘t have an account？</string>
     <string name="sign_up">Sign up</string>
     <string name="create_u_account">Create your account</string>
@@ -50,15 +51,18 @@
     <string name="balance">Balance</string>
     <string name="send">Send</string>
     <string name="receive">Receive</string>
+    <string name="recharge">Recharge</string>
     <string name="transaction_history">Transaction History</string>
     <string name="sign_out">Sign Out</string>
     <string name="partner_plan">Partner Plan</string>
+    <string name="give">Give</string>
+    <string name="reward">Reward</string>
     <string name="betting_record">Betting Record</string>
     <string name="winning_record">Winning Record</string>
     <string name="change_password">Change Password</string>
     <string name="about_us">About Us</string>
     <string name="refresh_code">Refresh Code</string>
-    <string name="captcha_png">/v1/captcha/%s.png</string>
+    <string name="captcha_png">/api/v1/captcha/%s.png</string>
     <string name="note">Note</string>
     <string name="progress_">%d/%d</string>
     <string name="over_note_lottery">Over 1,000 Note Lottery</string>
@@ -66,7 +70,11 @@
     <string name="bch_win">%.3f BCH Win</string>
     <string name="nomber_">NO.%d</string>
     <string name="buy_bchlucky">Buy BCHLucky</string>
+    <string name="buy_lotto">Buy BCHLotto</string>
     <string name="buy_bch3d">Buy BCH3D</string>
+    <string name="buy_bchfree">Buy BCH3DFREE</string>
+    <string name="unknown">Unknown</string>
+    <string name="contract">Contract</string>
     <string name="award">Award</string>
     <string name="three_win_200_times">Choose three digits and win 200 times</string>
     <string name="betting_three">Hundred</string>
@@ -88,12 +96,16 @@
     <string name="clear_all">Clear All</string>Maximum amount
     <string name="total_select_times">Bet %d x %d Time</string>
     <string name="betting_count_max">8 shots at most.</string>
+    <string name="betting_count_">%d shots at most.</string>
     <string name="pay_bch">%sBCH</string>
     <string name="max_will">，Win at most</string>
     <string name="buy">Buy</string>
     <string name="times">Times</string>
     <string name="pay">Pay</string>
     <string name="betting_at_least_one">At least one note</string>
+    <string name="times_at_least_">At least  %d times</string>
+    <string name="times_at_most_">At most  %d times</string>
+    <string name="betting_at_most_">At most %d</string>
     <string name="please_agree_rule">Please check the consent rule</string>
     <string name="betting_bchlucky">Betting BCHLucky</string>
     <string name="betting_bchlucky_stage">BCHLucyk NO.%d</string>
@@ -232,4 +244,9 @@
     <string name="tens">Tens</string>
     <string name="units">units</string>
     <string name="choose_six_red_ball">Choose 6 red balls</string>
+    <string name="address_or_email_empty">Address or emial can not be empty</string>
+    <string name="email_send_success">Email Send Success</string>
+    <string name="transfer">Transfer</string>
+    <string name="update_password_empty">Password cannot be empty</string>
+
 </resources>

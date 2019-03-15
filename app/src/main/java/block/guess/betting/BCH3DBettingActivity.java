@@ -12,6 +12,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import block.guess.base.BACallBack;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -137,7 +138,7 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
         toolbarBase.setToolbarCallback(this);
 
         viewClock.init(homeBean.getContract().getEnd());
-        txtStageNumber.setText(getString(R.string.betting_bch3d_stage, homeBean.getContract().getId()));
+        txtStageNumber.setText(getString(R.string.betting_bch3d_stage, homeBean.getContract().getPeriod()));
         txtDateEnd.init(R.string.betting_bch3d_end, homeBean.getContract().getStart(), homeBean.getContract().getEnd());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
@@ -205,10 +206,7 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
     private void gameRule() {
         String category = CategoryEnum.D3.getCategory() + "";
         String language = SystemUtil.language(activity);
-        String ruleUrl = BlockChainUrlUtil.gameRule(category, language);
-        ARouter.getInstance().build("/widget/webview")
-                .withString("url", ruleUrl)
-                .navigation(activity);
+        BlockChainUrlUtil.gameRule(activity, category, language);
     }
 
     @Override
@@ -270,10 +268,11 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
 
         txtBettingCount.setText(getString(R.string.total_select_times, select, times));
 
-        double payTotal = select * times * 0.0005;
+        double single = ((double) homeBean.getContract().getUnit()) / (100000000d);
+        double payTotal = select * times * single;
         txtBettingBch.setText(getString(R.string.pay_bch, StringsUtil.decimal((long) (payTotal * StringsUtil.Unit))));
 
-        double winTotal = times * 0.0005 * 200;
+        double winTotal = single * homeBean.getContract().getTimes();
         if (select == 0) {
             winTotal = 0;
         }
@@ -286,10 +285,27 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
         } else if (!checkboxGameRule.isChecked()) {
             SnackBarUtil.error(activity, getString(R.string.please_agree_rule));
         } else {
+            txtPay.setAlpha(0.5f);
             txtPay.setEnabled(false);
 
             int times = Integer.parseInt(editAmount.getText().toString());
-            presenter.payClick(homeBean, times, betting3DBeans);
+            presenter.payClick(homeBean, times, betting3DBeans, new BACallBack<Boolean>() {
+
+                @Override
+                public void success(Boolean aBoolean) {
+                    txtPay.setAlpha(1f);
+                }
+
+                @Override
+                public void error(int code, String err) {
+                    txtPay.setAlpha(1f);
+                }
+
+                @Override
+                public void error() {
+                    txtPay.setAlpha(1f);
+                }
+            });
         }
     }
 
@@ -340,10 +356,7 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
                     public void onClick(View view) {
                         String category = CategoryEnum.D3.getCategory() + "";
                         String language = SystemUtil.language(activity);
-                        String ruleUrl = BlockChainUrlUtil.gameRule(category, language);
-                        ARouter.getInstance().build("/widget/webview")
-                                .withString("url", ruleUrl)
-                                .navigation(activity);
+                        BlockChainUrlUtil.gameRule(activity, category, language);
 
                         dialog.dismiss();
                     }
@@ -353,7 +366,7 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
                     @Override
                     public void onClick(View view) {
                         String address = homeBean.getContract().getAddress();
-                        String url = BlockChainUrlUtil.btccomAddress(address);
+                        String url = BlockChainUrlUtil.addressUrl(address, SystemUtil.language(activity));
                         ARouter.getInstance().build("/widget/webview")
                                 .withString("url", url)
                                 .navigation(activity);
@@ -389,9 +402,12 @@ public class BCH3DBettingActivity extends BaseActivity implements BCH3DBettingCo
     }
 
     @Override
-    public void paySuccess(long contractid) {
+    public void paySuccess(long contractid, String identifier) {
+        SnackBarUtil.success(activity,getString(R.string.pay_success));
         ARouter.getInstance().build("/betting/bchpaysuccess")
                 .withLong("contractId", contractid)
+                .withString("identifier", identifier)
+                .withInt("category", homeBean.getContract().getCategory())
                 .navigation(activity);
     }
 

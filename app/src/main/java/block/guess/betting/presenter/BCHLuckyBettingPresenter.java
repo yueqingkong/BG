@@ -2,21 +2,23 @@ package block.guess.betting.presenter;
 
 import android.app.Activity;
 
+import block.guess.base.BACallBack;
 import block.guess.betting.bean.BCH3dBuyBean;
-import block.guess.betting.contract.BCHLuckyBettingContract;
+import block.guess.betting.bean.PayResultBean;
+import block.guess.betting.contract.LuckyBettingContract;
 import block.guess.betting.request.BCH3DBuyRequest;
 import block.guess.utils.log.LogUtil;
 import block.guess.utils.okhttp.Callback.BaseCallBack;
 import block.guess.utils.okhttp.OKHttpUtil;
 
-public class BCHLuckyBettingPresenter implements BCHLuckyBettingContract.Presenter {
+public class BCHLuckyBettingPresenter implements LuckyBettingContract.Presenter {
 
     private static String TAG = "_BCHLuckyBettingPresenter";
 
     private Activity activity;
-    private BCHLuckyBettingContract.BView baseView;
+    private LuckyBettingContract.BView baseView;
 
-    public BCHLuckyBettingPresenter(BCHLuckyBettingContract.BView view) {
+    public BCHLuckyBettingPresenter(LuckyBettingContract.BView view) {
         this.baseView = view;
         this.baseView.presenter(this);
     }
@@ -29,26 +31,31 @@ public class BCHLuckyBettingPresenter implements BCHLuckyBettingContract.Present
     }
 
     @Override
-    public void payRequest(long id, int times) {
+    public void payRequest(long id, int times, BACallBack<Boolean> callBack) {
         BCH3dBuyBean buyBean = new BCH3dBuyBean();
         buyBean.setContract_id(id);
         buyBean.setTimes(times);
 
         BCH3DBuyRequest request = new BCH3DBuyRequest(buyBean);
-        OKHttpUtil.client().request(request, new BaseCallBack<String>(activity) {
+        OKHttpUtil.client().request(request, new BaseCallBack<PayResultBean>(activity) {
             @Override
-            public void success(String o) {
-                LogUtil.d(TAG, o);
-                baseView.paySuccess();
+            public void success(PayResultBean resultBean) {
+                long contractId = resultBean.getContract_id();
+                String identifier = resultBean.getIdentifier();
+
+                callBack.success(true);
+                baseView.paySuccess(contractId,identifier);
             }
 
             @Override
             public void serverError(int code, String err) {
+                callBack.error(code,err);
                 baseView.payFail();
             }
 
             @Override
             public void netError() {
+                callBack.error();
                 baseView.payFail();
             }
         });
